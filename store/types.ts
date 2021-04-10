@@ -1,11 +1,13 @@
 import { USER_ACTION_TYPES } from "./user/action";
 
 export interface UserState {
-   isLoggedIn: boolean
+   isLoggedIn: boolean,
+   mail: string
 }
-export type ChangeLoggedIn = {
-   type : USER_ACTION_TYPES.CHANEG_LOGGED_IN,
-   newStatus : boolean
+export type SignUp = {
+   type : USER_ACTION_TYPES.SIGN_UP,
+   result : boolean,
+   mail: string
 }
 
-export type UserActions = ChangeLoggedIn
+export type UserActions = SignUp

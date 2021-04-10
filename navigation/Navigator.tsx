@@ -7,7 +7,7 @@ import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
 import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
-import SignInScreen from '../screens/SignInScreen';
+import SignInScreen from '../screens/SignUpScreen';
 import { LoginStackParamList, MyProjectsStackParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
 import StoreProvider, { RootState } from '../store/store'
 import { useSelector, useDispatch } from 'react-redux';

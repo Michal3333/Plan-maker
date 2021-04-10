@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, View,  Text, Button} from 'react-native'
 import { SignInScreenNavigationProp } from '../navigation/navigationTypes';
 import StoreProvider, { RootState } from '../store/store'
-import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
+import { useAppSelector } from '../store/store'
+
 
 type Props = {
    navigation : SignInScreenNavigationProp
 }
 
 const LoginScreen = (props: Props) => {
-   const dispatch = useDispatch()
    return (
       <View>
          <Text>Login</Text>
-         <Button title="sign in" onPress={() => {props.navigation.navigate('SignIn')}}/>
-         <Button title="log in" onPress={() => dispatch(userActions.changeLoggedIn(true))}/>
+         <Button title="sign up" onPress={() => {props.navigation.navigate('SignIn')}}/>
+         <Button title="sugn in" onPress={() => {}}/>
       </View>
    )
 }
