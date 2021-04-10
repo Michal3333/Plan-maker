@@ -26,10 +26,10 @@ const SignInScreen = (props: Props) => {
          <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} value={password}/>
          <Text>Password2</Text>
          <TextInput style={styles.input} onChangeText={(text) => setPassword1(text)} value={password1}/>
-         <Button  title="sign up" onPress={() => {
+         <Button  title="sign in" onPress={() => {
             dispatch(userActions.asyncSignUp(email, password))
          }}
-         disabled={password !== password1 || password === ''}/>
+         disabled={password !== password1 || password === '' || email === ''}/>
          
       </View>
    )

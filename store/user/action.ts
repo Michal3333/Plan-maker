@@ -1,26 +1,34 @@
-import { SignUp, UserActions } from "../types";
+import { SignIn, UserActions } from "../types";
 import { ThunkAction } from 'redux-thunk'
 import { RootState } from "../store";
 import { AnyAction, Dispatch } from 'redux'
-import { registration } from "../../API/authorisation";
+import { registration, signIn } from "../../API/authorisation";
 
 export enum USER_ACTION_TYPES {
-   SIGN_UP = 'SIGN_UP',
    SIGN_IN = 'SIGN_IN'
-
 }
 
 export const asyncSignUp = (emial : string, password: string) : ThunkAction<void, RootState, unknown, UserActions>  => {
    return async (dispatch) => {
-      const {registrationResult, mail} = await registration(emial, password)
-      dispatch(signUp(registrationResult, mail))
+      const {registrationResult, uid} = await registration(emial, password)
+      dispatch(signInAction(registrationResult, uid))
    }
 }
 
-export const signUp = (result : boolean, mail: string) : SignUp => {
-   return {
-      type: USER_ACTION_TYPES.SIGN_UP,
-      result: result,
-      mail: mail
+
+
+export const asyncSignIn = (emial : string, password: string) : ThunkAction<void, RootState, unknown, UserActions>  => {
+   return async (dispatch) => {
+      const {registrationResult, uid} = await signIn(emial, password)
+      dispatch(signInAction(registrationResult, uid))
    }
 }
+
+export const signInAction = (result : boolean, id: string) : SignIn => {
+   return {
+      type: USER_ACTION_TYPES.SIGN_IN,
+      result: result,
+      id: id
+   }
+}
+

@@ -13,11 +13,11 @@ export async function registration(email: string, password: string) {
          .set({
             email: currentUser.email
          });
-      return {registrationResult : true, mail: currentUser.email as string}
+      return {registrationResult : true, uid: currentUser.uid}
    } catch (err) {
       console.log(err)
       Alert.alert("There is something wrong!!!!", err.message);
-      return {registrationResult : false, mail: ''}
+      return {registrationResult : false, uid: ''}
    }
 }
 
@@ -26,9 +26,17 @@ export async function signIn(email: string, password: string) {
       await firebase
          .auth()
          .signInWithEmailAndPassword(email, password);
-      return true
+      const db = firebase.firestore();
+      const id = firebase.auth().currentUser?.uid
+      if(id){
+         return {registrationResult : true, uid: id}
+      }
+      throw new Error("adasda");
+      
+      
    } catch (err) {
       Alert.alert("There is something wrong!", err.message);
+      return {registrationResult : false, uid: ''}
    }
 }
 
