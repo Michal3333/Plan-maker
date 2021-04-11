@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React, { useState, useEffect } from 'react';
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
@@ -9,8 +9,13 @@ import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
 import SignInScreen from '../screens/SignUpScreen';
 import { LoginStackParamList, MyProjectsStackParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
-import StoreProvider, { RootState } from '../store/store'
-import { useSelector, useDispatch } from 'react-redux';
+import StoreProvider, { RootState, useAppSelector } from '../store/store'
+import { useDispatch } from 'react-redux';
+
+import SplashScreen from '../screens/SpalshScreen';
+import * as SecureStore from 'expo-secure-store';
+import * as userActions from '../store/user/action'
+
 
 const LoginStack = createStackNavigator<LoginStackParamList>();
 const AppTab = createBottomTabNavigator<TabNavigationParamList>();
@@ -21,7 +26,27 @@ const OtherProjecstStack = createStackNavigator<OtherProjectsStackParamList>();
 
 
 const Navigation =  () => {
-   const userData = useSelector((state: RootState) => state.user)
+   const userData = useAppSelector(( state ) => state.user);
+   const [isLoading, setIsLoading] = useState(true);
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      async function fetchKey () {
+         console.log('cheking token');
+         
+         const token =  await SecureStore.getItemAsync('id');
+         if( token ){ 
+            dispatch(userActions.signInAction(true, token))
+         }
+         setIsLoading(false)
+      }
+      fetchKey()
+   }, [])
+
+   if(isLoading){
+      return <SplashScreen/>
+   }
+
    return(
       <NavigationContainer >
          {!userData.isLoggedIn ?
