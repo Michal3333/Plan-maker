@@ -9,5 +9,7 @@ export type SignIn = {
    result : boolean,
    id: string
 }
-
-export type UserActions = SignIn
+export type SignOut = {
+   type : USER_ACTION_TYPES.SIGN_OUT
+}
+export type UserActions = SignIn | SignOut

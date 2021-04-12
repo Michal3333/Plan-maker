@@ -2,14 +2,14 @@ import  React, { useState, useEffect } from 'react';
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { LoginStackParamList, MyProjectsStackParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
 import LoginScreen from '../screens/LoginScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
 import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
 import SignInScreen from '../screens/SignUpScreen';
-import { LoginStackParamList, MyProjectsStackParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
-import StoreProvider, { RootState, useAppSelector } from '../store/store'
+import { RootState, useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 
 import SplashScreen from '../screens/SpalshScreen';
@@ -32,7 +32,7 @@ const Navigation =  () => {
 
    useEffect(() => {
       async function fetchKey () {
-         console.log('cheking token');
+         console.log('checking token');
          
          const token =  await SecureStore.getItemAsync('id');
          if( token ){ 

@@ -15,6 +15,10 @@ export default (state = initialState, acton: UserActions) : UserState => {
             isLoggedIn: acton.result,
             id: acton.id
          }
+      case USER_ACTION_TYPES.SIGN_OUT:
+         return {
+            ...initialState
+         }
    }
    return state;
 } 
