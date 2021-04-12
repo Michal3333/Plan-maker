@@ -12,8 +12,8 @@ type Props = {
 }
 
 const LoginScreen = (props: Props) => {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+   const [email, setEmail] = useState('test@gmail.com');
+   const [password, setPassword] = useState('123456');
    const dispatch = useDispatch()
 
    

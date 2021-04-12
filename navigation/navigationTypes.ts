@@ -1,5 +1,9 @@
 import { StackNavigationProp } from "@react-navigation/stack"
 
+export type AppDrawerParamList = {
+   AppTabs: undefined
+}
+
 export type LoginStackParamList = {
    Login: undefined,
    SignIn: undefined

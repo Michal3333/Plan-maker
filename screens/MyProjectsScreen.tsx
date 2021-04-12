@@ -4,7 +4,6 @@ import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 import { createProject, getMyProjects } from '../API/myProjects';
 import myProject from '../models/myProject';
-import * as userActions from '../store/user/action'
 
 
 
@@ -25,7 +24,7 @@ const MyProjectsScreen = (props: Props) => {
             getMyProjects(user.id);
          }}/>
          <Button title="Log out" onPress={() => {
-            dispatch(userActions.asyncSignOut())
+            
          }}/>
       </View>
    )
