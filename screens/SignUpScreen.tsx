@@ -4,6 +4,7 @@ import { LoginScreenNavigationProp } from '../navigation/navigationTypes';
 import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
+import LoadingIndicator from '../components/UI/LoadingIndicator';
 
 
 
@@ -15,6 +16,7 @@ const SignInScreen = (props: Props) => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [password1, setPassword1] = useState('');
+   const user = useAppSelector(state => state.user)
 
    const dispatch = useDispatch()
 
@@ -30,7 +32,7 @@ const SignInScreen = (props: Props) => {
             dispatch(userActions.asyncSignUp(email, password))
          }}
          disabled={password !== password1 || password === '' || email === ''}/>
-         
+         {user.pendingLoggin && <LoadingIndicator/>}
       </View>
    )
 }

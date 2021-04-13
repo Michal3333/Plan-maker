@@ -40,7 +40,7 @@ const Navigation = () => {
          console.log('checking token');
          const token = await SecureStore.getItemAsync('id');
          if (token) {
-            dispatch(userActions.signInAction(true, token))
+            dispatch(userActions.signInAction(token))
          }
          setIsLoading(false)
       }

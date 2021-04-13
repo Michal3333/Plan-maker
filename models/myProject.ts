@@ -8,6 +8,9 @@ export default class myProject {
    dueDate: Date;
    tasks: projecTask[]
 
+   setId = (newId : string) => {
+      this.id = newId
+   }
 
 
    constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[]){
@@ -17,6 +20,7 @@ export default class myProject {
       this.dueDate = dueDate;
       this.tasks = tasks
    }
+
 }
 
 export const projectConverter = {
