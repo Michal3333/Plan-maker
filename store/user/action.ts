@@ -34,11 +34,13 @@ export const asyncSignIn = (emial : string, password: string) : ThunkAction<void
          dispatch(changePendingStatusAction(true))
          const uid = await signIn(emial, password);
          dispatch(signInAction(uid))
+         return true;
       }
       catch (err) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
+         return false;
       }
    }
 }

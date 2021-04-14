@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { StyleSheet, View,  Text, Button, TextInput} from 'react-native'
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Button, TextInput } from 'react-native'
 import { SignInScreenNavigationProp } from '../navigation/navigationTypes';
 import StoreProvider, { RootState } from '../store/store'
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import LoadingIndicator from '../components/UI/LoadingIndicator';
 
 
 type Props = {
-   navigation : SignInScreenNavigationProp
+   navigation: SignInScreenNavigationProp
 }
 
 const LoginScreen = (props: Props) => {
@@ -18,21 +18,24 @@ const LoginScreen = (props: Props) => {
    const user = useAppSelector(state => state.user)
    const dispatch = useDispatch()
 
-   
+   const login = async () => {
+      const result = await dispatch(userActions.asyncSignIn(email, password))
+      console.log(result)
+
+   }
+
    return (
       <View style={styles.screen}>
-          <Text>Email</Text>
-         <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email}/>
+         <Text>Email</Text>
+         <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
          <Text>Password</Text>
-         <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} value={password}/>
-         <Button  title="sign in" onPress={() => {
-            dispatch(userActions.asyncSignIn(email, password))
-         }}
-         disabled={email === '' || password === ''}/>
+         <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} value={password} />
+         <Button title="sign in" onPress={login}
+            disabled={email === '' || password === ''} />
 
-         <Button title="sign up" onPress={() => {props.navigation.navigate('SignIn')}}/>
-         {user.pendingLoggin && <LoadingIndicator/>}
-        
+         <Button title="sign up" onPress={() => { props.navigation.navigate('SignIn') }} />
+         {user.pendingLoggin && <LoadingIndicator />}
+
       </View>
    )
 }
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center'
    },
-   input : {
+   input: {
       height: 40,
       borderBottomColor: 'gray',
       borderBottomWidth: 1,
