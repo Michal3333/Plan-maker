@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
 import { useAppSelector } from '../store/store'
 import LoadingIndicator from '../components/UI/LoadingIndicator';
+import { LoadingScreen } from '../components/UI/Screen'
 
 
 type Props = {
@@ -15,7 +16,6 @@ type Props = {
 const LoginScreen = (props: Props) => {
    const [email, setEmail] = useState('test@gmail.com');
    const [password, setPassword] = useState('123456');
-   const user = useAppSelector(state => state.user)
    const dispatch = useDispatch()
 
    const login = async () => {
@@ -34,7 +34,6 @@ const LoginScreen = (props: Props) => {
             disabled={email === '' || password === ''} />
 
          <Button title="sign up" onPress={() => { props.navigation.navigate('SignIn') }} />
-         {user.pendingLoggin && <LoadingIndicator />}
 
       </View>
    )
@@ -53,5 +52,4 @@ const styles = StyleSheet.create({
       marginBottom: 20
    }
 })
-
-export default LoginScreen;
+export default LoadingScreen(LoginScreen);

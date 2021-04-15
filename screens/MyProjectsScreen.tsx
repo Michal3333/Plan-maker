@@ -1,9 +1,11 @@
-import React from 'react';
-import { StyleSheet, View, Button } from 'react-native'
+import React, {useEffect} from 'react';
+import { StyleSheet, View, Button, FlatList, Text } from 'react-native'
 import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
-import { createProject, getMyProjects } from '../API/myProjects';
 import myProject from '../models/myProject';
+import * as MyProjectsActions from '../store/myProjects/action'
+import { LoadingScreen } from '../components/UI/Screen';
+import LoadingIndicator from '../components/UI/LoadingIndicator';
 
 
 
@@ -12,21 +14,24 @@ type Props = {
 }
 
 const MyProjectsScreen = (props: Props) => {
-   const user = useAppSelector(state => state.user)
+   const myProjects = useAppSelector(state => state.myProjects);
    const dispatch = useDispatch()
+   const loading = useAppSelector(state => state.user.pendingLoggin)
+   useEffect(() => {
+      dispatch(MyProjectsActions.asyncFetchProjects())
+   }, [])
+   console.log('xd2')
    return (
-      <View>
-         <Button title="Add projcet" onPress={() => {
-            const project = new myProject('', 'test', "#bbbbb", new Date(), [{id: '', dueDate: new Date(), done: false, text: 'adasd'}])
-            createProject(user.id, project);
-         }}/>
-         <Button title="Get projects" onPress={() => {
-            getMyProjects(user.id);
-         }}/>
-         <Button title="Log out" onPress={() => {
-            
-         }}/>
-      </View>
+      <>
+         <View>
+            <Button title="Add projcet" onPress={() => {
+               const project = new myProject('', 'test', "#bbbbb", new Date(), [{id: '', dueDate: new Date(), done: false, text: 'adasd'}])
+               dispatch(MyProjectsActions.asyncAddProject(project))
+            }}/>
+         </View>
+         <FlatList data={myProjects.projects} renderItem={(itemData) => <Text>{itemData.item.id}</Text>}/>
+         {loading && <LoadingIndicator />}
+      </>
    )
 }
 

@@ -1,9 +1,9 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
-import myProject, { projectConverter } from "../models/myProject";
+import MyProject, { projectConverter } from "../models/myProject";
 
-export async function createProject(userId : string, project : myProject) {
+export async function createProject(userId : string, project : MyProject) {
    const db = firebase.firestore();
    const test = await db.collection("users")
       .doc(userId)
@@ -13,21 +13,14 @@ export async function createProject(userId : string, project : myProject) {
    return test.id;
 }
 
-export async function getMyProjects(userId : string) {
-   try {
-      const db = firebase.firestore();
-      const data = await db.collection("users")
-         .doc(userId)
-         .collection('myProjects')
-         .withConverter(projectConverter)
-         .get()
-      data.forEach(x => {
-         console.log(x.data())
-      })
-      return true;
-   } catch (err) {
-      console.log(err)
-      Alert.alert("There is something wrong!!!!", err.message);
-      return false;
-   }
+export const getMyProjects = async (userId : string) => {
+   const db = firebase.firestore();
+   const data = await db.collection("users")
+      .doc(userId)
+      .collection('myProjects')
+      .withConverter(projectConverter)
+      .get()
+   const projects : MyProject[] = []
+   data.forEach(x => projects.push(x.data()))
+   return projects
 }

@@ -1,8 +1,8 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
 
-export default class myProject {
-   id?: string;
+export default class MyProject {
+   id: string;
    name: string;
    color: string;
    dueDate: Date;
@@ -24,7 +24,7 @@ export default class myProject {
 }
 
 export const projectConverter = {
-   toFirestore: (project : myProject) => ({ 
+   toFirestore: (project : MyProject) => ({ 
       name: project.name,
       color: project.color,
       dueDate: firebase.firestore.Timestamp.fromDate(project.dueDate),
@@ -32,7 +32,7 @@ export const projectConverter = {
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions) => {
       const data = snapshot.data(options);
-      return new myProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})));
+      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})));
   }
 }
 

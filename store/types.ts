@@ -7,6 +7,9 @@ export interface UserState {
    pendingLoggin: boolean
    id: string
 }
+export interface MyProjectsState {
+   projects : MyProject[]
+}
 export type ChangePendingStatus = {
    type: USER_ACTION_TYPES.CHANGE_PENDING_STATUS,
    newStatus : boolean
