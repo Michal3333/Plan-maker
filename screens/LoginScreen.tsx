@@ -18,19 +18,13 @@ const LoginScreen = (props: Props) => {
    const [email, setEmail] = useState('test@gmail.com');
    const [password, setPassword] = useState('123456');
 
-   const login = async () => {
-      const result = await dispatch(userActions.asyncSignIn(email, password))
-      console.log(result)
-
-   }
-
    return (
       <Screen style={styles.screen}>
          <Text>Email</Text>
          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
          <Text>Password</Text>
          <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} value={password} />
-         <Button title="sign in" onPress={login}
+         <Button title="sign in" onPress={() => {dispatch(userActions.asyncSignIn(email, password))}}
             disabled={email === '' || password === ''} />
 
          <Button title="sign up" onPress={() => { props.navigation.navigate('SignIn') }} />
