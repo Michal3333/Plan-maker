@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View,  } from 'react-native'
+import Screen from '../components/UI/Screen';
 
 type Props = {
 
@@ -7,9 +8,9 @@ type Props = {
 
 const OtherProjectsScreen = (props: Props) => {
    return (
-      <View>
+      <Screen>
 
-      </View>
+      </Screen>
    )
 }
 

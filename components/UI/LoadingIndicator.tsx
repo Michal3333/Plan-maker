@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Button, ActivityIndicator, Text } from 'react-native'
+import { StyleSheet, View, Button, ActivityIndicator, Text } from 'react-native';
+import { useAppSelector } from '../../store/store'
 
 
 
@@ -8,12 +9,17 @@ type Props = {
 }
 
 const LoadingIndicator = (props: Props) => {
+   const loading = useAppSelector(state => state.user.pendingLoggin);
 
    return (
-      <View style={styles.loading}>
-         <ActivityIndicator size='large' />
-         <Text style={styles.text}>Loading...</Text>
-      </View>
+      <>
+      {loading &&
+         <View style={styles.loading}>
+            <ActivityIndicator size='large' />
+            <Text style={styles.text}>Loading...</Text>
+         </View>
+      }
+      </>
    )
 }
 

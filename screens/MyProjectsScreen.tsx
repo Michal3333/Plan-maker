@@ -4,8 +4,7 @@ import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 import myProject from '../models/myProject';
 import * as MyProjectsActions from '../store/myProjects/action'
-import { LoadingScreen } from '../components/UI/Screen';
-import LoadingIndicator from '../components/UI/LoadingIndicator';
+import Screen from '../components/UI/Screen';
 
 
 
@@ -14,15 +13,15 @@ type Props = {
 }
 
 const MyProjectsScreen = (props: Props) => {
-   const myProjects = useAppSelector(state => state.myProjects);
    const dispatch = useDispatch()
-   const loading = useAppSelector(state => state.user.pendingLoggin)
+   const myProjects = useAppSelector(state => state.myProjects);
+
    useEffect(() => {
       dispatch(MyProjectsActions.asyncFetchProjects())
    }, [])
-   console.log('xd2')
+   
    return (
-      <>
+      <Screen>
          <View>
             <Button title="Add projcet" onPress={() => {
                const project = new myProject('', 'test', "#bbbbb", new Date(), [{id: '', dueDate: new Date(), done: false, text: 'adasd'}])
@@ -30,8 +29,7 @@ const MyProjectsScreen = (props: Props) => {
             }}/>
          </View>
          <FlatList data={myProjects.projects} renderItem={(itemData) => <Text>{itemData.item.id}</Text>}/>
-         {loading && <LoadingIndicator />}
-      </>
+      </Screen>
    )
 }
 

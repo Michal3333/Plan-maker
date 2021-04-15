@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, View,  Text, TextInput, Button} from 'react-native'
 import { LoginScreenNavigationProp } from '../navigation/navigationTypes';
-import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
-import LoadingIndicator from '../components/UI/LoadingIndicator';
+import Screen from '../components/UI/Screen';
 
 
 
@@ -16,12 +15,11 @@ const SignInScreen = (props: Props) => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [password1, setPassword1] = useState('');
-   const user = useAppSelector(state => state.user)
 
    const dispatch = useDispatch()
 
    return (
-      <View style={styles.screen}>
+      <Screen style={styles.screen}>
          <Text>Email</Text>
          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email}/>
          <Text>Password</Text>
@@ -32,15 +30,13 @@ const SignInScreen = (props: Props) => {
             dispatch(userActions.asyncSignUp(email, password))
          }}
          disabled={password !== password1 || password === '' || email === ''}/>
-         {user.pendingLoggin && <LoadingIndicator/>}
-      </View>
+      </Screen>
    )
 }
 
 const styles = StyleSheet.create({
    screen: {
-      flex: 1,
-      alignItems: 'center'
+      justifyContent: 'center',
    },
    input : {
       height: 40,

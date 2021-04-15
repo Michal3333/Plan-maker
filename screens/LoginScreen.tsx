@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native'
 import { SignInScreenNavigationProp } from '../navigation/navigationTypes';
-import StoreProvider, { RootState } from '../store/store'
 import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
-import { useAppSelector } from '../store/store'
-import LoadingIndicator from '../components/UI/LoadingIndicator';
-import { LoadingScreen } from '../components/UI/Screen'
+import Screen from '../components/UI/Screen';
+
+
 
 
 type Props = {
@@ -14,9 +13,10 @@ type Props = {
 }
 
 const LoginScreen = (props: Props) => {
+   const dispatch = useDispatch()
+
    const [email, setEmail] = useState('test@gmail.com');
    const [password, setPassword] = useState('123456');
-   const dispatch = useDispatch()
 
    const login = async () => {
       const result = await dispatch(userActions.asyncSignIn(email, password))
@@ -25,7 +25,7 @@ const LoginScreen = (props: Props) => {
    }
 
    return (
-      <View style={styles.screen}>
+      <Screen style={styles.screen}>
          <Text>Email</Text>
          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
          <Text>Password</Text>
@@ -34,15 +34,13 @@ const LoginScreen = (props: Props) => {
             disabled={email === '' || password === ''} />
 
          <Button title="sign up" onPress={() => { props.navigation.navigate('SignIn') }} />
-
-      </View>
+      </Screen>
    )
 }
 
 const styles = StyleSheet.create({
    screen: {
-      flex: 1,
-      alignItems: 'center'
+      justifyContent: 'center',
    },
    input: {
       height: 40,
@@ -52,4 +50,4 @@ const styles = StyleSheet.create({
       marginBottom: 20
    }
 })
-export default LoadingScreen(LoginScreen);
+export default LoginScreen;
