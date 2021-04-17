@@ -19,7 +19,7 @@ const LoginScreen = (props: Props) => {
    const [password, setPassword] = useState('123456');
 
    return (
-      <Screen style={styles.screen}>
+      <Screen style={styles.screen} withKeyboard={true}>
          <Text>Email</Text>
          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
          <Text>Password</Text>
