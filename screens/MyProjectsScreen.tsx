@@ -5,11 +5,12 @@ import { useDispatch } from 'react-redux';
 import myProject from '../models/myProject';
 import * as MyProjectsActions from '../store/myProjects/action'
 import Screen from '../components/UI/Screen';
-
+import ProjectBox from '../components/MyProjects/ProjectBox';
+import { MyProjectsNavigationProp } from '../navigation/navigationTypes';
 
 
 type Props = {
-
+   navigation: MyProjectsNavigationProp
 }
 
 const MyProjectsScreen = (props: Props) => {
@@ -17,6 +18,7 @@ const MyProjectsScreen = (props: Props) => {
    const myProjects = useAppSelector(state => state.myProjects);
 
    useEffect(() => {
+      console.log('xd')
       dispatch(MyProjectsActions.asyncFetchProjects())
    }, [])
    
@@ -28,13 +30,18 @@ const MyProjectsScreen = (props: Props) => {
                dispatch(MyProjectsActions.asyncAddProject(project))
             }}/>
          </View>
-         <FlatList data={myProjects.projects} renderItem={(itemData) => <Text>{itemData.item.id}</Text>}/>
+         <FlatList style={styles.list}
+            data={myProjects.projects} 
+            renderItem={(itemData) => <ProjectBox id={itemData.item.id} name={itemData.item.name} openDetails={() => {props.navigation.navigate('ProjectDetails', {id: itemData.item.id})}}/>}
+         />
       </Screen>
    )
 }
 
 const styles = StyleSheet.create({
-
+   list: {
+      width: '100%'
+   }
 })
 
 export default MyProjectsScreen;

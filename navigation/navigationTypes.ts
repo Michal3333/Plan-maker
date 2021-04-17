@@ -1,4 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack"
+import { RouteProp } from '@react-navigation/native';
 
 export type AppDrawerParamList = {
    AppTabs: undefined
@@ -35,6 +36,9 @@ export type OtherProjectsStackParamList = {
 
 export type LoginScreenNavigationProp = StackNavigationProp<LoginStackParamList, 'Login'>
 export type SignInScreenNavigationProp = StackNavigationProp<LoginStackParamList, 'SignIn'>
+export type MyProjectsNavigationProp = StackNavigationProp<MyProjectsStackParamList, 'MyProjects'>
+
+export type MyProjectDetailsRouteProp = RouteProp<MyProjectsStackParamList, 'ProjectDetails'>
 
 
 
