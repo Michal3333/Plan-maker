@@ -5,7 +5,8 @@ import { USER_ACTION_TYPES } from "./user/action";
 export interface UserState {
    isLoggedIn: boolean,
    pendingLoggin: boolean
-   id: string
+   id: string,
+   email: string
 }
 export interface MyProjectsState {
    projects : MyProject[]
@@ -16,7 +17,8 @@ export type ChangePendingStatus = {
 }
 export type SignIn = {
    type : USER_ACTION_TYPES.SIGN_IN,
-   id: string
+   id: string,
+   email: string
 }
 export type SignOut = {
    type : USER_ACTION_TYPES.SIGN_OUT

@@ -6,7 +6,8 @@ import { USER_ACTION_TYPES } from "./action";
 const initialState : UserState = {
    isLoggedIn: false,
    pendingLoggin: false,
-   id: ''
+   id: '',
+   email: ''
 }
 
 export default (state = initialState, acton: UserActions) : UserState => {

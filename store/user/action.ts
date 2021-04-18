@@ -13,12 +13,12 @@ export enum USER_ACTION_TYPES {
    CHANGE_PENDING_STATUS = 'CHANGE_PENDING_STATUS'
 }
 
-export const asyncSignUp = (emial : string, password: string) : ThunkAction<void, RootState, unknown, UserActions>  => {
+export const asyncSignUp = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions>  => {
    return async (dispatch) => {
       try{
          dispatch(changePendingStatusAction(true))
-         const uid = await registration(emial, password)
-         dispatch(signInAction(uid))
+         const uid = await registration(email, password)
+         dispatch(signInAction(uid, email))
       } catch (err) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
@@ -28,12 +28,12 @@ export const asyncSignUp = (emial : string, password: string) : ThunkAction<void
    }
 }
 
-export const asyncSignIn = (emial : string, password: string) : ThunkAction<void, RootState, unknown, UserActions>  => {
+export const asyncSignIn = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions>  => {
    return async (dispatch) => {
       try {
          dispatch(changePendingStatusAction(true))
-         const uid = await signIn(emial, password);
-         dispatch(signInAction(uid))
+         const uid = await signIn(email, password);
+         dispatch(signInAction(uid, email))
          return true;
       }
       catch (err) {
@@ -57,10 +57,11 @@ export const asyncSignOut = () : ThunkAction<void, RootState, unknown, UserActio
    }
 }
 
-export const signInAction = (id: string) : SignIn => {
+export const signInAction = (id: string, email: string) : SignIn => {
    return {
       type: USER_ACTION_TYPES.SIGN_IN,
-      id: id
+      id: id,
+      email: email
    }
 }
 
