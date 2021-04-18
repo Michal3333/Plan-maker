@@ -14,6 +14,7 @@ export async function registration(email: string, password: string) {
          email: currentUser.email
       });
    await SecureStore.setItemAsync('id', currentUser.uid);
+   await SecureStore.setItemAsync('email', email);
    return currentUser.uid
 }
 
@@ -24,6 +25,7 @@ export async function signIn(email: string, password: string) {
    const id = firebase.auth().currentUser?.uid
    if(id){
       await SecureStore.setItemAsync('id', id);
+      await SecureStore.setItemAsync('email', email);
       return id;
    } else {
       throw Error('error');
