@@ -14,9 +14,9 @@ export default (state = initialState, acton: UserActions) : UserState => {
    switch(acton.type) {
       case USER_ACTION_TYPES.SIGN_IN:
          return {
-            ...state,
             isLoggedIn: true,
             pendingLoggin: false,
+            email: acton.email,
             id: acton.id
          }
       case USER_ACTION_TYPES.SIGN_OUT:
