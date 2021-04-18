@@ -39,8 +39,9 @@ const Navigation = () => {
       async function fetchKey() {
          console.log('checking token');
          const token = await SecureStore.getItemAsync('id');
-         if (token) {
-            dispatch(userActions.signInAction(token))
+         const email = await SecureStore.getItemAsync('email');
+         if (token && email) {
+            dispatch(userActions.signInAction(token, email))
          }
          setIsLoading(false)
       }
