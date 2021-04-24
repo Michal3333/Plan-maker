@@ -1,7 +1,6 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
-import { Alert } from "react-native";
-import * as SecureStore from 'expo-secure-store';
+import { FB_COLLECTIONS } from "./collections";
 
 export async function registration(email: string, password: string) {
    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
@@ -9,7 +8,7 @@ export async function registration(email: string, password: string) {
    const currentUser = firebase.auth().currentUser as firebase.User;
 
    const db = firebase.firestore();
-   await db.collection("users")
+   await db.collection(FB_COLLECTIONS.USERS)
       .doc(currentUser.uid)
       .set({
          email: currentUser.email
