@@ -18,6 +18,7 @@ import { DrawerActions } from '@react-navigation/native';
 import SplashScreen from '../screens/SpalshScreen';
 import * as SecureStore from 'expo-secure-store';
 import * as userActions from '../store/user/action'
+import { checkIfUserSignIn } from '../API/authorisation';
 // import CustomDrawerContent from './CustomDrawer';
 
 
@@ -37,11 +38,10 @@ const Navigation = () => {
 
    useEffect(() => {
       async function fetchKey() {
-         console.log('checking token');
-         const token = await SecureStore.getItemAsync('id');
-         const email = await SecureStore.getItemAsync('email');
-         if (token && email) {
-            dispatch(userActions.signInAction(token, email))
+         console.log('checking if logged in');
+         const user = await checkIfUserSignIn()
+         if (user) {
+            dispatch(userActions.signInAction(user.uid, user.email as string))
          }
          setIsLoading(false)
       }
