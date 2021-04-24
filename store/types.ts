@@ -38,9 +38,27 @@ export type RemoveProject = {
    type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
    projectId: string
 }
-export type EditProject = {
+export type EditProjectData = {
+   type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
+   payload: {
+      projectId: string,
+      newData : {
+         name: string, 
+         color: string, 
+         dueDate: Date, 
+         weeklyLimit : number
+      }
+   }
+}
+export type EditProjectTasks = {
    type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
    projectId: string,
    newData : MyProject
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProject
+
+export type AddProjectTime = {
+   type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
+   projectId: string,
+   time : number
+}
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks

@@ -66,6 +66,7 @@ export const asyncDeleteProject = (projectId : string) : ThunkAction<void, RootS
          await deleteProject(getState().user.id, projectId)
          dispatch(deleteProjectAction(projectId))
          dispatch(changePendingStatusAction(false))
+
       } catch (err) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);

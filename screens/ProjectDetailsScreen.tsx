@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native'
+import { StyleSheet, View, Text, TextInput, Button, FlatList } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { createContributorInvitation } from '../API/notifications';
 import Screen from '../components/UI/Screen';
@@ -17,8 +17,11 @@ type Props = {
 
 const ProjectDetailsScreen = (props: Props) => {
    const [email, setEmail] = useState('');
-   const user = useAppSelector(state => state.user)
+   const [editMode, setEditMode] = useState(false);
+   const user = useAppSelector(state => state.user);
    const id = props.route.params.id
+   const project = useAppSelector(state => state.myProjects.projects.find(x => x.id === id));
+  
    const dispatch = useDispatch()
    const sendContributorInvitation = async () => {
       const notification = new NotificationOut('', NotificationType.request, user.email, email, id)
@@ -30,10 +33,16 @@ const ProjectDetailsScreen = (props: Props) => {
    }
    return (
       <Screen>
-         <Text>{id}</Text>
-         <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
-         <Button title="Add Contributor" onPress={sendContributorInvitation}/>
+         <Text>{project?.name}</Text>
+         <Text>{project?.dueDate.toDateString()}</Text>
+         <Text>{project?.weeklyLimit}</Text>
+         <Text>{project?.weeklyDone}</Text>
+         <Text>{project?.totalHours}</Text>
+         {/* <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
+         <Button title="Add Contributor" onPress={sendContributorInvitation}/> */}
          <Button title="Delete Project" onPress={deleteProject}/>
+
+         <FlatList data={project?.tasks} renderItem={(itemData) => <Text>{itemData.item.text}</Text>}/>
       </Screen>
    )
 }

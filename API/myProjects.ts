@@ -14,6 +14,17 @@ export async function createProject(userId : string, project : MyProject) {
    return test.id;
 }
 
+export async function updateProject(userId : string, project : MyProject) {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.MY_PROJECTS)
+      .doc(project.id)
+      .withConverter(projectConverter)
+      .set(project)
+   return project
+}
+
 export const getMyProjects = async (userId : string) => {
    const db = firebase.firestore();
    const data = await db.collection(FB_COLLECTIONS.USERS)

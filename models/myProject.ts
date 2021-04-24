@@ -6,19 +6,41 @@ export default class MyProject {
    name: string;
    color: string;
    dueDate: Date;
-   tasks: projecTask[]
+   tasks: projecTask[];
+   weeklyLimit : number;
+   weeklyDone : number;
+   totalHours : number;
 
    setId = (newId : string) => {
       this.id = newId
    }
 
+   updateProjectData = (name: string, color: string, dueDate: Date, weeklyLimit : number) => {
+      this.name = name;
+      this.color = color;
+      this.dueDate = dueDate;
+      this.weeklyLimit = weeklyLimit;
+   }
 
-   constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[]){
+   addTask = (text: string, dueDate: Date) => {
+      this.tasks.push({
+         id: new Date().getTime().toString(),
+         text: text,
+         done: false,
+         dueDate: dueDate
+      })
+   }
+
+
+   constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number){
       this.id = id;
       this.name = name;
       this.color = color;
       this.dueDate = dueDate;
-      this.tasks = tasks
+      this.tasks = tasks;
+      this.weeklyLimit = weeklyLimit;
+      this.weeklyDone = weeklyDone;
+      this.totalHours = totalHours;
    }
 
 }
@@ -28,11 +50,14 @@ export const projectConverter = {
       name: project.name,
       color: project.color,
       dueDate: firebase.firestore.Timestamp.fromDate(project.dueDate),
-      tasks: project.tasks
+      tasks: project.tasks,
+      weeklyLimit: project.weeklyLimit,
+      weeklyDone: project.weeklyDone,
+      totalHours: project.totalHours
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions) => {
       const data = snapshot.data(options);
-      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})));
+      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours);
   }
 }
 
