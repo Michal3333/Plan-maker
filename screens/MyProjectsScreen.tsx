@@ -18,7 +18,6 @@ const MyProjectsScreen = (props: Props) => {
    const myProjects = useAppSelector(state => state.myProjects);
 
    useEffect(() => {
-      console.log('xd')
       dispatch(MyProjectsActions.asyncFetchProjects())
    }, [])
    

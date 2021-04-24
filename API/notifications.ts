@@ -7,7 +7,7 @@ export async function createContributorInvitation(notification: NotificationOut,
    const emailUse = await firebase.auth().fetchSignInMethodsForEmail(email)
    if(emailUse.length > 0 && notification.fromMail !== email) {
       const db = firebase.firestore();
-      const test = await db.collection(FB_COLLECTIONS.USERS)
+      await db.collection(FB_COLLECTIONS.USERS)
          .doc(userId)
          .collection(FB_COLLECTIONS.OUT_NOTIFICATIONS)
          .withConverter(notificationOutConverter)
