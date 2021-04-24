@@ -8,7 +8,7 @@ type Props = {
 
 const CustomHeaderButton = (props: Props) => {
    return (
-      <HeaderButton title="icom" {...props} IconComponent={Ionicons} iconSize={23}/>
+      <HeaderButton title="icom" {...props} IconComponent={Ionicons} iconSize={30}/>
    )
 }
 

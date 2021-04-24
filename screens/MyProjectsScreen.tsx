@@ -25,15 +25,15 @@ const MyProjectsScreen = (props: Props) => {
       props.navigation.setOptions({
          headerRight : () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='add project' iconName={'ios-menu'} onPress={() => {setCreateNewProjectModal(true)}}/>
+               <Item title='add project' iconName={'ios-add'} onPress={() => {setCreateNewProjectModal(true)}}/>
             </HeaderButtons>
          )
       })
    }, [])
 
-   const addNewProject = async (name: string, weeklyLimit: number, dueDateStr: string) => {
+   const addNewProject = async (name: string, weeklyLimit: string, dueDateStr: string) => {
       const dueDate = new Date(dueDateStr);
-      const project = new myProject('', name, '', dueDate, [], weeklyLimit, 0, 0)
+      const project = new myProject('', name, '', dueDate, [], parseInt(weeklyLimit), 0, 0)
       const result = await dispatch(MyProjectsActions.asyncAddProject(project));
        //@ts-ignore
        if(result){
@@ -44,8 +44,8 @@ const MyProjectsScreen = (props: Props) => {
    
    return (
       <Screen>
-         <Modal animationType='slide'
-            visible={createNewProjectModal}>
+         <Modal style={styles.modal} animationType='slide'
+            visible={createNewProjectModal} presentationStyle="pageSheet" >
                <NewProjectModal addProject={addNewProject} closeModel={() => {setCreateNewProjectModal(false)}}/>
          </Modal>
          <FlatList style={styles.list}
@@ -59,6 +59,9 @@ const MyProjectsScreen = (props: Props) => {
 const styles = StyleSheet.create({
    list: {
       width: '100%'
+   },
+   modal:{
+      height: '80%'
    }
 })
 
