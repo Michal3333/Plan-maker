@@ -8,6 +8,8 @@ import Screen from '../components/UI/Screen';
 import ProjectBox from '../components/MyProjects/ProjectBox';
 import { MyProjectsNavigationProp } from '../navigation/navigationTypes';
 import NewProjectModal from '../components/MyProjects/newProjectModal';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import CustomHeaderButton from '../components/UI/CustomHeader';
 
 type Props = {
    navigation: MyProjectsNavigationProp
@@ -19,13 +21,24 @@ const MyProjectsScreen = (props: Props) => {
    const [createNewProjectModal, setCreateNewProjectModal] = useState(false)
 
    useEffect(() => {
-      dispatch(MyProjectsActions.asyncFetchProjects())
+      dispatch(MyProjectsActions.asyncFetchProjects());
+      props.navigation.setOptions({
+         headerRight : () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+               <Item title='add project' iconName={'ios-menu'} onPress={() => {setCreateNewProjectModal(true)}}/>
+            </HeaderButtons>
+         )
+      })
    }, [])
 
    const addNewProject = async (name: string, weeklyLimit: number, dueDateStr: string) => {
       const dueDate = new Date(dueDateStr);
       const project = new myProject('', name, '', dueDate, [], weeklyLimit, 0, 0)
       const result = await dispatch(MyProjectsActions.asyncAddProject(project));
+       //@ts-ignore
+       if(result){
+         setCreateNewProjectModal(false)
+      }
   
    }
    
