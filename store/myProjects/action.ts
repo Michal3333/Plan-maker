@@ -1,9 +1,9 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
-import { createProject, getMyProjects } from "../../API/myProjects"
+import { createProject, deleteProject, getMyProjects } from "../../API/myProjects"
 import MyProject from "../../models/myProject"
 import { RootState } from "../store"
-import { AddProject, MyProjectsActions, SetProjects, UserActions } from "../types"
+import { AddProject, MyProjectsActions, RemoveProject, SetProjects, UserActions } from "../types"
 import { changePendingStatusAction } from "../user/action"
 
 export enum MY_PROJECTS_ACTION_TYPES {
@@ -56,6 +56,27 @@ export const setProjectsAction = (projects: MyProject[]) : SetProjects => {
    return {
       type: MY_PROJECTS_ACTION_TYPES.SET_PROJECTS,
       projects : projects
+   }
+}
+
+export const asyncDeleteProject = (projectId : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         dispatch(changePendingStatusAction(true))
+         await deleteProject(getState().user.id, projectId)
+         dispatch(deleteProjectAction(projectId))
+         dispatch(changePendingStatusAction(false))
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+      }
+   }
+}
+export const deleteProjectAction = (projectId: string) : RemoveProject => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
+      projectId: projectId
    }
 }
 

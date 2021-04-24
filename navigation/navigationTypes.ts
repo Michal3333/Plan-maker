@@ -38,6 +38,7 @@ export type LoginScreenNavigationProp = StackNavigationProp<LoginStackParamList,
 export type SignInScreenNavigationProp = StackNavigationProp<LoginStackParamList, 'SignIn'>
 export type MyProjectsNavigationProp = StackNavigationProp<MyProjectsStackParamList, 'MyProjects'>
 
+export type MyProjectDetailsNavigationProp = StackNavigationProp<MyProjectsStackParamList, 'ProjectDetails'>
 export type MyProjectDetailsRouteProp = RouteProp<MyProjectsStackParamList, 'ProjectDetails'>
 
 

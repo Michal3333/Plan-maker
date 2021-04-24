@@ -24,3 +24,13 @@ export const getMyProjects = async (userId : string) => {
    data.forEach(x => projects.push(x.data()))
    return projects
 }
+
+export const deleteProject = async (userId: string, projectId: string) => {
+   const db = firebase.firestore();
+   await db.collection("users")
+      .doc(userId)
+      .collection('myProjects')
+      .doc(projectId)
+      .delete()
+   return projectId
+}

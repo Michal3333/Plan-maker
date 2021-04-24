@@ -20,6 +20,11 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
          return {
             ...initialState
          }
+      case MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT:
+         const id = acton.projectId;
+         return {
+            projects: state.projects.filter(x => x.id !== id)
+         }
    }
    return state;
 } 
