@@ -11,7 +11,7 @@ type Props = {
 const InvitationsScreen = (props: Props) => {
    const userData = useAppSelector(state => state.user)
    return (
-      <Screen>
+      <Screen withDrawerButton={true}>
          <Text>InvitationsScreen</Text>
       </Screen>
    )

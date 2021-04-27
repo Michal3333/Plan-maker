@@ -11,7 +11,7 @@ type Props = {
 const MessagesScreen = (props: Props) => {
    const userData = useAppSelector(state => state.user)
    return (
-      <Screen>
+      <Screen withDrawerButton={true}>
          <Text>MessagesScreen</Text>
       </Screen>
    )

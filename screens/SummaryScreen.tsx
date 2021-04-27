@@ -11,7 +11,7 @@ type Props = {
 const SummaryScreen = (props: Props) => {
    const userData = useAppSelector(state => state.user)
    return (
-      <Screen>
+      <Screen withDrawerButton={true}>
          <Text>{userData.id}</Text>
       </Screen>
    )

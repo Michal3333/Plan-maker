@@ -21,6 +21,7 @@ import * as userActions from '../store/user/action'
 import { checkIfUserSignIn } from '../API/authorisation';
 import MessagesScreen from '../screens/MessagesScreen';
 import InvitationsScreen from '../screens/InvitationsScreen';
+import { Ionicons } from '@expo/vector-icons';
 // import CustomDrawerContent from './CustomDrawer';
 
 
@@ -92,9 +93,9 @@ const Login = () => {
 const AppTabs = () => {
    return (
       <AppTab.Navigator>
-         <AppTab.Screen name="Summary" component={Summary} />
-         <AppTab.Screen name="MyProjetcs" component={MyProjects} />
-         <AppTab.Screen name="OtherProjects" component={OtherProjecsts} />
+         <AppTab.Screen name="Summary" component={Summary} options={{tabBarIcon: conf => <Ionicons name="ios-analytics" size={25} color={conf.color}/>}}/>
+         <AppTab.Screen name="MyProjetcs" component={MyProjects} options={{tabBarIcon: conf => <Ionicons name="ios-albums-outline" size={25} color={conf.color}/>}}/>
+         <AppTab.Screen name="OtherProjects" component={OtherProjecsts} options={{tabBarIcon: conf => <Ionicons name="ios-eye" size={25} color={conf.color}/>}}/>
       </AppTab.Navigator>
    )
 
@@ -146,8 +147,8 @@ const  Invitations = () => {
 const NotificationsTabs = () => {
    return (
       <NotificationsTab.Navigator>
-         <NotificationsTab.Screen name="Messages" component={Messages}/>
-         <NotificationsTab.Screen name="Invitations" component={Invitations}/>
+         <NotificationsTab.Screen name="Messages" component={Messages} options={{tabBarIcon: conf => <Ionicons name="ios-chatbubble-ellipses-sharp" size={25} color={conf.color}/>}}/>
+         <NotificationsTab.Screen name="Invitations" component={Invitations} options={{tabBarIcon: conf => <Ionicons name="ios-people-circle" size={25} color={conf.color}/>}}/>
       </NotificationsTab.Navigator>
    )
 }

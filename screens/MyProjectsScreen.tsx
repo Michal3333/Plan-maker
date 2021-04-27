@@ -43,7 +43,7 @@ const MyProjectsScreen = (props: Props) => {
    }
    
    return (
-      <Screen>
+      <Screen withDrawerButton={true}>
          <Modal style={styles.modal} animationType='slide'
             visible={createNewProjectModal} presentationStyle="pageSheet" >
                <NewProjectModal addProject={addNewProject} closeModel={() => {setCreateNewProjectModal(false)}}/>
