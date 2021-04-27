@@ -3,7 +3,7 @@ import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerNavigationOptions, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { AppDrawerParamList, LoginStackParamList, MyProjectsStackParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
+import { AppDrawerParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
 import LoginScreen from '../screens/LoginScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
@@ -19,6 +19,8 @@ import SplashScreen from '../screens/SpalshScreen';
 import * as SecureStore from 'expo-secure-store';
 import * as userActions from '../store/user/action'
 import { checkIfUserSignIn } from '../API/authorisation';
+import MessagesScreen from '../screens/MessagesScreen';
+import InvitationsScreen from '../screens/InvitationsScreen';
 // import CustomDrawerContent from './CustomDrawer';
 
 
@@ -28,6 +30,9 @@ const AppTab = createBottomTabNavigator<TabNavigationParamList>();
 const SummaryStack = createStackNavigator<SummaryStackParamList>();
 const MyProjectsStack = createStackNavigator<MyProjectsStackParamList>();
 const OtherProjecstStack = createStackNavigator<OtherProjectsStackParamList>();
+const NotificationsTab = createBottomTabNavigator<NotificationTabNavigationParamList>();
+const MessagesStack = createStackNavigator<MessagesStackParamList>();
+const InvitationsStack = createStackNavigator<InvitationsStackParamList>();
 
 
 
@@ -67,13 +72,12 @@ const Navigation = () => {
    )
 }
 
-const AppDrawer = (props: any) => {
-   return (
-      <AppDrawerNavigator.Navigator drawerContent={(drawerProps) => <CustomDrawerContent {...drawerProps} logOut={props.logOut} />}>
-         <AppDrawerNavigator.Screen name="AppTabs" component={AppTabs} />
-      </AppDrawerNavigator.Navigator>
-   )
-}
+const AppDrawer = (props: any) => (
+   <AppDrawerNavigator.Navigator drawerContent={(drawerProps) => <CustomDrawerContent {...drawerProps} logOut={props.logOut} />}>
+      <AppDrawerNavigator.Screen name="AppTabs" component={AppTabs} />
+      <AppDrawerNavigator.Screen name="NotificationsTab" component={NotificationsTabs} />
+   </AppDrawerNavigator.Navigator>
+)
 
 
 const Login = () => {
@@ -120,6 +124,31 @@ const OtherProjecsts = () => {
          <OtherProjecstStack.Screen name="OtherProjects" component={OtherProjectsScreen} />
          <OtherProjecstStack.Screen name="ProjectDetails" component={ProjectDetailsScreen} />
       </OtherProjecstStack.Navigator>
+   )
+}
+
+const  Messages = () => {
+   return (
+      <MessagesStack.Navigator>
+         <MessagesStack.Screen name='Messages' component={MessagesScreen}/>
+      </MessagesStack.Navigator>
+   )
+}
+
+const  Invitations = () => {
+   return (
+      <InvitationsStack.Navigator>
+         <InvitationsStack.Screen name='Invitations' component={InvitationsScreen}/>
+      </InvitationsStack.Navigator>
+   )
+}
+
+const NotificationsTabs = () => {
+   return (
+      <NotificationsTab.Navigator>
+         <NotificationsTab.Screen name="Messages" component={Messages}/>
+         <NotificationsTab.Screen name="Invitations" component={Invitations}/>
+      </NotificationsTab.Navigator>
    )
 }
 
