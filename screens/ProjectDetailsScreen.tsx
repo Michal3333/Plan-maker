@@ -28,8 +28,10 @@ const ProjectDetailsScreen = (props: Props) => {
       createContributorInvitation(notification, email, user.id);
    }
    const deleteProject = async () => {
-      await dispatch(MyProjectsActions.asyncDeleteProject(id));
-      props.navigation.goBack()
+      if(project){
+         await dispatch(MyProjectsActions.asyncDeleteProject(project));
+         props.navigation.goBack()
+      }
    }
    return (
       <Screen>

@@ -18,7 +18,7 @@ export async function updateProject(userId : string, project : MyProject) {
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
-      .collection(FB_COLLECTIONS.MY_PROJECTS)
+      .collection(project.shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
       .doc(project.id)
       .withConverter(projectConverter)
       .set(project)
@@ -32,19 +32,25 @@ export const getMyProjects = async (userId : string) => {
       .collection(FB_COLLECTIONS.MY_PROJECTS)
       .withConverter(projectConverter)
       .get()
+   const dataShared = await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
+      .withConverter(projectConverter)
+      .get()
    const projects : MyProject[] = []
+   dataShared.forEach(x => projects.push(x.data()))
    data.forEach(x => projects.push(x.data()))
    return projects
 }
 
-export const deleteProject = async (userId: string, projectId: string) => {
+export const deleteProject = async (userId: string, project: MyProject) => {
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
-      .collection(FB_COLLECTIONS.MY_PROJECTS)
-      .doc(projectId)
+      .collection(project.shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
+      .doc(project.id)
       .delete()
-   return projectId
+   return project.id
 }
 export const convertToSharedProject = async (userId: string, project: MyProject) => {
    const db = firebase.firestore();

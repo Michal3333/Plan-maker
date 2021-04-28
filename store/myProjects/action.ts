@@ -61,12 +61,12 @@ export const setProjectsAction = (projects: MyProject[]) : SetProjects => {
    }
 }
 
-export const asyncDeleteProject = (projectId : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncDeleteProject = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
-         await deleteProject(getState().user.id, projectId)
-         dispatch(deleteProjectAction(projectId))
+         await deleteProject(getState().user.id, project)
+         dispatch(deleteProjectAction(project.id))
          dispatch(changePendingStatusAction(false))
 
       } catch (err) {
