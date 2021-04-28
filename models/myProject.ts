@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
-import MyProjectShared from "./MyProjectShared";
+import Contributor from "./Contributor";
 
 export default class MyProject {
    id: string;
@@ -12,9 +12,19 @@ export default class MyProject {
    weeklyDone : number;
    totalHours : number;
    shared: boolean;
+   contributors: Contributor[];
+
 
    setId = (newId : string) => {
       this.id = newId
+   }
+   setContributors = (contributors : Contributor[]) => {
+      this.contributors = contributors;
+      this.shared = true;
+   }
+   deleteContributors = () => {
+      this.contributors = [];
+      this.shared = false;
    }
 
    updateProjectData = (name: string, color: string, dueDate: Date, weeklyLimit : number) => {
@@ -33,12 +43,6 @@ export default class MyProject {
       })
    }
 
-   convertToSharedProject = (project : MyProject) =>  {
-      const {id, name, color, dueDate, tasks, weeklyLimit, weeklyDone, totalHours} = project;
-      const sharedProject = new MyProjectShared(id, name, color, dueDate, tasks, weeklyLimit, weeklyDone, totalHours)
-      return sharedProject;
-   }
-
 
    constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number){
       this.id = id;
@@ -50,6 +54,7 @@ export default class MyProject {
       this.weeklyDone = weeklyDone;
       this.totalHours = totalHours;
       this.shared = false;
+      this.contributors = []
    }
 
 }

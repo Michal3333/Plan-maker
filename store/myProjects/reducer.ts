@@ -25,6 +25,28 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
          return {
             projects: state.projects.filter(x => x.id !== id)
          }
+      case MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED:
+         const projectShared = acton.sharedProject;
+         return {
+            projects : state.projects.map(x => {
+               if(x.id === projectShared.id){
+                  x.setContributors([]);
+                  return x;
+               }
+               return x;
+            })
+         }
+      case MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL:
+         const projectNormal = acton.normalProject;
+         return {
+            projects : state.projects.map(x => {
+               if(x.id === projectNormal.id){
+                  x.deleteContributors();
+                  return x;
+               }
+               return x;
+            })
+         }
    }
    return state;
 } 

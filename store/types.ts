@@ -1,5 +1,4 @@
 import MyProject from "../models/MyProject";
-import MyProjectShared from "../models/MyProjectShared";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { USER_ACTION_TYPES } from "./user/action";
 
@@ -39,35 +38,36 @@ export type RemoveProject = {
    type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
    projectId: string
 }
-export type EditProjectData = {
-   type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
-   payload: {
-      projectId: string,
-      newData : {
-         name: string, 
-         color: string, 
-         dueDate: Date, 
-         weeklyLimit : number
-      }
-   }
-}
-export type EditProjectTasks = {
-   type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
-   projectId: string,
-   newData : MyProject
-}
+// export type EditProjectData = {
+//    type: MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT,
+//    payload: {
+//       projectId: string,
+//       newData : {
+//          name: string, 
+//          color: string, 
+//          dueDate: Date, 
+//          weeklyLimit : number
+//       }
+//    }
+// }
+// export type EditProjectTasks = {
+//    type: MY_PROJECTS_ACTION_TYPES.,
+//    projectId: string,
+//    newData : MyProject
+// }
 
-export type AddProjectTime = {
-   type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
-   projectId: string,
-   time : number
-}
+// export type AddProjectTime = {
+//    type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
+//    projectId: string,
+//    time : number
+// }
 export type ConvertToShared = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
-   sharedProject : MyProjectShared
+   sharedProject : MyProject
 }
 export type ConvertToNormal = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL,
    normalProject : MyProject 
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks | ConvertToShared | ConvertToNormal
+// export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks | ConvertToShared | ConvertToNormal
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal

@@ -2,7 +2,6 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
 import MyProject, { projectConverter } from "../models/MyProject";
-import MyProjectShared, { sharedProjectConverter } from "../models/MyProjectShared";
 import { FB_COLLECTIONS } from "./collections";
 
 export async function createProject(userId : string, project : MyProject) {
@@ -48,35 +47,33 @@ export const deleteProject = async (userId: string, projectId: string) => {
    return projectId
 }
 export const convertToSharedProject = async (userId: string, project: MyProject) => {
-   const sharedProject = project.convertToSharedProject(project);
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
       .collection(FB_COLLECTIONS.MY_PROJECTS)
-      .doc(sharedProject.id)
+      .doc(project.id)
       .delete()
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
       .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
-      .doc(sharedProject.id)
-      .withConverter(sharedProjectConverter)
-      .set(sharedProject)
-   return sharedProject
+      .doc(project.id)
+      .withConverter(projectConverter)
+      .set(project)
+   return project
 }
 
-export const convertToMyProject = async (userId: string, project: MyProjectShared) => {
-   const myProject = project.convertToMyProject(project);
+export const convertToMyProject = async (userId: string, project: MyProject) => {
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
       .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
-      .doc(myProject.id)
+      .doc(project.id)
       .delete()
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
       .collection(FB_COLLECTIONS.MY_PROJECTS)
-      .doc(myProject.id)
+      .doc(project.id)
       .withConverter(projectConverter)
-      .set(myProject)
-   return myProject
+      .set(project)
+   return project
 }

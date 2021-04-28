@@ -2,7 +2,6 @@ import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
 import MyProject from "../../models/MyProject"
-import MyProjectShared from "../../models/MyProjectShared"
 import { RootState } from "../store"
 import { AddProject, ConvertToNormal, ConvertToShared, MyProjectsActions, RemoveProject, SetProjects, UserActions } from "../types"
 import { changePendingStatusAction } from "../user/action"
@@ -88,8 +87,7 @@ export const asyncConvertToShared = (project : MyProject) : ThunkAction<void, Ro
       try {
          dispatch(changePendingStatusAction(true))
          const sharedProject = await convertToSharedProject(getState().user.id, project)
-         dispatch(deleteProjectAction(sharedProject.id))
-         dispatch(addProjectAction(sharedProject))
+         dispatch(convertToSharedAction(sharedProject))
          dispatch(changePendingStatusAction(false))
       } catch (err) {
          console.log(err)
@@ -98,20 +96,19 @@ export const asyncConvertToShared = (project : MyProject) : ThunkAction<void, Ro
       }
    }
 }
-// export const convertToSharedAction = (sharedProject : MyProjectShared) : ConvertToShared => {
-//    return {
-//       type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
-//       sharedProject: sharedProject
-//    }
-// }
+export const convertToSharedAction = (sharedProject : MyProject) : ConvertToShared => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
+      sharedProject: sharedProject
+   }
+}
 
-export const asyncConvertToNormal = (project : MyProjectShared) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
          const normalProject = await convertToMyProject(getState().user.id, project)
-         dispatch(deleteProjectAction(normalProject.id))
-         dispatch(addProjectAction(normalProject))
+         dispatch(convertToNormalAction(normalProject))
          dispatch(changePendingStatusAction(false))
       } catch (err) {
          console.log(err)
@@ -120,10 +117,10 @@ export const asyncConvertToNormal = (project : MyProjectShared) : ThunkAction<vo
       }
    }
 }
-// export const convertToNormalAction = (normalProject : MyProject) : ConvertToNormal => {
-//    return {
-//       type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL,
-//       normalProject: normalProject
-//    }
-// }
+export const convertToNormalAction = (normalProject : MyProject) : ConvertToNormal => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL,
+      normalProject: normalProject
+   }
+}
 
