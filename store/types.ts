@@ -1,4 +1,5 @@
-import MyProject from "../models/myProject";
+import MyProject from "../models/MyProject";
+import MyProjectShared from "../models/MyProjectShared";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { USER_ACTION_TYPES } from "./user/action";
 
@@ -61,4 +62,12 @@ export type AddProjectTime = {
    projectId: string,
    time : number
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks
+export type ConvertToShared = {
+   type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
+   sharedProject : MyProjectShared
+}
+export type ConvertToNormal = {
+   type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL,
+   normalProject : MyProject 
+}
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks | ConvertToShared | ConvertToNormal

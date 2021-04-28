@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, Button, FlatList, Text, Modal } from 'react-native'
 import { useAppSelector,  } from '../store/store'
 import { useDispatch } from 'react-redux';
-import myProject from '../models/myProject';
+import myProject from '../models/MyProject';
 import * as MyProjectsActions from '../store/myProjects/action'
 import Screen from '../components/UI/Screen';
 import ProjectBox from '../components/MyProjects/ProjectBox';

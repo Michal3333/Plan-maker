@@ -33,17 +33,31 @@ const ProjectDetailsScreen = (props: Props) => {
    }
    return (
       <Screen>
-         <Text>{project?.name}</Text>
-         <Text>{project?.dueDate.toDateString()}</Text>
-         <Text>{project?.weeklyLimit}</Text>
-         <Text>{project?.weeklyDone}</Text>
-         <Text>{project?.totalHours}</Text>
-         {/* <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
-         <Button title="Add Contributor" onPress={sendContributorInvitation}/> */}
-         <Button title="Delete Project" onPress={deleteProject}/>
+         {project &&
+         <View>
+            <Text>{project.name}</Text>
+            <Text>{project.dueDate.toDateString()}</Text>
+            <Text>{project.weeklyLimit}</Text>
+            <Text>{project.weeklyDone}</Text>
+            <Text>{project.totalHours}</Text>
+            {/* <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
+            <Button title="Add Contributor" onPress={sendContributorInvitation}/> */}
+            <Button title="Delete Project" onPress={deleteProject}/>
 
-         <FlatList data={project?.tasks} renderItem={(itemData) => <Text>{itemData.item.text}</Text>}/>
-      </Screen>
+            {
+               project.shared ?
+               <Button title="Convert To Normal Project" onPress={() => {dispatch(MyProjectsActions.asyncConvertToNormal(project));}}/>
+               :
+               <Button title="Convert To Shared Project" onPress={() => {dispatch(MyProjectsActions.asyncConvertToShared(project))}}/>
+            }
+            
+           
+
+            <FlatList data={project?.tasks} renderItem={(itemData) => <Text>{itemData.item.text}</Text>}/>
+         </View>
+         }
+         {!project && <Text>{'Project Not Found'}</Text>}
+      </Screen> 
    )
 }
 
