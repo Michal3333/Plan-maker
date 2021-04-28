@@ -1,6 +1,7 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
+import Contributor, { contributorConverter } from "../models/Contributor";
 import MyProject, { projectConverter } from "../models/MyProject";
 import { FB_COLLECTIONS } from "./collections";
 
@@ -38,7 +39,11 @@ export const getMyProjects = async (userId : string) => {
       .withConverter(projectConverter)
       .get()
    const projects : MyProject[] = []
-   dataShared.forEach(x => projects.push(x.data()))
+   dataShared.forEach(x => {
+      const project = x.data();
+      project.setContributors([])
+      projects.push(project)
+   })
    data.forEach(x => projects.push(x.data()))
    return projects
 }
@@ -82,4 +87,23 @@ export const convertToMyProject = async (userId: string, project: MyProject) => 
       .withConverter(projectConverter)
       .set(project)
    return project
+}
+
+export const addContributor = async (userId: string, contributor: Contributor, projectId: string, myMail: string) => {
+   const emailUse = await firebase.auth().fetchSignInMethodsForEmail(contributor.contributorMail)
+   if(emailUse.length > 0 && contributor.contributorMail !== myMail) {
+      const db = firebase.firestore();
+      const result = await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
+      .doc(projectId)
+      .collection(FB_COLLECTIONS.CONTRIBUTORS)
+      .withConverter(contributorConverter)
+      .add(contributor)
+      return result.id;
+   } else {
+      throw new Error('No emial')
+   }
+   
+   
 }

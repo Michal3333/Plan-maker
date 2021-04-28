@@ -1,9 +1,11 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
-import { convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
+import { CONTRIBUTOR_STATUS } from "../../API/collections"
+import { addContributor, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
+import Contributor from "../../models/Contributor"
 import MyProject from "../../models/MyProject"
 import { RootState } from "../store"
-import { AddProject, ConvertToNormal, ConvertToShared, MyProjectsActions, RemoveProject, SetProjects, UserActions } from "../types"
+import { AddContributor, AddProject, ConvertToNormal, ConvertToShared, MyProjectsActions, RemoveProject, SetProjects, UserActions } from "../types"
 import { changePendingStatusAction } from "../user/action"
 
 export enum MY_PROJECTS_ACTION_TYPES {
@@ -12,7 +14,8 @@ export enum MY_PROJECTS_ACTION_TYPES {
    REMOVE_PROJECT = 'REMOVE_PROJECT',
    EDIT_PROJECT = 'EDIT_PROJECT',
    CONVERT_TO_SHARED = 'CONVERT_TO_SHARED',
-   CONVERT_TO_NORMAL = 'CONVERT_TO_NORMAL'
+   CONVERT_TO_NORMAL = 'CONVERT_TO_NORMAL',
+   ADD_CONTRIBUTOR = 'ADD_CONTRIBUTOR'
 }
 
 export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
@@ -121,6 +124,33 @@ export const convertToNormalAction = (normalProject : MyProject) : ConvertToNorm
    return {
       type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL,
       normalProject: normalProject
+   }
+}
+
+export const asyncAddContributor = (projectId: string, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         dispatch(changePendingStatusAction(true))
+         //TODO add allow flags
+         const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, false, false)
+         const id = await addContributor(getState().user.id, contributor, projectId, getState().user.email);
+         contributor.setId(id)
+         dispatch(addContributorAction(projectId, contributor))
+         dispatch(changePendingStatusAction(false))
+         return true;
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+         return false;
+      }
+   }
+}
+export const addContributorAction = (projectId: string, contributor: Contributor) : AddContributor => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.ADD_CONTRIBUTOR,
+      projectId: projectId,
+      contributor: contributor
    }
 }
 

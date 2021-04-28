@@ -42,9 +42,18 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
             projects : state.projects.map(x => {
                if(x.id === projectNormal.id){
                   x.deleteContributors();
-                  return x;
                }
                return x;
+            })
+         }
+      case MY_PROJECTS_ACTION_TYPES.ADD_CONTRIBUTOR:
+         const idToAdd = acton.projectId
+         return {
+            projects: state.projects.map(x => {
+               if(x.id === idToAdd){
+                  x.addContributor(acton.contributor)
+               }
+               return x
             })
          }
    }

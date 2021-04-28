@@ -42,6 +42,9 @@ export default class MyProject {
          dueDate: dueDate
       })
    }
+   addContributor = (contributor: Contributor) => {
+      this.contributors.push(contributor)
+   }
 
 
    constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number){

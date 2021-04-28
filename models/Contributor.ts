@@ -16,7 +16,9 @@ export default class Contributor {
       this.status = status;
       this.allowMessage = allowMessage;
       this.allowDetails = allowDetails;
-
+   }
+   setId = (id: string) => {
+      this.id = id;
    }
 }
 
@@ -24,7 +26,6 @@ export default class Contributor {
 
 export const contributorConverter = {
    toFirestore: (contributor : Contributor) => ({ 
-      id: contributor.id,
       contributorMail : contributor.contributorMail,
       status: contributor.status,
       allowMessage: contributor.allowMessage,

@@ -1,3 +1,4 @@
+import Contributor from "../models/Contributor";
 import MyProject from "../models/MyProject";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { USER_ACTION_TYPES } from "./user/action";
@@ -69,5 +70,10 @@ export type ConvertToNormal = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL,
    normalProject : MyProject 
 }
+export type AddContributor = {
+   type: MY_PROJECTS_ACTION_TYPES.ADD_CONTRIBUTOR,
+   projectId : string,
+   contributor: Contributor 
+}
 // export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks | ConvertToShared | ConvertToNormal
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor
