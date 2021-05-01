@@ -104,6 +104,18 @@ export const addContributor = async (userId: string, contributor: Contributor, p
    } else {
       throw new Error('No emial')
    }
-   
-   
 }
+// export const testRules = async () => {
+//    try {
+//       const db = firebase.firestore();
+//       const result = await db.collection(FB_COLLECTIONS.USERS)
+//       .doc('mmSwWB4TqFem0upRnL2hEmdyMgj2')
+//       .collection(FB_COLLECTIONS.MY_PROJECTS)
+//       .add({
+//          result: "super rulesy bulwo"
+//       })
+//    } catch (error) {
+//       Alert.alert("There is something wrong!!!!", error.message);
+//    }
+     
+// }
