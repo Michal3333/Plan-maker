@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
-import { notificationInConverter } from "../models/NotificationIn";
+import NotificationIn, { notificationInConverter } from "../models/NotificationIn";
 import NotificationOut, { notificationOutConverter } from "../models/NotificationOut";
 import { FB_COLLECTIONS } from "./collections";
 
@@ -19,9 +19,9 @@ export async function createContributorInvitation(notification: NotificationOut,
    return true;
 }
 
-export async function keepGettingNotifications(userId: string, dispatchFunction : () => void) {
+export async function keepGettingNotifications(userId: string, addNotification : (notifications: NotificationIn) => void) {
    const db = firebase.firestore();
-   await db.collection(FB_COLLECTIONS.USERS)
+   const unsubsrcibe =  db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
       .collection(FB_COLLECTIONS.IN_NOTIFICATIONS)
       .withConverter(notificationInConverter)
@@ -29,10 +29,10 @@ export async function keepGettingNotifications(userId: string, dispatchFunction 
          snapShots.forEach(x => {
             if(x.exists){
                const data = x.data();
-               console.log(data)
+               addNotification(data)
             }
          })
       })
 
-   return true;
+   return unsubsrcibe;
 }

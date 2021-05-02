@@ -24,7 +24,6 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
       }
-      
    }
 }
 

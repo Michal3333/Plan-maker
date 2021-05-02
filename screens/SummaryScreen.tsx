@@ -5,6 +5,7 @@ import { StyleSheet, View, Text, Button} from 'react-native'
 import Screen from '../components/UI/Screen';
 import { keepGettingNotifications } from '../API/notifications';
 // import { testRules } from '../API/myProjects';
+import * as NotificationActions from '../store/notifications/action'
 
 type Props = {
 
@@ -12,9 +13,10 @@ type Props = {
 
 const SummaryScreen = (props: Props) => {
    const userData = useAppSelector(state => state.user);
+   const dispatch = useDispatch();
 
    useEffect(() => {
-      keepGettingNotifications(userData.id, () => {})
+      dispatch(NotificationActions.asyncKeepGettingNotifications())
    }, [])
 
    return (
