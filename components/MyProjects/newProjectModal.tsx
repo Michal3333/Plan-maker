@@ -10,7 +10,7 @@ const NewProjectModal = (props : Props) => {
    const [name, setName] = useState('')
    const [weeklyLimit, setWeeklyLimit] = useState('')
    // const [color, setColor] = useState(1)
-   const [dueDate, setDueDate] = useState('')
+   const [dueDate, setDueDate] = useState('2022-03-03')
 
    return (
       <View style={styles.modal}>

@@ -11,15 +11,24 @@ export default class Contributor {
    allowDetails: boolean;
 
    constructor(id: string, contributorMail: string, status: CONTRIBUTOR_STATUS, allowMessage: boolean, allowDetails: boolean){
-      this.id = id;
+      this.id = new Date().getTime().toString()
       this.contributorMail = contributorMail;
       this.status = status;
       this.allowMessage = allowMessage;
       this.allowDetails = allowDetails;
    }
-   setId = (id: string) => {
-      this.id = id;
-   }
+   // setId = (id: string) => {
+   //    this.id = id;
+   // }
+   getAsObject = () => {
+      return {
+         id: this.id,
+         contributorMail : this.contributorMail,
+         status: this.status,
+         allowMessage: this.allowMessage,
+         allowDetails: this.allowDetails,
+      }
+   } 
 }
 
 

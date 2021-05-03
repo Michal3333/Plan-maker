@@ -22,6 +22,9 @@ export default class MyProject {
       this.contributors = contributors;
       this.shared = true;
    }
+   setShared = () => {
+      this.shared = true
+   }
    deleteContributors = () => {
       this.contributors = [];
       this.shared = false;
@@ -47,7 +50,7 @@ export default class MyProject {
    }
 
 
-   constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number){
+   constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number, contributors: Contributor[]){
       this.id = id;
       this.name = name;
       this.color = color;
@@ -57,7 +60,7 @@ export default class MyProject {
       this.weeklyDone = weeklyDone;
       this.totalHours = totalHours;
       this.shared = false;
-      this.contributors = []
+      this.contributors = contributors;
    }
 
 }
@@ -70,11 +73,13 @@ export const projectConverter = {
       tasks: project.tasks,
       weeklyLimit: project.weeklyLimit,
       weeklyDone: project.weeklyDone,
-      totalHours: project.totalHours
+      totalHours: project.totalHours,
+      contributors : project.contributors
+
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions) => {
       const data = snapshot.data(options);
-      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours);
+      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, data.contributors);
   }
 }
 

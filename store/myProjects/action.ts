@@ -1,7 +1,7 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
+import { updateContributors, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject from "../../models/MyProject"
 import { RootState } from "../store"
@@ -110,7 +110,10 @@ export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, Ro
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
-         const normalProject = await convertToMyProject(getState().user.id, project)
+         const projectToChange = {...project};
+         projectToChange.deleteContributors()
+         console.log(projectToChange)
+         const normalProject = await convertToMyProject(getState().user.id, projectToChange)
          dispatch(convertToNormalAction(normalProject))
          dispatch(changePendingStatusAction(false))
       } catch (err) {
@@ -127,15 +130,14 @@ export const convertToNormalAction = (normalProject : MyProject) : ConvertToNorm
    }
 }
 
-export const asyncAddContributor = (projectId: string, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncAddContributor = (project: MyProject, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
          //TODO add allow flags
          const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, false, false)
-         const id = await addContributor(getState().user.id, contributor, projectId, getState().user.email);
-         contributor.setId(id)
-         dispatch(addContributorAction(projectId, contributor))
+         await updateContributors(getState().user.id, contributor, project.id, getState().user.email);
+         dispatch(addContributorAction(project.id, contributor))
          dispatch(changePendingStatusAction(false))
          return true;
       } catch (err) {
