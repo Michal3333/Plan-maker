@@ -110,10 +110,7 @@ export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, Ro
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
-         const projectToChange = {...project};
-         projectToChange.deleteContributors()
-         console.log(projectToChange)
-         const normalProject = await convertToMyProject(getState().user.id, projectToChange)
+         const normalProject = await convertToMyProject(getState().user.id, project)
          dispatch(convertToNormalAction(normalProject))
          dispatch(changePendingStatusAction(false))
       } catch (err) {

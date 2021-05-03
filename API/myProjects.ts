@@ -2,7 +2,7 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
 import Contributor from "../models/Contributor";
-import MyProject, { projectConverter } from "../models/MyProject";
+import MyProject, { projectConverter, sharedProjectConverter } from "../models/MyProject";
 import { FB_COLLECTIONS } from "./collections";
 
 export async function createProject(userId : string, project : MyProject) {
@@ -36,7 +36,7 @@ export const getMyProjects = async (userId : string) => {
    const dataShared = await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
       .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
-      .withConverter(projectConverter)
+      .withConverter(sharedProjectConverter)
       .get()
    const projects : MyProject[] = []
    dataShared.forEach(x => {
@@ -68,7 +68,7 @@ export const convertToSharedProject = async (userId: string, project: MyProject)
       .doc(userId)
       .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
       .doc(project.id)
-      .withConverter(projectConverter)
+      .withConverter(sharedProjectConverter)
       .set(project)
    return project
 }

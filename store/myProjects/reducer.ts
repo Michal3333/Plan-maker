@@ -42,7 +42,7 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
             projects : state.projects.map(x => {
                if(x.id === projectNormal.id){
                   console.log(x.shared)
-                  x.deleteContributors();
+                  x.setNotShared();
                }
                return x;
             })
