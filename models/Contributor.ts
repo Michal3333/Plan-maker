@@ -17,9 +17,9 @@ export default class Contributor {
       this.allowMessage = allowMessage;
       this.allowDetails = allowDetails;
    }
-   // setId = (id: string) => {
-   //    this.id = id;
-   // }
+   setId = (id: string) => {
+      this.id = id;
+   }
    getAsObject = () => {
       return {
          id: this.id,

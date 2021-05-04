@@ -18,12 +18,13 @@ export default class MyProject {
    setId = (newId : string) => {
       this.id = newId
    }
-   setShared = () => {
-      this.shared = true
-   }
    setNotShared = () => {
       this.contributors = [];
       this.shared = false;
+   }
+   setContributors = (contributors : Contributor[]) => {
+      this.contributors = contributors;
+      this.shared = true;
    }
 
    updateProjectData = (name: string, color: string, dueDate: Date, weeklyLimit : number) => {
@@ -46,7 +47,7 @@ export default class MyProject {
    }
 
 
-   constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number, contributors: Contributor[], shared: boolean){
+   constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number, shared: boolean){
       this.id = id;
       this.name = name;
       this.color = color;
@@ -56,7 +57,7 @@ export default class MyProject {
       this.weeklyDone = weeklyDone;
       this.totalHours = totalHours;
       this.shared = shared;
-      this.contributors = contributors;
+      this.contributors = [];
    }
 
 }
@@ -74,7 +75,7 @@ export const projectConverter = {
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions) => {
       const data = snapshot.data(options);
-      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, [], false);
+      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, false);
   }
 }
 
@@ -86,13 +87,11 @@ export const sharedProjectConverter = {
       tasks: project.tasks,
       weeklyLimit: project.weeklyLimit,
       weeklyDone: project.weeklyDone,
-      totalHours: project.totalHours,
-      contributors : project.contributors
-
+      totalHours: project.totalHours
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions) => {
       const data = snapshot.data(options);
-      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, data.contributors, true);
+      return new MyProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, true);
   }
 }
 

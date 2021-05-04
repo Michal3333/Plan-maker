@@ -37,7 +37,7 @@ const ProjectDetailsScreen = (props: Props) => {
    }
    const addContributor = async (email:string) => {
       if(project){
-         const result = await dispatch(MyProjectsActions.asyncAddContributor(project, email));
+         const result = await dispatch(MyProjectsActions.asyncAddContributor(project.id, email));
          //@ts-ignore
          if(result){
             setContributorsModal(false)

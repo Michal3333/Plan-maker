@@ -30,7 +30,7 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
          return {
             projects : state.projects.map(x => {
                if(x.id === projectShared.id){
-                  x.setShared();
+                  x.setContributors([]);
                   return x;
                }
                return x;

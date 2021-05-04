@@ -1,7 +1,7 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { updateContributors, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
+import { addContributor, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject from "../../models/MyProject"
 import { RootState } from "../store"
@@ -127,14 +127,15 @@ export const convertToNormalAction = (normalProject : MyProject) : ConvertToNorm
    }
 }
 
-export const asyncAddContributor = (project: MyProject, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncAddContributor = (projectId: string, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
          //TODO add allow flags
          const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, false, false)
-         await updateContributors(getState().user.id, contributor, project.id, getState().user.email);
-         dispatch(addContributorAction(project.id, contributor))
+         const contributorId = await addContributor(getState().user.id, contributor, projectId, getState().user.email);
+         contributor.setId(contributorId)
+         dispatch(addContributorAction(projectId, contributor))
          dispatch(changePendingStatusAction(false))
          return true;
       } catch (err) {
