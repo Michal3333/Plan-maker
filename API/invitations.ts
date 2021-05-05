@@ -31,6 +31,6 @@ export async function sendInvitationAnswer(userId: string, invitationId: string,
       .doc(invitationId)
       .withConverter(invitationConverter)
       .update({
-         answer: answer
+         status: answer
       })
 }
