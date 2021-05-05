@@ -9,13 +9,15 @@ export default class Contributor {
    status: CONTRIBUTOR_STATUS;
    allowMessage: boolean;
    allowDetails: boolean;
+   contributorProjectId: string;
 
-   constructor(id: string, contributorMail: string, status: CONTRIBUTOR_STATUS, allowMessage: boolean, allowDetails: boolean){
+   constructor(id: string, contributorMail: string, status: CONTRIBUTOR_STATUS, allowMessage: boolean, allowDetails: boolean, contributorProjectId: string){
       this.id = new Date().getTime().toString()
       this.contributorMail = contributorMail;
       this.status = status;
       this.allowMessage = allowMessage;
       this.allowDetails = allowDetails;
+      this.contributorProjectId = contributorProjectId;
    }
    setId = (id: string) => {
       this.id = id;
@@ -39,9 +41,10 @@ export const contributorConverter = {
       status: contributor.status,
       allowMessage: contributor.allowMessage,
       allowDetails: contributor.allowDetails,
+      contributorProjectId: contributor.contributorProjectId
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions): Contributor => {
       const data = snapshot.data(options) ;
-      return new Contributor (snapshot.id, data.contributorMail, data.status, data.allowMessage, data.allowDetails)
+      return new Contributor (snapshot.id, data.contributorMail, data.status, data.allowMessage, data.allowDetails, data.contributorProjectId)
   }
 }

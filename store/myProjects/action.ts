@@ -132,7 +132,7 @@ export const asyncAddContributor = (projectId: string, mail : string) : ThunkAct
       try {
          dispatch(changePendingStatusAction(true))
          //TODO add allow flags
-         const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, false, false)
+         const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, false, false, "")
          const contributorId = await addContributor(getState().user.id, contributor, projectId, getState().user.email);
          contributor.setId(contributorId)
          dispatch(addContributorAction(projectId, contributor))

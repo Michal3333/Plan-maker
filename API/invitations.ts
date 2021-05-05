@@ -14,7 +14,9 @@ export async function keepGettingInvitations(userId: string, addInvitaion : (inv
          snapShots.docChanges().forEach(x => {
             if (x.type === "added") {
                const data = x.doc.data()
-               addInvitaion(data)
+               if(data.status === INITATION_STATUS.PENDING){
+                  addInvitaion(data)
+               }
             }
          })
       })
