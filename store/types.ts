@@ -1,6 +1,8 @@
 import Contributor from "../models/Contributor";
+import Invitation from "../models/Invitation";
 import MyProject from "../models/MyProject";
 import NotificationIn from "../models/NotificationIn";
+import { INVITATION_ACTION_TYPES } from "./invitations/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { NOTIFICATIONS_ACTION_TYPES } from "./notifications/action";
 import { USER_ACTION_TYPES } from "./user/action";
@@ -84,7 +86,6 @@ export type NotificationState = {
    unsubscribe : {() : void} | null,
    notifications: NotificationIn[]
 }
-
 export type AddNotifications = {
    type: NOTIFICATIONS_ACTION_TYPES.ADD_NOTIFICATIONS,
    notification : NotificationIn
@@ -95,3 +96,22 @@ export type InitNotifications = {
 }
 
 export type NotificationsActions = AddNotifications | InitNotifications
+
+export type InvitationsState = {
+   unsubscribe : {() : void} | null,
+   invitations: Invitation[]
+}
+export type AnswerInvitation = {
+   type: INVITATION_ACTION_TYPES.ANSWER_INVITATION,
+   invitaionId : string
+}
+export type InitInvitations = {
+   type: INVITATION_ACTION_TYPES.INIT_INVITATIONS,
+   unsubscribe: () => void
+}
+export type AddInvitation = {
+   type: INVITATION_ACTION_TYPES.ADD_INVITATION,
+   invitation : Invitation
+}
+
+export type InvitationActions = AnswerInvitation | InitInvitations | AddInvitation
