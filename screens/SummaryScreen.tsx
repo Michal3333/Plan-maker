@@ -6,6 +6,7 @@ import Screen from '../components/UI/Screen';
 import { keepGettingNotifications } from '../API/notifications';
 // import { testRules } from '../API/myProjects';
 import * as NotificationActions from '../store/notifications/action'
+import * as InvitationActions from '../store/invitations/action'
 
 type Props = {
 
@@ -17,6 +18,7 @@ const SummaryScreen = (props: Props) => {
 
    useEffect(() => {
       dispatch(NotificationActions.asyncKeepGettingNotifications())
+      dispatch(InvitationActions.asyncKeepGettingInvitations())
    }, [])
 
    return (
