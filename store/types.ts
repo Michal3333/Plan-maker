@@ -101,9 +101,9 @@ export type InvitationsState = {
    unsubscribe : {() : void} | null,
    invitations: Invitation[]
 }
-export type AnswerInvitation = {
-   type: INVITATION_ACTION_TYPES.ANSWER_INVITATION,
-   invitaionId : string
+export type DeleteAnsweredInvitation = {
+   type: INVITATION_ACTION_TYPES.DELETE_ANSWER_INVITATION,
+   invitationId : string
 }
 export type InitInvitations = {
    type: INVITATION_ACTION_TYPES.INIT_INVITATIONS,
@@ -114,4 +114,4 @@ export type AddInvitation = {
    invitation : Invitation
 }
 
-export type InvitationActions = AnswerInvitation | InitInvitations | AddInvitation
+export type InvitationActions = DeleteAnsweredInvitation | InitInvitations | AddInvitation

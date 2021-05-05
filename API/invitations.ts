@@ -2,7 +2,7 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import Invitation, { invitationConverter } from "../models/Invitation";
 import NotificationOut, { notificationOutConverter } from "../models/NotificationOut";
-import { FB_COLLECTIONS } from "./collections";
+import { FB_COLLECTIONS, INITATION_STATUS } from "./collections";
 
 export async function keepGettingInvitations(userId: string, addInvitaion : (invitation: Invitation) => void) {
    const db = firebase.firestore();
@@ -18,6 +18,17 @@ export async function keepGettingInvitations(userId: string, addInvitaion : (inv
             }
          })
       })
-
    return unsubsrcibe;
+}
+
+export async function sendInvitationAnswer(userId: string, invitationId: string, answer: INITATION_STATUS){
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.INVITATIONS)
+      .doc(invitationId)
+      .withConverter(invitationConverter)
+      .update({
+         answer: answer
+      })
 }

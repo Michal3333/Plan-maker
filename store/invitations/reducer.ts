@@ -26,6 +26,13 @@ export default (state = initialState, action: InvitationActions | UserActions) :
             console.log('no unsubscribe')
          }
          return initialState
+      case INVITATION_ACTION_TYPES.DELETE_ANSWER_INVITATION:
+         return {
+            ...state,
+            invitations: state.invitations.filter(x => {
+               return x.id !== action.invitationId;
+            })
+         }
    }
    return state;
 } 
