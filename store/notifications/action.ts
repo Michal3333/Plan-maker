@@ -1,13 +1,15 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
-import { keepGettingNotifications } from "../../API/notifications"
+import { deleteNotification, keepGettingNotifications } from "../../API/notifications"
 import NotificationUser from "../../models/NotificationUser"
 import { RootState } from "../store"
-import { AddNotifications, InitNotifications, NotificationsActions } from "../types"
+import { AddNotifications, DeleteNotification, InitNotifications, NotificationsActions, UserActions } from "../types"
+import { changePendingStatusAction } from "../user/action"
 
 export enum NOTIFICATIONS_ACTION_TYPES {
    INIT_NOTIFICATIONS = 'INIT_NOTIFICATIONS',
    ADD_NOTIFICATIONS = 'ADD_NOTIFICATIONS',
+   DELETE_NOTIFICATION = "DELETE_NOTIFICATION"
 }
 
 export const asyncKeepGettingNotifications = () : ThunkAction<void, RootState, unknown, NotificationsActions>  => {
@@ -36,5 +38,27 @@ export const initNotifications = ( unsubscribe : () => void) : InitNotifications
    return {
       type: NOTIFICATIONS_ACTION_TYPES.INIT_NOTIFICATIONS,
       unsubscribe
+   }
+}
+
+export const asyncDeleteNotification = (notificationId : string) : ThunkAction<void, RootState, unknown, NotificationsActions | UserActions>  => {
+   return async (dispatch, getStore) => {
+      try{
+         dispatch(changePendingStatusAction(true))
+         await deleteNotification(getStore().user.id, notificationId);
+         dispatch(deleteNotificationAction(notificationId))
+         dispatch(changePendingStatusAction(false))
+      } catch (err) {
+         dispatch(changePendingStatusAction(false))
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+      }
+   }
+}
+
+export const deleteNotificationAction= (notificationId: string) : DeleteNotification => {
+   return {
+      type: NOTIFICATIONS_ACTION_TYPES.DELETE_NOTIFICATION,
+      notificationId: notificationId
    }
 }

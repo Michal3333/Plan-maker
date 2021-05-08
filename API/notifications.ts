@@ -17,6 +17,14 @@ export async function keepGettingNotifications(userId: string, addNotification :
             }
          })
       })
-
    return unsubsrcibe;
+}
+
+export async function deleteNotification(userId: string, notificationId : string){
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.NOTIFICATIONS)
+      .doc(notificationId)
+      .delete()
 }

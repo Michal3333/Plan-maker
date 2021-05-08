@@ -94,8 +94,11 @@ export type InitNotifications = {
    type: NOTIFICATIONS_ACTION_TYPES.INIT_NOTIFICATIONS,
    unsubscribe: () => void
 }
-
-export type NotificationsActions = AddNotifications | InitNotifications
+export type DeleteNotification = {
+   type: NOTIFICATIONS_ACTION_TYPES.DELETE_NOTIFICATION,
+   notificationId : string
+}
+export type NotificationsActions = AddNotifications | InitNotifications | DeleteNotification
 
 export type InvitationsState = {
    unsubscribe : {() : void} | null,
