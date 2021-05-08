@@ -16,11 +16,6 @@ const SummaryScreen = (props: Props) => {
    const userData = useAppSelector(state => state.user);
    const dispatch = useDispatch();
 
-   useEffect(() => {
-      dispatch(NotificationActions.asyncKeepGettingNotifications())
-      dispatch(InvitationActions.asyncKeepGettingInvitations())
-   }, [])
-
    return (
       <Screen withDrawerButton={true}>
          <Text>{userData.id}</Text>

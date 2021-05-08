@@ -1,4 +1,4 @@
-import { ChangePendingStatus, PendingStatusActions, SignIn, SignOut, UserActions } from "../types";
+import { ChangePendingStatus, InvitationActions, NotificationsActions, PendingStatusActions, SignIn, SignOut, UserActions } from "../types";
 import { ThunkAction } from 'redux-thunk'
 import { RootState } from "../store";
 import { AnyAction, Dispatch } from 'redux'
@@ -15,7 +15,7 @@ export enum USER_ACTION_TYPES {
    SIGN_OUT = 'SIGN_OUT',
 }
 
-export const asyncSignUp = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions | PendingStatusActions>  => {
+export const asyncSignUp = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions | PendingStatusActions | NotificationsActions | InvitationActions>  => {
    return async (dispatch) => {
       try{
          dispatch(changePendingStatusAction(true))
@@ -32,12 +32,14 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
    }
 }
 
-export const asyncSignIn = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions | PendingStatusActions>  => {
+export const asyncSignIn = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions | PendingStatusActions | NotificationsActions | InvitationActions>  => {
    return async (dispatch) => {
       try {
          dispatch(changePendingStatusAction(true))
          const uid = await signIn(email, password);
          dispatch(signInAction(uid, email))
+         dispatch(asyncKeepGettingNotifications())
+         dispatch(asyncKeepGettingInvitations())
          dispatch(changePendingStatusAction(false))
          return true;
       }
