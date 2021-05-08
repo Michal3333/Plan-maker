@@ -23,6 +23,7 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
          dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
          dispatch(signInAction(uid, email))
+         dispatch(changePendingStatusAction(false))
       } catch (err) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
@@ -37,6 +38,7 @@ export const asyncSignIn = (email : string, password: string) : ThunkAction<void
          dispatch(changePendingStatusAction(true))
          const uid = await signIn(email, password);
          dispatch(signInAction(uid, email))
+         dispatch(changePendingStatusAction(false))
          return true;
       }
       catch (err) {

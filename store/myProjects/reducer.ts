@@ -31,7 +31,6 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
             projects : state.projects.map(x => {
                if(x.id === projectShared.id){
                   x.setContributors([]);
-                  return x;
                }
                return x;
             })

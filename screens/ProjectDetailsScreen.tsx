@@ -15,11 +15,9 @@ type Props = {
 }
 
 const ProjectDetailsScreen = (props: Props) => {
-   const [email, setEmail] = useState('');
    const [editMode, setEditMode] = useState(false);
    const [contributorsModal, setContributorsModal] = useState(false)
-   const user = useAppSelector(state => state.user);
-   const id = props.route.params.id
+   const id = props.route.params.id;
    const project = useAppSelector(state => state.myProjects.projects.find(x => x.id === id));
   
    const dispatch = useDispatch()
