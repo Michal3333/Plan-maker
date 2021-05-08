@@ -8,7 +8,7 @@ class NotificationUser {
    read: boolean;
    sender: string;
    constructor(id: string, text: string, type: NOTIFICATION_TYPE, read: boolean, sender: string) {
-      this.id = "";
+      this.id = id;
       this.text = text;
       this.type = type;
       this.read = read;
@@ -23,7 +23,7 @@ export const notificationConverter = {
       sender: notification.sender,
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions): NotificationUser => {
-      const data = snapshot.data();
+      const data = snapshot.data(options);
       return new NotificationUser(snapshot.id, data.text, data.type, data.read, data.sender);
   },
 }
