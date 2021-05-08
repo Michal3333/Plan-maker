@@ -42,7 +42,8 @@ export const getMyProjects = async (userId : string) => {
    dataShared.forEach(x => {
       const project = x.data();
       // TODO fetch contributors
-      project.setContributors([])
+      project.contributors = [];
+      project.shared = true;
       projects.push(project)
    })
    data.forEach(x => projects.push(x.data()))
