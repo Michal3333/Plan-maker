@@ -5,21 +5,28 @@ import NotificationUser from "../models/NotificationUser";
 import { INVITATION_ACTION_TYPES } from "./invitations/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { NOTIFICATIONS_ACTION_TYPES } from "./notifications/action";
+import { PENDING_STATUS_TYPES } from "./pendingStatus/action";
 import { USER_ACTION_TYPES } from "./user/action";
+
+export interface PendingState {
+   pendingLoggin: boolean
+}
+export type ChangePendingStatus = {
+   type: PENDING_STATUS_TYPES.CHANGE_PENDING_STATUS,
+   newStatus : boolean
+}
+
+export type PendingStatusActions = ChangePendingStatus
 
 export interface UserState {
    isLoggedIn: boolean,
-   pendingLoggin: boolean
    id: string,
    email: string
 }
 export interface MyProjectsState {
    projects : MyProject[]
 }
-export type ChangePendingStatus = {
-   type: USER_ACTION_TYPES.CHANGE_PENDING_STATUS,
-   newStatus : boolean
-}
+
 export type SignIn = {
    type : USER_ACTION_TYPES.SIGN_IN,
    id: string,
@@ -29,7 +36,7 @@ export type SignOut = {
    type : USER_ACTION_TYPES.SIGN_OUT
 }
 
-export type UserActions = SignIn | SignOut | ChangePendingStatus
+export type UserActions = SignIn | SignOut
 
 export type SetProjects = {
    type: MY_PROJECTS_ACTION_TYPES.SET_PROJECTS,

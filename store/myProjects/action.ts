@@ -4,9 +4,9 @@ import { CONTRIBUTOR_STATUS } from "../../API/collections"
 import { addContributor, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject from "../../models/MyProject"
+import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, ConvertToNormal, ConvertToShared, MyProjectsActions, RemoveProject, SetProjects, UserActions } from "../types"
-import { changePendingStatusAction } from "../user/action"
+import { AddContributor, AddProject, ConvertToNormal, ConvertToShared, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -18,7 +18,7 @@ export enum MY_PROJECTS_ACTION_TYPES {
    ADD_CONTRIBUTOR = 'ADD_CONTRIBUTOR'
 }
 
-export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try{
          dispatch(changePendingStatusAction(true))
@@ -43,7 +43,7 @@ export const addProjectAction = (project: MyProject) : AddProject => {
    }
 }
 
-export const asyncFetchProjects = () : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncFetchProjects = () : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
@@ -64,7 +64,7 @@ export const setProjectsAction = (projects: MyProject[]) : SetProjects => {
    }
 }
 
-export const asyncDeleteProject = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncDeleteProject = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
@@ -85,7 +85,7 @@ export const deleteProjectAction = (projectId: string) : RemoveProject => {
       projectId: projectId
    }
 }
-export const asyncConvertToShared = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncConvertToShared = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
@@ -106,7 +106,7 @@ export const convertToSharedAction = (sharedProject : MyProject) : ConvertToShar
    }
 }
 
-export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
@@ -127,7 +127,7 @@ export const convertToNormalAction = (normalProject : MyProject) : ConvertToNorm
    }
 }
 
-export const asyncAddContributor = (projectId: string, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | UserActions>  => {
+export const asyncAddContributor = (projectId: string, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))

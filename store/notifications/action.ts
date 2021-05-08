@@ -2,9 +2,10 @@ import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { deleteNotification, keepGettingNotifications } from "../../API/notifications"
 import NotificationUser from "../../models/NotificationUser"
+import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddNotifications, DeleteNotification, InitNotifications, NotificationsActions, UserActions } from "../types"
-import { changePendingStatusAction } from "../user/action"
+import { AddNotifications, DeleteNotification, InitNotifications, NotificationsActions, PendingStatusActions, UserActions } from "../types"
+
 
 export enum NOTIFICATIONS_ACTION_TYPES {
    INIT_NOTIFICATIONS = 'INIT_NOTIFICATIONS',
@@ -41,7 +42,7 @@ export const initNotifications = ( unsubscribe : () => void) : InitNotifications
    }
 }
 
-export const asyncDeleteNotification = (notificationId : string) : ThunkAction<void, RootState, unknown, NotificationsActions | UserActions>  => {
+export const asyncDeleteNotification = (notificationId : string) : ThunkAction<void, RootState, unknown, NotificationsActions | PendingStatusActions>  => {
    return async (dispatch, getStore) => {
       try{
          dispatch(changePendingStatusAction(true))

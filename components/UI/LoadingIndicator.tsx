@@ -9,7 +9,7 @@ type Props = {
 }
 
 const LoadingIndicator = (props: Props) => {
-   const loading = useAppSelector(state => state.user.pendingLoggin);
+   const loading = useAppSelector(state => state.pendingStatus.pendingLoggin);
 
    return (
       <>

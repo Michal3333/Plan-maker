@@ -5,6 +5,7 @@ import userReducer  from './user/reducer'
 import myProjectsReducer from './myProjects/reducer'
 import notificationReducer from './notifications/reducer'
 import invitationReducer from './invitations/reducer'
+import pendingStatusReducer from './pendingStatus/reducer'
 import ReduxThunk from 'redux-thunk'
 
 type Props = {
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
    user: userReducer,
    myProjects: myProjectsReducer,
    notifications: notificationReducer,
-   invitations: invitationReducer
+   invitations: invitationReducer,
+   pendingStatus : pendingStatusReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

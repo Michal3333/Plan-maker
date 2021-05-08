@@ -3,9 +3,9 @@ import { ThunkAction } from "redux-thunk"
 import { INITATION_STATUS } from "../../API/collections"
 import { keepGettingInvitations, sendInvitationAnswer } from "../../API/invitations"
 import Invitation from "../../models/Invitation"
+import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddInvitation, DeleteAnsweredInvitation, InitInvitations, InvitationActions, UserActions } from "../types"
-import { changePendingStatusAction } from "../user/action"
+import { AddInvitation, DeleteAnsweredInvitation, InitInvitations, InvitationActions, PendingStatusActions, UserActions } from "../types"
 
 export enum INVITATION_ACTION_TYPES {
    INIT_INVITATIONS = 'INIT_INVITATIONS',
@@ -41,7 +41,7 @@ export const initInvitations = ( unsubscribe : () => void) : InitInvitations => 
       unsubscribe
    }
 }
-export const asyncAnswerInvitation = (invitationId: string, answer: boolean) : ThunkAction<void, RootState, unknown, InvitationActions | UserActions>  => {
+export const asyncAnswerInvitation = (invitationId: string, answer: boolean) : ThunkAction<void, RootState, unknown, InvitationActions | PendingStatusActions>  => {
    return async (dispatch, getStore) => {
       try{
          dispatch(changePendingStatusAction(true))
