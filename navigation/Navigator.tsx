@@ -12,7 +12,7 @@ import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
 import SignInScreen from '../screens/SignUpScreen';
 import { RootState, useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
-import { DrawerActions } from '@react-navigation/native';
+import { DrawerActions, StackActions, TabActions, CommonActions} from '@react-navigation/native';
 
 
 import SplashScreen from '../screens/SpalshScreen';
@@ -65,7 +65,7 @@ const Navigation = () => {
    return (
       <NavigationContainer >
          {!userData.isLoggedIn ?
-            <Login />
+            <Login isLoggedIn={userData.isLoggedIn}/>
             :
             <AppDrawer logOut={logOut} />
          }
@@ -81,10 +81,11 @@ const AppDrawer = (props: any) => (
 )
 
 
-const Login = () => {
+const Login = (props: any) => {
+   console.log(props.isLoggedIn)
    return (
       <LoginStack.Navigator>
-         <LoginStack.Screen name="Login" component={LoginScreen} />
+         <LoginStack.Screen name="Login" component={LoginScreen} options={{animationTypeForReplace: props.isLoggedIn ? 'pop' : 'push'}}/>
          <LoginStack.Screen name="SignIn" component={SignInScreen} />
       </LoginStack.Navigator>
    );
@@ -160,7 +161,8 @@ function CustomDrawerContent(props: any) {
          <DrawerItem
             label="Log out"
             onPress={() => {
-               props.navigation.dispatch(DrawerActions.toggleDrawer())
+               // props.navigation.dispatch(DrawerActions.toggleDrawer())
+               props.navigation.dispatch(DrawerActions.jumpTo('AppTabs'))
                props.logOut()
             }}
          />

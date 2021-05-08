@@ -1,7 +1,6 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
 import Invitation, { invitationConverter } from "../models/Invitation";
-import NotificationOut, { notificationOutConverter } from "../models/NotificationOut";
 import { FB_COLLECTIONS, INITATION_STATUS } from "./collections";
 
 export async function keepGettingInvitations(userId: string, addInvitaion : (invitation: Invitation) => void) {

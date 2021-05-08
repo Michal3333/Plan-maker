@@ -1,7 +1,7 @@
 import Contributor from "../models/Contributor";
 import Invitation from "../models/Invitation";
 import MyProject from "../models/MyProject";
-import NotificationIn from "../models/NotificationIn";
+import NotificationUser from "../models/NotificationUser";
 import { INVITATION_ACTION_TYPES } from "./invitations/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { NOTIFICATIONS_ACTION_TYPES } from "./notifications/action";
@@ -84,11 +84,11 @@ export type MyProjectsActions = SetProjects | AddProject | RemoveProject | Conve
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,
-   notifications: NotificationIn[]
+   notifications: NotificationUser[]
 }
 export type AddNotifications = {
    type: NOTIFICATIONS_ACTION_TYPES.ADD_NOTIFICATIONS,
-   notification : NotificationIn
+   notification : NotificationUser
 }
 export type InitNotifications = {
    type: NOTIFICATIONS_ACTION_TYPES.INIT_NOTIFICATIONS,

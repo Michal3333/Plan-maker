@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, Text, TextInput, Button, FlatList, Modal } from 'react-native'
 import { useDispatch } from 'react-redux';
-import { createContributorInvitation } from '../API/notifications';
 import Screen from '../components/UI/Screen';
-import NotificationOut, { NotificationType } from '../models/NotificationOut';
 import { MyProjectDetailsNavigationProp, MyProjectDetailsRouteProp } from '../navigation/navigationTypes';
 import { useAppSelector } from '../store/store'
 import * as MyProjectsActions from '../store/myProjects/action'
@@ -25,10 +23,6 @@ const ProjectDetailsScreen = (props: Props) => {
    const project = useAppSelector(state => state.myProjects.projects.find(x => x.id === id));
   
    const dispatch = useDispatch()
-   const sendContributorInvitation = async () => {
-      const notification = new NotificationOut('', NotificationType.request, user.email, email, id)
-      createContributorInvitation(notification, email, user.id);
-   }
    const deleteProject = async () => {
       if(project){
          await dispatch(MyProjectsActions.asyncDeleteProject(project));

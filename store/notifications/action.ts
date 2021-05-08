@@ -1,7 +1,7 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { keepGettingNotifications } from "../../API/notifications"
-import NotificationIn from "../../models/NotificationIn"
+import NotificationUser from "../../models/NotificationUser"
 import { RootState } from "../store"
 import { AddNotifications, InitNotifications, NotificationsActions } from "../types"
 
@@ -13,7 +13,7 @@ export enum NOTIFICATIONS_ACTION_TYPES {
 export const asyncKeepGettingNotifications = () : ThunkAction<void, RootState, unknown, NotificationsActions>  => {
    return async (dispatch, getStore) => {
       try{
-         const callBackAdd = (notifications: NotificationIn) => {
+         const callBackAdd = (notifications: NotificationUser) => {
             dispatch(addNotifications(notifications))
          }
          const unsubscribe = await keepGettingNotifications(getStore().user.id, callBackAdd);
@@ -25,7 +25,7 @@ export const asyncKeepGettingNotifications = () : ThunkAction<void, RootState, u
    }
 }
 
-export const addNotifications = (notification: NotificationIn) : AddNotifications => {
+export const addNotifications = (notification: NotificationUser) : AddNotifications => {
    return {
       type: NOTIFICATIONS_ACTION_TYPES.ADD_NOTIFICATIONS,
       notification: notification
