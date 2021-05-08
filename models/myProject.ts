@@ -18,33 +18,7 @@ export default class MyProject {
    setId = (newId : string) => {
       this.id = newId
    }
-   setNotShared = () => {
-      this.contributors = [];
-      this.shared = false;
-   }
-   setContributors = (contributors : Contributor[]) => {
-      this.contributors = contributors;
-      this.shared = true;
-   }
 
-   updateProjectData = (name: string, color: string, dueDate: Date, weeklyLimit : number) => {
-      this.name = name;
-      this.color = color;
-      this.dueDate = dueDate;
-      this.weeklyLimit = weeklyLimit;
-   }
-
-   addTask = (text: string, dueDate: Date) => {
-      this.tasks.push({
-         id: new Date().getTime().toString(),
-         text: text,
-         done: false,
-         dueDate: dueDate
-      })
-   }
-   addContributor = (contributor: Contributor) => {
-      this.contributors.push(contributor)
-   }
 
 
    constructor(id: string, name: string, color: string, dueDate: Date, tasks: projecTask[], weeklyLimit : number, weeklyDone : number, totalHours : number, shared: boolean){

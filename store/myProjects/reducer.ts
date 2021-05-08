@@ -30,7 +30,11 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
          return {
             projects : state.projects.map(x => {
                if(x.id === projectShared.id){
-                  x.setContributors([]);
+                  // x.setContributors([])
+                  return {
+                     ...x,
+                     shared: true,
+                  }
                }
                return x;
             })
@@ -40,8 +44,12 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
          return {
             projects : state.projects.map(x => {
                if(x.id === projectNormal.id){
-                  console.log(x.shared)
-                  x.setNotShared();
+                  // x.setNotShared();
+                  return {
+                     ...x,
+                     shared: false,
+                     contributors : []
+                  }
                }
                return x;
             })
@@ -51,7 +59,10 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
          return {
             projects: state.projects.map(x => {
                if(x.id === idToAdd){
-                  x.addContributor(acton.contributor)
+                  return {
+                     ...x,
+                     contributors: [...x.contributors, acton.contributor]
+                  }
                }
                return x
             })

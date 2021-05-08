@@ -17,8 +17,8 @@ type Props = {
 const ProjectDetailsScreen = (props: Props) => {
    const [editMode, setEditMode] = useState(false);
    const [contributorsModal, setContributorsModal] = useState(false)
-   const id = props.route.params.id;
-   const project = useAppSelector(state => state.myProjects.projects.find(x => x.id === id));
+   const {id} = props.route.params;
+   const project = useAppSelector(state => state.myProjects.projects).find(x => x.id === id);
   
    const dispatch = useDispatch()
    const deleteProject = async () => {
