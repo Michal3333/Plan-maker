@@ -82,6 +82,19 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                return x;
             })
          }
+      case MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT:
+         return {
+            ...state,
+            projects: state.projects.map(x => {
+               if(x.id === acton.payload.projectId){
+                  return {
+                     ...x,
+                     ...acton.payload.newData
+                  }
+               }
+               return x;
+            })
+         }
    }
    return state;
 } 

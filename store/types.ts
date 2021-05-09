@@ -50,18 +50,18 @@ export type RemoveProject = {
    type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
    projectId: string
 }
-// export type EditProjectData = {
-//    type: MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT,
-//    payload: {
-//       projectId: string,
-//       newData : {
-//          name: string, 
-//          color: string, 
-//          dueDate: Date, 
-//          weeklyLimit : number
-//       }
-//    }
-// }
+export type EditProjectData = {
+   type: MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT,
+   payload: {
+      projectId: string,
+      newData : {
+         name: string, 
+         color: string, 
+         dueDate: Date, 
+         weeklyLimit : number
+      }
+   }
+}
 // export type EditProjectTasks = {
 //    type: MY_PROJECTS_ACTION_TYPES.,
 //    projectId: string,
@@ -86,7 +86,7 @@ export type AddContributor = {
    projectId : string,
    contributor: Contributor 
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,

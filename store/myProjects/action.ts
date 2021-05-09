@@ -1,12 +1,12 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, addTime, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
+import { addContributor, addTime, convertToMyProject, convertToSharedProject, createProject, deleteProject, editProject, getMyProjects } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, AddProjectTime, ConvertToNormal, ConvertToShared, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
+import { AddContributor, AddProject, AddProjectTime, ConvertToNormal, ConvertToShared, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -177,6 +177,38 @@ export const addTimeAction = (projectId: string, time: number) : AddProjectTime 
       type: MY_PROJECTS_ACTION_TYPES.ADD_TIME,
       projectId: projectId,
       time: time,
+   }
+}
+
+export const asyncEditProjectData = (projectId: string, shared: boolean, name: string, dueDate: Date, color: string, weeklyLimit: number) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         dispatch(changePendingStatusAction(true))
+         await editProject(getState().user.id, projectId, shared, name, dueDate, color, weeklyLimit);
+         dispatch(editProjectAction(projectId, name, dueDate, color, weeklyLimit))
+         dispatch(changePendingStatusAction(false))
+         return true;
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+         return false;
+      }
+   }
+}
+
+export const editProjectAction = (projectId: string, name: string, dueDate: Date, color: string, weeklyLimit: number) : EditProjectData => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT,
+      payload: {
+         newData : {
+            color,
+            name,
+            dueDate,
+            weeklyLimit
+         },
+         projectId: projectId
+      }
    }
 }
 

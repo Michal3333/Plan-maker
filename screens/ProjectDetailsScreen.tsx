@@ -67,6 +67,10 @@ const ProjectDetailsScreen = (props: Props) => {
             <Button title="Add 2h" onPress={() => {
                dispatch(MyProjectsActions.asyncAddTime(project.id, project.shared, 2))
             }}/>
+
+            <Button title="updated +1h and + 1 to name" onPress={() => {
+               dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, project.name + '1', project.dueDate, project.color, project.weeklyLimit + 1))
+            }}/>
             
             
            

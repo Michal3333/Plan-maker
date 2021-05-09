@@ -128,6 +128,20 @@ export const addTime = async (userId: string, projectId: string, shared: boolean
          totalHours: firebase.firestore.FieldValue.increment(time),
       })
 }
+
+export const editProject = async (userId: string, projectId: string, shared: boolean, name: string, dueDate: Date, color: string, weeklyLimit: number) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
+      .doc(projectId)
+      .update({
+         name,
+         color,
+         weeklyLimit,
+         dueDate: firebase.firestore.Timestamp.fromDate(dueDate),
+      })
+}
 // export const testRules = async () => {
 //    try {
 //       const db = firebase.firestore();
