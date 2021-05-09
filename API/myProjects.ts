@@ -38,14 +38,23 @@ export const getMyProjects = async (userId : string) => {
       .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
       .withConverter(sharedProjectConverter)
       .get()
-   const projects : MyProject[] = []
-   dataShared.forEach(x => {
-      const project = x.data();
-      // TODO fetch contributors
+   const projects : MyProject[] = [];
+   const sharedDocs = dataShared.docs;
+   for(let i = 0; i < sharedDocs.length; i++){
+      const sharedDoc = sharedDocs[i];
+      const project = sharedDoc.data();
       project.contributors = [];
       project.shared = true;
+      const contributors = await sharedDoc.ref.collection(FB_COLLECTIONS.CONTRIBUTORS)
+      .withConverter(contributorConverter)
+      .get();
+      contributors.forEach(contributor => {
+         const contributorData = contributor.data();
+         project.contributors.push(contributorData);
+      })
       projects.push(project)
-   })
+
+   }
    data.forEach(x => projects.push(x.data()))
    return projects
 }
