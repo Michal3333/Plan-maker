@@ -2,8 +2,6 @@ import { NotificationsActions, NotificationState, UserActions,  } from "../types
 import { USER_ACTION_TYPES } from "../user/action";
 import { NOTIFICATIONS_ACTION_TYPES } from "./action";
 
-
-
 const initialState : NotificationState = {
    notifications: [],
    unsubscribe: null
