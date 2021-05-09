@@ -116,6 +116,18 @@ export const addContributor = async (userId: string, contributor: Contributor, p
       throw new Error('No emial')
    }
 }
+
+export const addTime = async (userId: string, projectId: string, shared: boolean, time: number) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
+      .doc(projectId)
+      .update({
+         weeklyDone: firebase.firestore.FieldValue.increment(time),
+         totalHours: firebase.firestore.FieldValue.increment(time),
+      })
+}
 // export const testRules = async () => {
 //    try {
 //       const db = firebase.firestore();

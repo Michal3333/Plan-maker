@@ -68,11 +68,11 @@ export type RemoveProject = {
 //    newData : MyProject
 // }
 
-// export type AddProjectTime = {
-//    type: MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT,
-//    projectId: string,
-//    time : number
-// }
+export type AddProjectTime = {
+   type: MY_PROJECTS_ACTION_TYPES.ADD_TIME,
+   projectId: string,
+   time : number
+}
 export type ConvertToShared = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
    sharedProject : MyProject
@@ -86,8 +86,7 @@ export type AddContributor = {
    projectId : string,
    contributor: Contributor 
 }
-// export type MyProjectsActions = SetProjects | AddProject | RemoveProject | EditProjectData | EditProjectTasks | ConvertToShared | ConvertToNormal
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,

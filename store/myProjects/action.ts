@@ -1,18 +1,19 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
+import { addContributor, addTime, convertToMyProject, convertToSharedProject, createProject, deleteProject, getMyProjects } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, ConvertToNormal, ConvertToShared, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
+import { AddContributor, AddProject, AddProjectTime, ConvertToNormal, ConvertToShared, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
    ADD_PROJECT = 'ADD_PROJECT',
    REMOVE_PROJECT = 'REMOVE_PROJECT',
    EDIT_PROJECT = 'EDIT_PROJECT',
+   ADD_TIME = 'ADD_TIME',
    CONVERT_TO_SHARED = 'CONVERT_TO_SHARED',
    CONVERT_TO_NORMAL = 'CONVERT_TO_NORMAL',
    ADD_CONTRIBUTOR = 'ADD_CONTRIBUTOR'
@@ -151,6 +152,31 @@ export const addContributorAction = (projectId: string, contributor: Contributor
       type: MY_PROJECTS_ACTION_TYPES.ADD_CONTRIBUTOR,
       projectId: projectId,
       contributor: contributor
+   }
+}
+
+export const asyncAddTime = (projectId: string, shared: boolean, time: number) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         dispatch(changePendingStatusAction(true))
+         await addTime(getState().user.id, projectId, shared, time);
+         dispatch(addTimeAction(projectId, time))
+         dispatch(changePendingStatusAction(false))
+         return true;
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+         return false;
+      }
+   }
+}
+
+export const addTimeAction = (projectId: string, time: number) : AddProjectTime => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.ADD_TIME,
+      projectId: projectId,
+      time: time,
    }
 }
 

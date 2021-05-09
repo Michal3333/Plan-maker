@@ -62,10 +62,12 @@ const ProjectDetailsScreen = (props: Props) => {
                            <ContributorsModal closeModel={() => {setContributorsModal(false)}} contributors={project.contributors} addConributor={addContributor}/>
                      </Modal>
                   </View>
-                  
                )
-              
             }
+            <Button title="Add 2h" onPress={() => {
+               dispatch(MyProjectsActions.asyncAddTime(project.id, project.shared, 2))
+            }}/>
+            
             
            
 
