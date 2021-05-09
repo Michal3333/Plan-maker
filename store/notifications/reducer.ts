@@ -21,6 +21,11 @@ export default (state = initialState, action: NotificationsActions | UserActions
             ...state,
             notifications: [...state.notifications, action.notification]
          }
+      case NOTIFICATIONS_ACTION_TYPES.DELETE_NOTIFICATION:
+         return {
+            ...state,
+            notifications : state.notifications.filter(x => x.id !== action.notificationId)
+         }
       case USER_ACTION_TYPES.SIGN_OUT:
          if(state.unsubscribe){
             state.unsubscribe()
