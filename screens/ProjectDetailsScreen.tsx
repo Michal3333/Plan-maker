@@ -46,8 +46,6 @@ const ProjectDetailsScreen = (props: Props) => {
             <Text>{project.weeklyLimit}</Text>
             <Text>{project.weeklyDone}</Text>
             <Text>{project.totalHours}</Text>
-            {/* <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
-            <Button title="Add Contributor" onPress={sendContributorInvitation}/> */}
             <Button title="Delete Project" onPress={deleteProject}/>
 
             {

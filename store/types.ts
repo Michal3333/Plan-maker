@@ -86,7 +86,12 @@ export type AddContributor = {
    projectId : string,
    contributor: Contributor 
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData
+export type DeleteContributor = {
+   type: MY_PROJECTS_ACTION_TYPES.DELETE_CONTRIBUTOR,
+   contributorId : string,
+   projectId: string
+}
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,

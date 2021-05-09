@@ -117,6 +117,18 @@ export const addContributor = async (userId: string, contributor: Contributor, p
    }
 }
 
+export const deleteContributor = async (userId: string, projectId: string ,contributorId: string) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
+      .doc(projectId)
+      .collection(FB_COLLECTIONS.CONTRIBUTORS)
+      .doc(contributorId)
+      .delete()
+}
+
+
 export const addTime = async (userId: string, projectId: string, shared: boolean, time: number) => {
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)

@@ -67,6 +67,20 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                return x
             })
          }
+      case MY_PROJECTS_ACTION_TYPES.DELETE_CONTRIBUTOR:
+         return {
+            ...state,
+            projects: state.projects.map(x => {
+               if(x.id === acton.projectId){
+                  const newContributors = x.contributors.filter(x => x.id === acton.contributorId);
+                  return {
+                     ...x,
+                     contributors: newContributors
+                  }
+               }
+               return x;
+            })
+         }
       case MY_PROJECTS_ACTION_TYPES.ADD_TIME:
          const timeToAdd = acton.time;
          return {
