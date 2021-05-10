@@ -27,6 +27,12 @@ const ProjectDetailsScreen = (props: Props) => {
          props.navigation.goBack()
       }
    }
+   const deleteContributor = (contributorId : string) => {
+      if(project){
+         console.log(contributorId)
+         dispatch(MyProjectsActions.asyncDeleteContributor(project.id, contributorId));
+      }
+   }
    const addContributor = async (email:string) => {
       if(project){
          const result = await dispatch(MyProjectsActions.asyncAddContributor(project.id, email));
@@ -57,7 +63,7 @@ const ProjectDetailsScreen = (props: Props) => {
                      <Button title="Convert To Normal Project" onPress={() => {dispatch(MyProjectsActions.asyncConvertToNormal(project));}}/>
                      <Button title="Contributors" onPress={() => {setContributorsModal(true)}}/>
                      <Modal  animationType='slide' visible={contributorsModal} presentationStyle="pageSheet" >
-                           <ContributorsModal closeModel={() => {setContributorsModal(false)}} contributors={project.contributors} addConributor={addContributor}/>
+                           <ContributorsModal closeModel={() => {setContributorsModal(false)}} contributors={project.contributors} addConributor={addContributor} deleteContributor={deleteContributor}/>
                      </Modal>
                   </View>
                )

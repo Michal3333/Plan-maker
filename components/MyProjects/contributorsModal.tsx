@@ -7,7 +7,8 @@ import Screen from '../UI/Screen';
 type Props = {
    addConributor: (email: string) => void,
    closeModel: () => void,
-   contributors : Contributor[]
+   contributors : Contributor[],
+   deleteContributor: (contributorId: string) => void  
 }
 
 const ContributorsModal = (props : Props) => {
@@ -22,7 +23,10 @@ const ContributorsModal = (props : Props) => {
             <Button title="Add" onPress={() => props.addConributor(email)}/>
             <Button title="Cancel" onPress={props.closeModel}/>
          </View>
-         <FlatList data={props.contributors} renderItem={(itemData) => <Text>{itemData.item.contributorMail}</Text>}/>
+         <FlatList data={props.contributors} renderItem={(itemData) => <View>
+               <Text>{itemData.item.contributorMail}</Text>
+               <Button title="delete" onPress={() => {props.deleteContributor(itemData.item.id)}}/>
+            </View>}/>
       </Screen>
       
    )

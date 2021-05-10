@@ -12,7 +12,7 @@ export default class Contributor {
    contributorProjectId: string;
 
    constructor(id: string, contributorMail: string, status: CONTRIBUTOR_STATUS, allowMessage: boolean, allowDetails: boolean, contributorProjectId: string){
-      this.id = new Date().getTime().toString()
+      this.id = id;
       this.contributorMail = contributorMail;
       this.status = status;
       this.allowMessage = allowMessage;

@@ -68,11 +68,15 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
             })
          }
       case MY_PROJECTS_ACTION_TYPES.DELETE_CONTRIBUTOR:
+         console.log(state)
+         console.log(acton.projectId)
+         console.log(acton.contributorId)
          return {
             ...state,
             projects: state.projects.map(x => {
                if(x.id === acton.projectId){
-                  const newContributors = x.contributors.filter(x => x.id === acton.contributorId);
+                  const newContributors = x.contributors.filter(x => x.id !== acton.contributorId);
+                  console.log('xd')
                   return {
                      ...x,
                      contributors: newContributors
