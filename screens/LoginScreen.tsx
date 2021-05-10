@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       alignItems: "center",
       paddingVertical: 60,
-      borderColor: "#264653",
-      borderWidth: 7,
+      // borderColor: "#264653",
+      // borderWidth: 7,
    },
    titleBox: {
       width: "100%",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
    text: {
       textAlign: 'left',
       width: "80%",
-      color: '#264653',
+      color: '#2A9D8F',
       fontFamily: 'open-sans-bold',
       fontSize: 20,
    }
