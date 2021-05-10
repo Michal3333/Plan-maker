@@ -25,7 +25,7 @@ const MyProjectsScreen = (props: Props) => {
       props.navigation.setOptions({
          headerRight : () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='add project' iconName={'ios-add'} onPress={() => {setCreateNewProjectModal(true)}}/>
+               <Item title='add project' iconName={'ios-add'} color="#264653" onPress={() => {setCreateNewProjectModal(true)}}/>
             </HeaderButtons>
          )
       })

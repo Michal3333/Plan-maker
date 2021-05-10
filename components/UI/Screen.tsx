@@ -22,7 +22,7 @@ const Screen = (props: Props) => {
          navigation.setOptions({
             headerLeft : () => (
                <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                  <Item title='Orders' iconName={'ios-menu'} onPress={() => {navigation.dispatch(DrawerActions.toggleDrawer())}}/>
+                  <Item title='Orders' iconName={'ios-menu'} color="#264653" onPress={() => {navigation.dispatch(DrawerActions.toggleDrawer())}}/>
                </HeaderButtons>
             )
          })

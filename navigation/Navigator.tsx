@@ -11,8 +11,11 @@ import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
 import SignInScreen from '../screens/SignUpScreen';
 import { RootState, useAppSelector } from '../store/store'
+import {Image} from 'react-native'
 import { useDispatch } from 'react-redux';
 import { DrawerActions, StackActions, TabActions, CommonActions} from '@react-navigation/native';
+import * as Font from 'expo-font'
+
 
 
 import SplashScreen from '../screens/SpalshScreen';
@@ -49,6 +52,10 @@ const Navigation = () => {
          if (user) {
             dispatch(userActions.signInAction(user.uid, user.email as string))
          }
+         await Font.loadAsync({
+            'open-sans' : require('../assets/fonts/OpenSans-Regular.ttf'),
+            'open-sans-bold' : require('../assets/fonts/OpenSans-Bold.ttf')
+         })
          setIsLoading(false)
       }
       fetchKey()
@@ -84,7 +91,7 @@ const AppDrawer = (props: any) => (
 const Login = (props: any) => {
    console.log(props.isLoggedIn)
    return (
-      <LoginStack.Navigator>
+      <LoginStack.Navigator screenOptions={defaultStackOptions}>
          <LoginStack.Screen name="Login" component={LoginScreen} options={{animationTypeForReplace: props.isLoggedIn ? 'pop' : 'push'}}/>
          <LoginStack.Screen name="SignIn" component={SignInScreen} />
       </LoginStack.Navigator>
@@ -93,7 +100,7 @@ const Login = (props: any) => {
 
 const AppTabs = () => {
    return (
-      <AppTab.Navigator>
+      <AppTab.Navigator >
          <AppTab.Screen name="Summary" component={Summary} options={{tabBarIcon: conf => <Ionicons name="ios-analytics" size={25} color={conf.color}/>}}/>
          <AppTab.Screen name="MyProjetcs" component={MyProjects} options={{tabBarIcon: conf => <Ionicons name="ios-albums-outline" size={25} color={conf.color}/>}}/>
          <AppTab.Screen name="OtherProjects" component={OtherProjecsts} options={{tabBarIcon: conf => <Ionicons name="ios-eye" size={25} color={conf.color}/>}}/>
@@ -104,7 +111,7 @@ const AppTabs = () => {
 
 const Summary = () => {
    return (
-      <SummaryStack.Navigator>
+      <SummaryStack.Navigator screenOptions={defaultStackOptions}>
          <SummaryStack.Screen name="Summary" component={SummaryScreen} />
       </SummaryStack.Navigator>
    )
@@ -113,7 +120,7 @@ const Summary = () => {
 
 const MyProjects = () => {
    return (
-      <MyProjectsStack.Navigator>
+      <MyProjectsStack.Navigator screenOptions={defaultStackOptions}>
          <MyProjectsStack.Screen name="MyProjects" component={MyProjectsScreen} />
          <MyProjectsStack.Screen name="ProjectDetails" component={ProjectDetailsScreen} />
       </MyProjectsStack.Navigator>
@@ -122,7 +129,7 @@ const MyProjects = () => {
 
 const OtherProjecsts = () => {
    return (
-      <OtherProjecstStack.Navigator>
+      <OtherProjecstStack.Navigator screenOptions={defaultStackOptions}>
          <OtherProjecstStack.Screen name="OtherProjects" component={OtherProjectsScreen} />
          <OtherProjecstStack.Screen name="ProjectDetails" component={ProjectDetailsScreen} />
       </OtherProjecstStack.Navigator>
@@ -131,7 +138,7 @@ const OtherProjecsts = () => {
 
 const  Messages = () => {
    return (
-      <MessagesStack.Navigator>
+      <MessagesStack.Navigator screenOptions={defaultStackOptions}>
          <MessagesStack.Screen name='Messages' component={MessagesScreen}/>
       </MessagesStack.Navigator>
    )
@@ -139,7 +146,7 @@ const  Messages = () => {
 
 const  Invitations = () => {
    return (
-      <InvitationsStack.Navigator>
+      <InvitationsStack.Navigator screenOptions={defaultStackOptions}>
          <InvitationsStack.Screen name='Invitations' component={InvitationsScreen}/>
       </InvitationsStack.Navigator>
    )
@@ -168,6 +175,19 @@ function CustomDrawerContent(props: any) {
          />
       </DrawerContentScrollView>
    );
+}
+
+const defaultStackOptions: StackNavigationOptions = {
+   headerStyle: {
+      backgroundColor: '#1D272B',
+   },
+   headerTitleStyle: {
+      fontFamily: 'open-sans-bold',
+   },
+   headerBackTitleStyle: {
+      fontFamily: 'open-sans',
+   },
+   headerTintColor: "#264653",
 }
 
 
