@@ -6,25 +6,28 @@ import { MyProjectDetailsNavigationProp, MyProjectDetailsRouteProp } from '../na
 import { useAppSelector } from '../store/store'
 import * as MyProjectsActions from '../store/myProjects/action'
 import ContributorsModal from '../components/MyProjects/contributorsModal';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 
 type Props = {
-   route: MyProjectDetailsRouteProp,
-   navigation: MyProjectDetailsNavigationProp
+   // route: MyProjectDetailsRouteProp,
+   // navigation: MyProjectDetailsNavigationProp
 }
 
 const ProjectDetailsScreen = (props: Props) => {
+   const navigation = useNavigation<MyProjectDetailsNavigationProp>();
+   const route = useRoute<MyProjectDetailsRouteProp>();
    const [editMode, setEditMode] = useState(false);
    const [contributorsModal, setContributorsModal] = useState(false)
-   const {id} = props.route.params;
+   const {id} = route.params;
    const project = useAppSelector(state => state.myProjects.projects).find(x => x.id === id);
   
    const dispatch = useDispatch()
    const deleteProject = async () => {
       if(project){
          await dispatch(MyProjectsActions.asyncDeleteProject(project));
-         props.navigation.goBack()
+         navigation.goBack()
       }
    }
    const deleteContributor = (contributorId : string) => {

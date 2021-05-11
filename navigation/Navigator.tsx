@@ -25,6 +25,7 @@ import { checkIfUserSignIn } from '../API/authorisation';
 import MessagesScreen from '../screens/MessagesScreen';
 import InvitationsScreen from '../screens/InvitationsScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { useAssets } from 'expo-asset';
 // import CustomDrawerContent from './CustomDrawer';
 
 
@@ -32,18 +33,30 @@ const AppDrawerNavigator = createDrawerNavigator<AppDrawerParamList>();
 const LoginStack = createStackNavigator<LoginStackParamList>();
 const AppTab = createBottomTabNavigator<TabNavigationParamList>();
 const SummaryStack = createStackNavigator<SummaryStackParamList>();
+
 const MyProjectsStack = createStackNavigator<MyProjectsStackParamList>();
+
 const OtherProjecstStack = createStackNavigator<OtherProjectsStackParamList>();
 const NotificationsTab = createBottomTabNavigator<NotificationTabNavigationParamList>();
 const MessagesStack = createStackNavigator<MessagesStackParamList>();
 const InvitationsStack = createStackNavigator<InvitationsStackParamList>();
 
-
-
+const fakeTimer = new Promise(resolve => {
+   setTimeout(() => {
+      resolve(true)
+   }, 5000)
+})
 const Navigation = () => {
    const userData = useAppSelector((state) => state.user);
    const [isLoading, setIsLoading] = useState(true);
    const dispatch = useDispatch()
+   const [assets] = useAssets([require('../assets/background1_more_colors.png'),
+      require('../assets/background1.png'),
+      require('../assets/background1_half.png'),
+      require('../assets/background_big.png'),
+      require('../assets/background1_half_no_white.png'),
+      require('../assets/background1_spread.png')
+   ]);
 
    useEffect(() => {
       async function fetchKey() {
@@ -56,6 +69,7 @@ const Navigation = () => {
             'open-sans' : require('../assets/fonts/OpenSans-Regular.ttf'),
             'open-sans-bold' : require('../assets/fonts/OpenSans-Bold.ttf')
          })
+         await fakeTimer;
          setIsLoading(false)
       }
       fetchKey()
@@ -65,7 +79,7 @@ const Navigation = () => {
       dispatch(userActions.asyncSignOut())
    }
 
-   if (isLoading) {
+   if (isLoading || !assets) {
       return <SplashScreen />
    }
 
