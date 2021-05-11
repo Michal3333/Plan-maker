@@ -45,10 +45,8 @@ const MainApp = () => {
    let assetsNotLoaded = true;
    if(assets) assetsNotLoaded = false;
 
-   const logOut = () => {
-      dispatch(userActions.asyncSignOut())
-   }
-   return <Navigation logOut={logOut} isLoggedIn={userData.isLoggedIn} appLoaded={isLoading || assetsNotLoaded}/>
+   
+   return <Navigation isLoggedIn={userData.isLoggedIn} appLoaded={isLoading || assetsNotLoaded}/>
 }
 
 export default MainApp

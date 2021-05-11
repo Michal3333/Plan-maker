@@ -53,6 +53,7 @@ export type MyProjectsNavigationProp = StackNavigationProp<MyProjectsStackParamL
 export type MyProjectDetailsNavigationProp = StackNavigationProp<MyProjectsStackParamList, 'ProjectDetails'>
 
 export type MyProjectDetailsRouteProp = RouteProp<MyProjectsStackParamList, 'ProjectDetails'>
+export type SummaryNavigationProp = StackNavigationProp<SummaryStackParamList, 'Summary'>
 
 
 

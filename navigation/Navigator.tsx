@@ -11,10 +11,10 @@ import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
 import SignInScreen from '../screens/SignUpScreen';
 import { DrawerActions, StackActions, TabActions, CommonActions} from '@react-navigation/native';
-import SplashScreen from '../screens/SpalshScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import InvitationsScreen from '../screens/InvitationsScreen';
 import { Ionicons } from '@expo/vector-icons';
+import AppLoading from 'expo-app-loading'
 
 
 const AppDrawerNavigator = createDrawerNavigator<AppDrawerParamList>();
@@ -32,26 +32,25 @@ const InvitationsStack = createStackNavigator<InvitationsStackParamList>();
 type Props = {
    appLoaded: boolean,
    isLoggedIn : boolean,
-   logOut: () => void
 }
 
 const Navigation = (props: Props) => {
    if (props.appLoaded) {
-      return <SplashScreen />
+      return <AppLoading />
    }
    return (
       <NavigationContainer >
          {!props.isLoggedIn ?
             <Login/>
             :
-            <AppDrawer logOut={props.logOut} />
+            <AppDrawer/>
          }
       </NavigationContainer>
    )
 }
 
 const AppDrawer = (props: any) => (
-   <AppDrawerNavigator.Navigator drawerContent={(drawerProps) => <CustomDrawerContent {...drawerProps} logOut={props.logOut} />}>
+   <AppDrawerNavigator.Navigator >
       <AppDrawerNavigator.Screen name="AppTabs" component={AppTabs} />
       <AppDrawerNavigator.Screen name="NotificationsTab" component={NotificationsTabs} />
    </AppDrawerNavigator.Navigator>
@@ -130,20 +129,6 @@ const NotificationsTabs = () => {
    )
 }
 
-function CustomDrawerContent(props: any) {
-   return (
-      <DrawerContentScrollView {...props}>
-         <DrawerItemList {...props} />
-         <DrawerItem
-            label="Log out"
-            onPress={() => {
-               props.navigation.dispatch(DrawerActions.jumpTo('AppTabs'))
-               props.logOut()
-            }}
-         />
-      </DrawerContentScrollView>
-   );
-}
 
 const defaultStackOptions: StackNavigationOptions = {
    headerStyle: {
