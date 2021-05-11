@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
@@ -10,23 +10,11 @@ import MyProjectsScreen from '../screens/MyProjectsScreen';
 import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
 import SignInScreen from '../screens/SignUpScreen';
-import { RootState, useAppSelector } from '../store/store'
-import {Image} from 'react-native'
-import { useDispatch } from 'react-redux';
 import { DrawerActions, StackActions, TabActions, CommonActions} from '@react-navigation/native';
-import * as Font from 'expo-font'
-
-
-
 import SplashScreen from '../screens/SpalshScreen';
-import * as SecureStore from 'expo-secure-store';
-import * as userActions from '../store/user/action'
-import { checkIfUserSignIn } from '../API/authorisation';
 import MessagesScreen from '../screens/MessagesScreen';
 import InvitationsScreen from '../screens/InvitationsScreen';
 import { Ionicons } from '@expo/vector-icons';
-import { useAssets } from 'expo-asset';
-// import CustomDrawerContent from './CustomDrawer';
 
 
 const AppDrawerNavigator = createDrawerNavigator<AppDrawerParamList>();
@@ -41,54 +29,22 @@ const NotificationsTab = createBottomTabNavigator<NotificationTabNavigationParam
 const MessagesStack = createStackNavigator<MessagesStackParamList>();
 const InvitationsStack = createStackNavigator<InvitationsStackParamList>();
 
-const fakeTimer = new Promise(resolve => {
-   setTimeout(() => {
-      resolve(true)
-   }, 5000)
-})
-const Navigation = () => {
-   const userData = useAppSelector((state) => state.user);
-   const [isLoading, setIsLoading] = useState(true);
-   const dispatch = useDispatch()
-   const [assets] = useAssets([require('../assets/background1_more_colors.png'),
-      require('../assets/background1.png'),
-      require('../assets/background1_half.png'),
-      require('../assets/background_big.png'),
-      require('../assets/background1_half_no_white.png'),
-      require('../assets/background1_spread.png')
-   ]);
+type Props = {
+   appLoaded: boolean,
+   isLoggedIn : boolean,
+   logOut: () => void
+}
 
-   useEffect(() => {
-      async function fetchKey() {
-         console.log('checking if logged in');
-         const user = await checkIfUserSignIn()
-         if (user) {
-            dispatch(userActions.signInAction(user.uid, user.email as string))
-         }
-         await Font.loadAsync({
-            'open-sans' : require('../assets/fonts/OpenSans-Regular.ttf'),
-            'open-sans-bold' : require('../assets/fonts/OpenSans-Bold.ttf')
-         })
-         await fakeTimer;
-         setIsLoading(false)
-      }
-      fetchKey()
-   }, [])
-
-   const logOut = () => {
-      dispatch(userActions.asyncSignOut())
-   }
-
-   if (isLoading || !assets) {
+const Navigation = (props: Props) => {
+   if (props.appLoaded) {
       return <SplashScreen />
    }
-
    return (
       <NavigationContainer >
-         {!userData.isLoggedIn ?
-            <Login isLoggedIn={userData.isLoggedIn}/>
+         {!props.isLoggedIn ?
+            <Login/>
             :
-            <AppDrawer logOut={logOut} />
+            <AppDrawer logOut={props.logOut} />
          }
       </NavigationContainer>
    )
@@ -103,10 +59,9 @@ const AppDrawer = (props: any) => (
 
 
 const Login = (props: any) => {
-   console.log(props.isLoggedIn)
    return (
       <LoginStack.Navigator screenOptions={defaultStackOptions}>
-         <LoginStack.Screen name="Login" component={LoginScreen} options={{animationTypeForReplace: props.isLoggedIn ? 'pop' : 'push'}}/>
+         <LoginStack.Screen name="Login" component={LoginScreen}/>
          <LoginStack.Screen name="SignIn" component={SignInScreen} />
       </LoginStack.Navigator>
    );
@@ -182,7 +137,6 @@ function CustomDrawerContent(props: any) {
          <DrawerItem
             label="Log out"
             onPress={() => {
-               // props.navigation.dispatch(DrawerActions.toggleDrawer())
                props.navigation.dispatch(DrawerActions.jumpTo('AppTabs'))
                props.logOut()
             }}

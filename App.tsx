@@ -3,10 +3,8 @@ import React from 'react';
 import * as firebase from 'firebase';
 import apiKeys from './config/keys';
 import { StyleSheet, Text, View } from 'react-native';
-import Navigation from './navigation/Navigator';
 import StoreProvider, { RootState } from './store/store'
-import * as SecureStore from 'expo-secure-store';
-
+import MainApp from './navigation/MainApp';
 
 
 
@@ -22,7 +20,7 @@ export default function App() {
 
    return (
       <StoreProvider>
-         <Navigation/>
+         <MainApp/>
       </StoreProvider>
    );
 }
