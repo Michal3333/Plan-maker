@@ -11,7 +11,7 @@ import Navigation from './Navigator';
 const fakeTimer = new Promise(resolve => {
    setTimeout(() => {
       resolve(true)
-   }, 5000)
+   }, 1500)
 })
 
 const MainApp = () => {
