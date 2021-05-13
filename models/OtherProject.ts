@@ -1,6 +1,5 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
-import Contributor from "./Contributor";
 import { projecTask } from "./MyProject";
 
 export default class OtherProject {
