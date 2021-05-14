@@ -3,7 +3,7 @@ import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerNavigationOptions, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { AppDrawerParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
+import { AppDrawerParamList, AppStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
 import LoginScreen from '../screens/LoginScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
@@ -16,7 +16,7 @@ import InvitationsScreen from '../screens/InvitationsScreen';
 import { Ionicons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading'
 
-
+const AppStack = createStackNavigator<AppStackParamList>()
 const AppDrawerNavigator = createDrawerNavigator<AppDrawerParamList>();
 const LoginStack = createStackNavigator<LoginStackParamList>();
 const AppTab = createBottomTabNavigator<TabNavigationParamList>();
@@ -40,11 +40,17 @@ const Navigation = (props: Props) => {
    }
    return (
       <NavigationContainer >
+         <AppStack.Navigator  screenOptions={{
+               headerShown: false,
+               
+         }}>
          {!props.isLoggedIn ?
-            <Login/>
+            <AppStack.Screen name="Auth" component={Login}/>
             :
-            <AppDrawer/>
+            <AppStack.Screen name="App" component={AppDrawer}/>
          }
+         </AppStack.Navigator>
+        
       </NavigationContainer>
    )
 }
@@ -133,6 +139,7 @@ const NotificationsTabs = () => {
 const defaultStackOptions: StackNavigationOptions = {
    headerStyle: {
       backgroundColor: '#1D272B',
+      shadowColor: 'transparent'
    },
    headerTitleStyle: {
       fontFamily: 'open-sans-bold',

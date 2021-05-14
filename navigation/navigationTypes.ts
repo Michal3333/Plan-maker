@@ -1,6 +1,11 @@
 import { StackNavigationProp } from "@react-navigation/stack"
 import { RouteProp } from '@react-navigation/native';
 
+export type AppStackParamList = {
+   Auth: LoginStackParamList,
+   App: AppDrawerParamList
+}
+
 export type AppDrawerParamList = {
    AppTabs: TabNavigationParamList,
    NotificationsTab : NotificationTabNavigationParamList
