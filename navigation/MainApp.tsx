@@ -23,7 +23,10 @@ const MainApp = () => {
       require('../assets/background1_half.png'),
       require('../assets/background_big.png'),
       require('../assets/background1_half_no_white.png'),
-      require('../assets/background1_spread.png')
+      require('../assets/background1_spread.png'),
+      require('../assets/background-black.png'),
+      require('../assets/honey.png'),
+      require('../assets/notblack.png')
    ]);
    useEffect(() => {
       async function fetchKey() {

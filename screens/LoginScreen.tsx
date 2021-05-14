@@ -12,7 +12,7 @@ type Props = {
    navigation: SignInScreenNavigationProp
 }
 
-export const assets = [require('../assets/background1_more_colors.png')]
+export const assets = [require('../assets/notblack.png')]
 
 const LoginScreen = (props: Props) => {
    const dispatch = useDispatch()
@@ -32,9 +32,9 @@ const LoginScreen = (props: Props) => {
                <Text style={styles.text}>Password</Text>
                <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} value={password} />
                <Button title="Sign in" onPress={() => {dispatch(userActions.asyncSignIn(email, password))}}
-                  disabled={email === '' || password === ''} color="#2A9D8F"/>
+                  disabled={email === '' || password === ''} color="white"/>
 
-               <Button title="Sign up" onPress={() => { props.navigation.navigate('SignIn') }} color="#2A9D8F"/>
+               <Button title="Sign up" onPress={() => { props.navigation.navigate('SignIn') }} color="white"/>
                {/* <MainButton title="sign in" onPress={() => {dispatch(userActions.asyncSignIn(email, password))}}/>
 
                <MainButton title="sign up" onPress={() => { props.navigation.navigate('SignIn') }}/> */}
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
    },
    input: {
       height: 40,
-      borderBottomColor: '#2A9D8F',
+      borderBottomColor: 'black',
       borderBottomWidth: 3,
       width: '80%',
       marginBottom: 20,
-      color: '#264653',
+      color: 'white',
       fontFamily: 'open-sans',
       fontSize: 16
    },
@@ -67,19 +67,19 @@ const styles = StyleSheet.create({
    contentBox: {
       width: "100%",
       maxWidth: 400,
-      backgroundColor: '#1D272B',
+      backgroundColor: '#141418',
       borderRadius: 50,
       alignItems: "center",
       paddingVertical: 60,
-      // borderColor: "#264653",
-      // borderWidth: 7,
+      borderColor: "black",
+      borderWidth: 7,
    },
    titleBox: {
       width: "100%",
       maxWidth: 400,
    },
    titleText: {
-      color: '#1D272B',
+      color: 'black',
       fontFamily: 'open-sans-bold',
       fontSize: 60,
       fontWeight: 'bold',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
    text: {
       textAlign: 'left',
       width: "80%",
-      color: '#2A9D8F',
+      color: 'white',
       fontFamily: 'open-sans-bold',
       fontSize: 20,
    }

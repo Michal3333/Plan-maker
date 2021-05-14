@@ -138,7 +138,7 @@ const NotificationsTabs = () => {
 
 const defaultStackOptions: StackNavigationOptions = {
    headerStyle: {
-      backgroundColor: '#1D272B',
+      backgroundColor: '#141418',
       shadowColor: 'transparent'
    },
    headerTitleStyle: {
@@ -147,7 +147,7 @@ const defaultStackOptions: StackNavigationOptions = {
    headerBackTitleStyle: {
       fontFamily: 'open-sans',
    },
-   headerTintColor: "#264653",
+   headerTintColor: "white",
 }
 
 
