@@ -15,6 +15,7 @@ import MessagesScreen from '../screens/MessagesScreen';
 import InvitationsScreen from '../screens/InvitationsScreen';
 import { Ionicons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading'
+import * as Colors from '../constants/Colors'
 
 const AppStack = createStackNavigator<AppStackParamList>()
 const AppDrawerNavigator = createDrawerNavigator<AppDrawerParamList>();
@@ -40,16 +41,25 @@ const Navigation = (props: Props) => {
    if (props.appLoaded) {
       return <AppLoading />
    }
-   // const myDark = {
-   //    ...DarkTheme,
-   //    colors: {
-   //       ...DarkTheme.colors,
-   //       card: 'rgb(100, 100, 100)'
-   //    }
-   // }
+   const myDark = {
+      ...DarkTheme,
+      colors: {
+         ...DarkTheme.colors,
+         card: Colors.mainBlack,
+         text: 'white'
+      }
+   }
+   const myLight = {
+      ...DefaultTheme,
+      colors: {
+         ...DefaultTheme.colors,
+         card: Colors.mainWhite,
+         text: 'black'
+      }
+   }
    
    return (
-      <NavigationContainer theme={props.theme === "dark" ? DarkTheme : DefaultTheme} >
+      <NavigationContainer theme={props.theme === "dark" ? myDark : myLight} >
          <AppStack.Navigator  screenOptions={{
                headerShown: false,
                
@@ -147,7 +157,7 @@ const NotificationsTabs = () => {
 const defaultStackOptions: StackNavigationOptions =  {
    headerStyle: {
       // backgroundColor: props.theme === "light" ? 'white' : '#141418',
-      shadowColor: 'transparent'
+      // shadowColor: 'transparent'
    },
    headerTitleStyle: {
       fontFamily: 'open-sans-bold',
