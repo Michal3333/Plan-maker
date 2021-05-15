@@ -12,7 +12,7 @@ type Props = {
    navigation: SignInScreenNavigationProp
 }
 
-export const assets = [require('../assets/notblack.png')]
+export const assets = [require('../assets/dark_with_line.png')]
 
 const LoginScreen = (props: Props) => {
    const dispatch = useDispatch()
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
    },
    titleText: {
       color: 'black',
-      fontFamily: 'open-sans-bold',
-      fontSize: 60,
+      fontFamily: 'russo-one',
+      fontSize: 70,
       fontWeight: 'bold',
       // backgroundColor: '#264653'
       // textShadowColor: 'white',

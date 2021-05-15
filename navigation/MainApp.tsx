@@ -28,7 +28,8 @@ const MainApp = () => {
       require('../assets/background-black.png'),
       require('../assets/honey.png'),
       require('../assets/notblack.png'),
-      require('../assets/white.png')
+      require('../assets/white.png'),
+      require('../assets/dark_with_line.png')
    ]);
    let colorScheme = useColorScheme();
    colorScheme = colorScheme ? colorScheme : "light";
@@ -41,7 +42,8 @@ const MainApp = () => {
          }
          await Font.loadAsync({
             'open-sans' : require('../assets/fonts/OpenSans-Regular.ttf'),
-            'open-sans-bold' : require('../assets/fonts/OpenSans-Bold.ttf')
+            'open-sans-bold' : require('../assets/fonts/OpenSans-Bold.ttf'),
+            'russo-one': require('../assets/fonts/RussoOne.ttf')
          })
          await fakeTimer;
          setIsLoading(false)

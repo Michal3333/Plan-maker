@@ -1,1 +1,1 @@
-export const mainBlack = ""
+export const mainBlack = "#141418"
