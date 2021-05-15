@@ -45,7 +45,7 @@ const Navigation = (props: Props) => {
       ...DarkTheme,
       colors: {
          ...DarkTheme.colors,
-         card: Colors.mainBlack,
+         card: 'black',
          text: 'white'
       }
    }
@@ -53,7 +53,7 @@ const Navigation = (props: Props) => {
       ...DefaultTheme,
       colors: {
          ...DefaultTheme.colors,
-         card: Colors.mainWhite,
+         card: 'white',
          text: 'black'
       }
    }

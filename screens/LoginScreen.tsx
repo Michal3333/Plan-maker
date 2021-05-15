@@ -46,7 +46,7 @@ type Props = {
    navigation: SignInScreenNavigationProp
 }
 
-export const assets = [require('../assets/dark_with_line.png'),  require('../assets/light_with_line.png')]
+export const assets = [require('../assets/background-black.png'),  require('../assets/light_no_line.png'),]
 
 const LoginScreen = (props: Props) => {
    const dispatch = useDispatch()
@@ -62,7 +62,7 @@ const LoginScreen = (props: Props) => {
             <View style={styles.titleBox}>
                <Text style={{...styles.titleText, ...titleColor}}>Welcome</Text>
             </View>
-            <View style={{...styles.contentBox, ...background, ...border}}>
+            <View style={{...styles.contentBox, ...background,}}>
                <Text style={{...styles.text, ...textColor}}>Email</Text>
                <TextInput style={{...styles.input, ...textColor, ...borderBottom}} onChangeText={(text) => setEmail(text)} value={email} />
                <Text style={{...styles.text, ...textColor}}>Password</Text>
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
       paddingVertical: 60,
    },
    titleBox: {
+      marginTop: 100,
       width: "100%",
       maxWidth: 400,
 
