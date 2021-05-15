@@ -2,9 +2,11 @@ import Contributor from "../models/Contributor";
 import Invitation from "../models/Invitation";
 import MyProject from "../models/MyProject";
 import NotificationUser from "../models/NotificationUser";
+import OtherProject from "../models/OtherProject";
 import { INVITATION_ACTION_TYPES } from "./invitations/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { NOTIFICATIONS_ACTION_TYPES } from "./notifications/action";
+import { OTHER_PROJECTS_ACTION_TYPES } from "./otherProjects/action";
 import { PENDING_STATUS_TYPES } from "./pendingStatus/action";
 import { USER_ACTION_TYPES } from "./user/action";
 
@@ -128,4 +130,23 @@ export type AddInvitation = {
    invitation : Invitation
 }
 
-export type InvitationActions = DeleteAnsweredInvitation | InitInvitations | AddInvitation
+export type InvitationActions = DeleteAnsweredInvitation | InitInvitations | AddInvitation;
+
+export type InitOtherProjects = {
+   type: OTHER_PROJECTS_ACTION_TYPES.INIT_OTHER_PROJECTS,
+   unsubscribe: () => void
+}
+export type AddOtherProject = {
+   type: OTHER_PROJECTS_ACTION_TYPES.ADD_OTHER_PROJECT,
+   otherProject : OtherProject
+}
+export type UpdateOtherProject = {
+   type: OTHER_PROJECTS_ACTION_TYPES.UPDATE_OTHER_PROJECT,
+   otherProject : OtherProject
+}
+export type DeleteOtherProject = {
+   type: OTHER_PROJECTS_ACTION_TYPES.DELETE_OTHER_PROJECT,
+   otherProjectId : string 
+}
+
+export type OtherProjectsActions = InitOtherProjects | AddOtherProject | UpdateOtherProject | DeleteOtherProject
