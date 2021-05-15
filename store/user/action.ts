@@ -7,6 +7,7 @@ import { Alert } from "react-native";
 import { asyncKeepGettingNotifications } from "../notifications/action";
 import { asyncKeepGettingInvitations } from "../invitations/action";
 import { changePendingStatusAction } from "../pendingStatus/action";
+import { asyncKeepGettingOtherProjects } from "../otherProjects/action";
 
 
 
@@ -22,6 +23,7 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
          const uid = await registration(email, password)
          dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
+         dispatch(asyncKeepGettingOtherProjects())
          dispatch(signInAction(uid, email))
          dispatch(changePendingStatusAction(false))
       } catch (err) {
@@ -40,6 +42,7 @@ export const asyncSignIn = (email : string, password: string) : ThunkAction<void
          dispatch(signInAction(uid, email))
          dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
+         dispatch(asyncKeepGettingOtherProjects())
          dispatch(changePendingStatusAction(false))
          return true;
       }
