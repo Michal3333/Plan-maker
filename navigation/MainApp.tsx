@@ -6,6 +6,7 @@ import * as Font from 'expo-font';
 import { RootState, useAppSelector } from '../store/store'
 import { useAssets } from 'expo-asset';
 import Navigation from './Navigator';
+import { useColorScheme } from 'react-native';
 
 
 const fakeTimer = new Promise(resolve => {
@@ -26,8 +27,11 @@ const MainApp = () => {
       require('../assets/background1_spread.png'),
       require('../assets/background-black.png'),
       require('../assets/honey.png'),
-      require('../assets/notblack.png')
+      require('../assets/notblack.png'),
+      require('../assets/white.png')
    ]);
+   let colorScheme = useColorScheme();
+   colorScheme = colorScheme ? colorScheme : "light";
    useEffect(() => {
       async function fetchKey() {
          console.log('checking if logged in');
@@ -49,7 +53,7 @@ const MainApp = () => {
    if(assets) assetsNotLoaded = false;
 
    
-   return <Navigation isLoggedIn={userData.isLoggedIn} appLoaded={isLoading || assetsNotLoaded}/>
+   return <Navigation theme={colorScheme} isLoggedIn={userData.isLoggedIn} appLoaded={isLoading || assetsNotLoaded}/>
 }
 
 export default MainApp

@@ -21,6 +21,7 @@ export default function App() {
    return (
       <StoreProvider>
          <MainApp/>
+         <StatusBar/>
       </StoreProvider>
    );
 }

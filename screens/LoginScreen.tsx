@@ -16,7 +16,7 @@ export const assets = [require('../assets/notblack.png')]
 
 const LoginScreen = (props: Props) => {
    const dispatch = useDispatch()
-
+   
    const [email, setEmail] = useState('test@gmail.com');
    const [password, setPassword] = useState('123456');
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer, RouteProp } from '@react-navigation/native';
+import { NavigationContainer, RouteProp, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerNavigationOptions, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
@@ -32,20 +32,30 @@ const InvitationsStack = createStackNavigator<InvitationsStackParamList>();
 type Props = {
    appLoaded: boolean,
    isLoggedIn : boolean,
+   theme: string
 }
 
 const Navigation = (props: Props) => {
+
    if (props.appLoaded) {
       return <AppLoading />
    }
+   // const myDark = {
+   //    ...DarkTheme,
+   //    colors: {
+   //       ...DarkTheme.colors,
+   //       card: 'rgb(100, 100, 100)'
+   //    }
+   // }
+   
    return (
-      <NavigationContainer >
+      <NavigationContainer theme={props.theme === "dark" ? DarkTheme : DefaultTheme} >
          <AppStack.Navigator  screenOptions={{
                headerShown: false,
                
          }}>
          {!props.isLoggedIn ?
-            <AppStack.Screen name="Auth" component={Login}/>
+            <AppStack.Screen name="Auth" component={Login} />
             :
             <AppStack.Screen name="App" component={AppDrawer}/>
          }
@@ -134,11 +144,9 @@ const NotificationsTabs = () => {
       </NotificationsTab.Navigator>
    )
 }
-
-
-const defaultStackOptions: StackNavigationOptions = {
+const defaultStackOptions: StackNavigationOptions =  {
    headerStyle: {
-      backgroundColor: '#141418',
+      // backgroundColor: props.theme === "light" ? 'white' : '#141418',
       shadowColor: 'transparent'
    },
    headerTitleStyle: {
@@ -147,8 +155,10 @@ const defaultStackOptions: StackNavigationOptions = {
    headerBackTitleStyle: {
       fontFamily: 'open-sans',
    },
-   headerTintColor: "white",
+   // headerTintColor: props.theme === "dark" ? 'white' : '#141418',
 }
+
+
 
 
 
