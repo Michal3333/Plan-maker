@@ -132,6 +132,11 @@ export type AddInvitation = {
 
 export type InvitationActions = DeleteAnsweredInvitation | InitInvitations | AddInvitation;
 
+export type OtherProjectsState = {
+   otherProjects : OtherProject[],
+   unsubscribe: {() : void} | null
+}
+
 export type InitOtherProjects = {
    type: OTHER_PROJECTS_ACTION_TYPES.INIT_OTHER_PROJECTS,
    unsubscribe: () => void
