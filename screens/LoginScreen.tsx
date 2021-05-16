@@ -9,6 +9,7 @@ import * as Colors from '../constants/Colors'
 import ThemedInput from '../components/UI/ThemedInput';
 import { validateEmail, validatePassword } from '../utils/validators';
 import ThemedLabel from '../components/UI/ThemedLabel';
+import ThemedTitle from '../components/UI/ThemedTitle';
 
 type Props = {
    navigation: SignInScreenNavigationProp
@@ -39,7 +40,7 @@ const LoginScreen = (props: Props) => {
       <ImageBackground source={darkMode ? assets[0]: assets[1]} style={styles.imgBackground} resizeMode="cover" >
          <Screen style={styles.screen} withKeyboard={true}>
             <View style={styles.titleBox}>
-               <Text style={{...styles.titleText, ...titleColor}}>Welcome</Text>
+               <ThemedTitle darkMode={darkMode}>Welcome</ThemedTitle>
             </View>
             <View style={{...styles.contentBox, ...background,}}>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
@@ -80,13 +81,6 @@ const styles = StyleSheet.create({
       marginTop: 100,
       width: "100%",
       maxWidth: 400,
-   },
-   titleText: {
-      fontFamily: 'source-sans-pro-bold',
-      fontSize: 70,
-      fontWeight: '900',
-      textShadowColor: 'black',
-      textShadowRadius: 3
    },
    text: {
       textAlign: 'left',
