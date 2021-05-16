@@ -11,6 +11,7 @@ type Props = {
    validate: (text: string) => {state: boolean, error: string},
    setTextAndState: (text: string, state: boolean) => void,
    placeholder: string,
+   darkMode: boolean
 }
 
 type ValidationState = 'valid' | 'notValid' | null
@@ -23,17 +24,20 @@ const getValidationColor = (state: ValidationState) => {
    }
 }
 
-const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder} : Props) => {
+
+
+const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode} : Props) => {
    const [validationState, setValidationState] = useState<ValidationState>(null);
    const [errorText, setErrorText] = useState('')
    const validationColor = getValidationColor(validationState);
+   const { textColor, borderBottom } = Colors.getColors(darkMode);
 
    const [text, setText] = useState("")
    return (
       <View style={styles.box}>
-         <View style={{...styles.inputBox, ...style}}>
+         <View style={{...styles.inputBox, ...style, ...borderBottom}}>
                {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={"black"}/>}
-               <TextInput style={styles.input} value={text} onChangeText={(text) => setText(text)} onEndEditing={() => {
+               <TextInput style={{...styles.input, ...textColor}} value={text} onChangeText={(text) => setText(text)} onEndEditing={() => {
                   const {state, error} = validate(text);
                   setValidationState(state ? 'valid' : 'notValid');
                   setErrorText(error);
@@ -55,15 +59,12 @@ const styles = StyleSheet.create({
    inputBox: {
       width: '100%',
       alignItems: 'center',
-      borderBottomWidth: 3,
-      borderBottomColor: 'black',
       flexDirection: 'row',
    },
    input: {
       width: '85%',
       fontFamily: 'open-sans',
       fontSize: 16,
-      color: 'white',
       height: 40,
    },
    icon:{

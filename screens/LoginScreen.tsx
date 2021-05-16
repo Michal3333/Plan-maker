@@ -7,67 +7,10 @@ import Screen from '../components/UI/Screen';
 import MainButton from '../components/UI/MainButton';
 import * as Colors from '../constants/Colors'
 import ThemedInput from '../components/UI/ThemedInput';
-
-
-const getColors = (darkMode: boolean) => {
-   if(darkMode){
-      return {
-         titleColor: {color: 'white'},
-         textColor: {color: 'white'},
-         background: {backgroundColor: Colors.mainBlack},
-         border: {
-            borderColor: 'black',
-            borderWidth: 7,
-         },
-         borderBottom: {
-            borderBottomColor: 'black',
-            borderBottomWidth: 3,
-         }
-      }
-   } else {
-      return {
-         titleColor: {color: 'white'},
-         textColor: {color: 'black'},
-         background: {backgroundColor: Colors.mainWhite},
-         border: {
-            borderColor: 'white',
-            borderWidth: 7,
-         },
-         borderBottom: {
-            borderBottomColor: 'white',
-            borderBottomWidth: 3,
-         }
-      }
-   }
-
-}
-
+import { validateEmail, validatePassword } from '../utils/validators';
 
 type Props = {
    navigation: SignInScreenNavigationProp
-}
-
-const validateEmail = (text: string) => {
-   const state = text.includes('@');
-   let errorText = "";
-   if(!state){
-      errorText = "Invalid Email"
-   }
-   return {
-      state: state,
-      error: errorText
-   }
-}
-const validatePassword = (text: string) => {
-   const state = text.length >= 6;
-   let errorText = "";
-   if(!state){
-      errorText = "Invalid Password"
-   }
-   return {
-      state: state,
-      error: errorText
-   }
 }
 
 export const assets = [require('../assets/background-black.png'),  require('../assets/light_no_line.png'),]
@@ -81,7 +24,7 @@ const LoginScreen = (props: Props) => {
    const [passwordState, setPasswwordState] = useState(false)
    const signInValidation = emailState && passwordState;
    const darkMode = colorScheme === "dark";
-   const {background, border, textColor, titleColor, borderBottom} = getColors(darkMode);
+   const {background, border, textColor, titleColor, borderBottom} = Colors.getColors(darkMode);
 
    const emailCallback = (text: string, state:boolean) => {
       setEmail(text);
@@ -99,13 +42,11 @@ const LoginScreen = (props: Props) => {
             </View>
             <View style={{...styles.contentBox, ...background,}}>
                <Text style={{...styles.text, ...textColor}}>Email</Text>
-               <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..."/>
+               <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
                <Text style={{...styles.text, ...textColor}}>Password</Text>
-               {/* <TextInput style={{...styles.input, ...textColor, ...borderBottom}} onChangeText={(text) => setPassword(text)} value={password} /> */}
-               <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..."/>
+               <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
                <Button title="Sign in" onPress={() => {dispatch(userActions.asyncSignIn(email, password))}}
                   disabled={!(emailState && passwordState)} color={darkMode ? 'white' : 'black'} />
-
                <Button title="Sign up" onPress={() => { props.navigation.navigate('SignIn') }} color={darkMode ? 'white' : 'black'}/>
             </View>
            
