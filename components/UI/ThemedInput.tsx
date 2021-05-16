@@ -46,12 +46,28 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
       <View style={styles.box}>
          <View style={{...styles.inputBox, ...style, ...borderBottom}}>
                {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={"black"}/>}
-               <TextInput style={{...styles.input, ...textColor, ...inputStyle}} value={text} onChangeText={(text) => setText(text)} onEndEditing={() => {
-                  const {state, error} = validate(text);
-                  setValidationState(state ? 'valid' : 'notValid');
-                  setErrorText(error);
-                  setTextAndState(text, state);
-               }}
+               <TextInput style={{...styles.input, ...textColor, ...inputStyle}} value={text} 
+                  onChangeText={(inputText) => {
+                     const {state, error} = validate(inputText);
+                     if(validationState === null){
+                        if(state){
+                           setValidationState('valid');
+                           setErrorText(error);
+                        }
+                     } else {
+                        setValidationState(state ? 'valid' : 'notValid');
+                        setErrorText(error);
+                     }
+                     setTextAndState(inputText, state);
+                     setText(inputText);
+                     
+                  }} 
+                  onEndEditing={() => {
+                     const {state, error} = validate(text);
+                     setValidationState(state ? 'valid' : 'notValid');
+                     setErrorText(error);
+                     setTextAndState(text, state);
+                  }}
                placeholder={placeholder}/>
                {validation && validationState && <Ionicons name={validationState === 'valid' ? 'checkmark-circle' : 'close-circle'} size={25} color={validationColor}/>}
          </View>
