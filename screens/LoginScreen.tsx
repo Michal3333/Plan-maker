@@ -4,7 +4,6 @@ import { SignInScreenNavigationProp } from '../navigation/navigationTypes';
 import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
 import Screen from '../components/UI/Screen';
-import MainButton from '../components/UI/MainButton';
 import * as Colors from '../constants/Colors'
 import ThemedInput from '../components/UI/ThemedInput';
 import { validateEmail, validatePassword } from '../utils/validators';
@@ -27,7 +26,7 @@ const LoginScreen = (props: Props) => {
    const [passwordState, setPasswwordState] = useState(false)
    const signInValidation = emailState && passwordState;
    const darkMode = colorScheme === "dark";
-   const {background, border, textColor, titleColor, borderBottom} = Colors.getColors(darkMode);
+   const {background} = Colors.getColors(darkMode);
 
    const emailCallback = (text: string, state:boolean) => {
       setEmail(text);

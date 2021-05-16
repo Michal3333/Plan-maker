@@ -1,17 +1,18 @@
 import { Ionicons, } from '@expo/vector-icons';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Button, ViewStyle, TextInput, Animated } from 'react-native';
 import * as Colors from '../../constants/Colors'
 
 
 type Props = {
+   initialValue? : string
    style?: ViewStyle,
    leftIcon?: "mail" | "key-sharp",
    validation: boolean,
    validate: (text: string) => {state: boolean, error: string},
    setTextAndState: (text: string, state: boolean) => void,
    placeholder: string,
-   darkMode: boolean
+   darkMode: boolean,
 }
 
 type ValidationState = 'valid' | 'notValid' | null
@@ -25,14 +26,22 @@ const getValidationColor = (state: ValidationState) => {
 }
 
 
-
-const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode} : Props) => {
+const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode, initialValue} : Props) => {
+   const [text, setText] = useState(initialValue ? initialValue : "");
    const [validationState, setValidationState] = useState<ValidationState>(null);
    const [errorText, setErrorText] = useState('')
    const validationColor = getValidationColor(validationState);
    const { textColor, borderBottom, inputStyle, errorTextStyle } = Colors.getColors(darkMode);
+   useEffect(() => {
+      if(validationState !== null){
+         const {state, error} = validate(text);
+         setValidationState(state ? 'valid' : 'notValid');
+         setErrorText(error);
+         setTextAndState(text, state);
+      }
+   }, [validate])
+   
 
-   const [text, setText] = useState("")
    return (
       <View style={styles.box}>
          <View style={{...styles.inputBox, ...style, ...borderBottom}}>

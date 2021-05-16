@@ -20,3 +20,17 @@ export const validatePassword = (text: string) => {
       error: errorText
    }
 }
+
+export const createConfirmPasswordValidator = (password: string) => {
+   return (text: string) => {
+      const state = text === password;
+      let errorText = "";
+      if(!state) {
+         errorText = "Passwords are different"
+      }
+      return {
+         state: state,
+         error: errorText
+      }
+   }
+}
