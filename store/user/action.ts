@@ -21,10 +21,10 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
       try{
          dispatch(changePendingStatusAction(true))
          const uid = await registration(email, password)
+         dispatch(signInAction(uid, email))
          dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
          dispatch(asyncKeepGettingOtherProjects())
-         dispatch(signInAction(uid, email))
          dispatch(changePendingStatusAction(false))
       } catch (err) {
          console.log(err)
