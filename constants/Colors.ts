@@ -24,13 +24,18 @@ export const getColors = (darkMode: boolean) => {
       buttonColorDisabled: {
          color: disabled
       },
-      buttonStyleConfirm: {
+      buttonTextStyleConfirm: {
          fontFamily: 'open-sans-bold',
          fontSize: 20,
       },
-      buttonStyle: {
+      buttonTextStyle: {
          fontFamily: 'open-sans',
          fontSize: 15,
+      },
+      buttonStyle: {
+         backgroundColor: borderColor,
+         borderRadius: 40,
+         padding: 7
       },
       titleColor: {color: titleColor},
       textColor: {color: textColor},
@@ -46,7 +51,6 @@ export const getColors = (darkMode: boolean) => {
       titleHeaderStyle: {
          fontFamily: 'source-sans-pro-bold',
          fontSize: 70,
-         // fontWeight: 'bold',
          textShadowColor: 'black',
          textShadowRadius: 3
       },

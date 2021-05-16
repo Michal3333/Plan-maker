@@ -19,12 +19,11 @@ const MainApp = () => {
    const dispatch = useDispatch()
    const userData = useAppSelector((state) => state.user);
    const [isLoading, setIsLoading] = useState(true);
-   const [assets] = useAssets([require('../assets/background1_more_colors.png'),
-
+   const [assets] = useAssets([
       require('../assets/light_no_line.png'),
-      require('../assets/lightGray_no_line.png'),
       require('../assets/background-black.png'),
-
+      require('../assets/dark_reverse.png'),
+      require('../assets/light_reverse.png'),
    ]);
    let colorScheme = useColorScheme();
    colorScheme = colorScheme ? colorScheme : "light";
