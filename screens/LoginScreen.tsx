@@ -15,7 +15,7 @@ type Props = {
    navigation: SignInScreenNavigationProp
 }
 
-export const assets = [require('../assets/background-black.png'),  require('../assets/light_no_line.png'),]
+export const assets = [require('../assets/background-black.png'),  require('../assets/light_no_line.png')]
 
 const LoginScreen = (props: Props) => {
    const dispatch = useDispatch()
@@ -47,8 +47,8 @@ const LoginScreen = (props: Props) => {
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Password</ThemedLabel>
                <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
-               <ThemedButton title="Sign in" darkMode={darkMode} disabled={!signInValidation} onPress={() => {dispatch(userActions.asyncSignIn(email, password))}} type="confirm" style={{marginBottom: 10}}/>
-               <ThemedButton title="Sign up" darkMode={darkMode} disabled={false} onPress={() => { props.navigation.navigate('SignIn')}} type="normal" style={{marginBottom: 50}}/>
+               <ThemedButton title="Sign in" darkMode={darkMode} disabled={!signInValidation} onPress={() => {dispatch(userActions.asyncSignIn(email, password))}} type="confirm" style={{marginBottom: 10, width: "50%"}}/>
+               <ThemedButton title="Sign up" darkMode={darkMode} disabled={false} onPress={() => { props.navigation.navigate('SignIn')}} type="confirm" style={{marginBottom: 50, width: "50%"}} />
             </KeyboardAvoidingView>
            
          </Screen>

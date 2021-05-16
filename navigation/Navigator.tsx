@@ -46,7 +46,8 @@ const Navigation = (props: Props) => {
       colors: {
          ...DarkTheme.colors,
          card: 'black',
-         text: 'white'
+         text: 'white',
+         background: 'black'
       }
    }
    const myLight = {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View,  Text, TextInput, Button, KeyboardAvoidingView, useColorScheme} from 'react-native'
+import { StyleSheet, View,  Text, TextInput, Button, KeyboardAvoidingView, useColorScheme, ImageBackground} from 'react-native'
 import { LoginScreenNavigationProp } from '../navigation/navigationTypes';
 import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
@@ -11,6 +11,7 @@ import * as Colors from '../constants/Colors'
 import { createConfirmPasswordValidator, validateEmail, validatePassword } from '../utils/validators';
 
 
+export const assets = [ require('../assets/dark_reverse.png'), require('../assets/light_reverse.png'),]
 
 
 type Props = {
@@ -51,7 +52,8 @@ const SignInScreen = (props: Props) => {
    const validateConfirmPassword = createConfirmPasswordValidator(password)
 
    return (
-      <Screen style={styles.screen} withKeyboard={true}>
+      <ImageBackground source={darkMode ? assets[0]: assets[1]} style={styles.imgBackground} resizeMode="cover" >
+         <Screen style={styles.screen} withKeyboard={true}>
          <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={100}>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
@@ -59,9 +61,11 @@ const SignInScreen = (props: Props) => {
                <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Confirm Password</ThemedLabel>
                <ThemedInput validate={validateConfirmPassword} setTextAndState={password1Callback} leftIcon="key-sharp" validation={true} placeholder="Confirm Password..." darkMode={darkMode}/>
-               <ThemedButton title="Sign up" darkMode={darkMode} disabled={!signUpValidation} onPress={() => { dispatch(userActions.asyncSignUp(email, password))}} type="confirm" style={{marginBottom: 50}}/>
+               <ThemedButton title="Sign up" darkMode={darkMode} disabled={!signUpValidation} onPress={() => { dispatch(userActions.asyncSignUp(email, password))}} type="confirm" style={{marginBottom: 50, width: "50%"}}/>
             </KeyboardAvoidingView>
       </Screen>
+      </ImageBackground>
+      
    )
 }
 

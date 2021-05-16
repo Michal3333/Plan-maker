@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, ViewStyle, Animated, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, ViewStyle, Animated, TouchableOpacity, Text, Pressable } from 'react-native';
 import * as Colors from '../../constants/Colors'
 
 type Props = {
@@ -12,19 +12,24 @@ type Props = {
 }
 
 const ThemedButton = ({darkMode, style, title, disabled, onPress, type} : Props) => {
-   const {buttonColor, buttonColorDisabled, buttonStyle, buttonStyleConfirm} = Colors.getColors(darkMode);
+   const {buttonColor, buttonColorDisabled, buttonTextStyle, buttonTextStyleConfirm, buttonStyle} = Colors.getColors(darkMode);
    const color = disabled ? buttonColorDisabled : buttonColor;
-   const styleToType = type === "confirm" ? buttonStyleConfirm : buttonStyle;
+   const styleToType = type === "confirm" ? buttonTextStyleConfirm : buttonTextStyle;
    return (
-      <TouchableOpacity style={{...style}} onPress={() => {
+      <Pressable style={{...style, ...buttonStyle}} onPress={() => {
          if(!disabled) {
             onPress()
          }
       }}>
-         <Text style={{...color, ...styleToType}}>{title}</Text>
-      </TouchableOpacity>
+         <Text style={{...color,...styles.buttonText, ...styleToType}}>{title}</Text>
+      </Pressable>
    )
 }
-
+const styles = StyleSheet.create({
+   buttonText : {
+      width: '100%',
+      textAlign: 'center'
+   }
+})
 
 export default ThemedButton;
