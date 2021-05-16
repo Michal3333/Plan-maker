@@ -4,6 +4,7 @@ export const black = 'black';
 export const white = 'white';
 export const green = "#43AA8B";
 export const red = "#F94144"
+export const disabled = "gray"
 
 export const getColors = (darkMode: boolean) => {
    let textColor = black;
@@ -17,6 +18,20 @@ export const getColors = (darkMode: boolean) => {
       borderColor = black;
    } 
    return {
+      buttonColor: {
+         color: textColor
+      },
+      buttonColorDisabled: {
+         color: disabled
+      },
+      buttonStyleConfirm: {
+         fontFamily: 'open-sans-bold',
+         fontSize: 20,
+      },
+      buttonStyle: {
+         fontFamily: 'open-sans',
+         fontSize: 15,
+      },
       titleColor: {color: titleColor},
       textColor: {color: textColor},
       inputStyle: {

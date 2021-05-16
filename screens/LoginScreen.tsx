@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ImageBackground, useColorScheme } from 'react-native'
+import { StyleSheet, View, Text, Button, TextInput, ImageBackground, useColorScheme, KeyboardAvoidingView } from 'react-native'
 import { SignInScreenNavigationProp } from '../navigation/navigationTypes';
 import { useDispatch } from 'react-redux';
 import * as userActions from '../store/user/action'
@@ -10,6 +10,7 @@ import ThemedInput from '../components/UI/ThemedInput';
 import { validateEmail, validatePassword } from '../utils/validators';
 import ThemedLabel from '../components/UI/ThemedLabel';
 import ThemedTitle from '../components/UI/ThemedTitle';
+import ThemedButton from '../components/UI/ThemedButton';
 
 type Props = {
    navigation: SignInScreenNavigationProp
@@ -42,15 +43,14 @@ const LoginScreen = (props: Props) => {
             <View style={styles.titleBox}>
                <ThemedTitle darkMode={darkMode}>Welcome</ThemedTitle>
             </View>
-            <View style={{...styles.contentBox, ...background,}}>
+            <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={100}>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Password</ThemedLabel>
                <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
-               <Button title="Sign in" onPress={() => {dispatch(userActions.asyncSignIn(email, password))}}
-                  disabled={!(emailState && passwordState)} color={darkMode ? 'white' : 'black'} />
-               <Button title="Sign up" onPress={() => { props.navigation.navigate('SignIn') }} color={darkMode ? 'white' : 'black'}/>
-            </View>
+               <ThemedButton title="Sign in" darkMode={darkMode} disabled={!signInValidation} onPress={() => {dispatch(userActions.asyncSignIn(email, password))}} type="confirm" style={{marginBottom: 10}}/>
+               <ThemedButton title="Sign up" darkMode={darkMode} disabled={false} onPress={() => { props.navigation.navigate('SignIn')}} type="normal" style={{marginBottom: 50}}/>
+            </KeyboardAvoidingView>
            
          </Screen>
       </ImageBackground>
