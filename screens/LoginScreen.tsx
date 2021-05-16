@@ -8,6 +8,7 @@ import MainButton from '../components/UI/MainButton';
 import * as Colors from '../constants/Colors'
 import ThemedInput from '../components/UI/ThemedInput';
 import { validateEmail, validatePassword } from '../utils/validators';
+import ThemedLabel from '../components/UI/ThemedLabel';
 
 type Props = {
    navigation: SignInScreenNavigationProp
@@ -41,9 +42,9 @@ const LoginScreen = (props: Props) => {
                <Text style={{...styles.titleText, ...titleColor}}>Welcome</Text>
             </View>
             <View style={{...styles.contentBox, ...background,}}>
-               <Text style={{...styles.text, ...textColor}}>Email</Text>
+               <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
-               <Text style={{...styles.text, ...textColor}}>Password</Text>
+               <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Password</ThemedLabel>
                <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
                <Button title="Sign in" onPress={() => {dispatch(userActions.asyncSignIn(email, password))}}
                   disabled={!(emailState && passwordState)} color={darkMode ? 'white' : 'black'} />
@@ -60,11 +61,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
    },
    input: {
-      height: 40,
       width: '80%',
       marginBottom: 20,
-      fontFamily: 'open-sans',
-      fontSize: 16
    },
    imgBackground: {
       width: '100%',
@@ -82,7 +80,6 @@ const styles = StyleSheet.create({
       marginTop: 100,
       width: "100%",
       maxWidth: 400,
-
    },
    titleText: {
       fontFamily: 'source-sans-pro-bold',
@@ -94,8 +91,6 @@ const styles = StyleSheet.create({
    text: {
       textAlign: 'left',
       width: "80%",
-      fontFamily: 'open-sans-bold',
-      fontSize: 20,
    }
 })
 export default LoginScreen;

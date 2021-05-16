@@ -6,33 +6,42 @@ export const green = "#43AA8B";
 export const red = "#F94144"
 
 export const getColors = (darkMode: boolean) => {
+   let textColor = black;
+   let titleColor = white;
+   let backgroundColor = mainWhite;
+   let borderColor = white
    if(darkMode){
-      return {
-         titleColor: {color: white},
-         textColor: {color: white},
-         background: {backgroundColor: mainBlack},
-         border: {
-            borderColor: black,
-            borderWidth: 7,
-         },
-         borderBottom: {
-            borderBottomColor: black,
-            borderBottomWidth: 3,
-         }
-      }
-   } else {
-      return {
-         titleColor: {color: white},
-         textColor: {color: black},
-         background: {backgroundColor: mainWhite},
-         border: {
-            borderColor: white,
-            borderWidth: 7,
-         },
-         borderBottom: {
-            borderBottomColor: white,
-            borderBottomWidth: 3,
-         }
+      textColor = white;
+      titleColor = white;
+      backgroundColor = mainBlack;
+      borderColor = black;
+   } 
+   return {
+      titleColor: {color: titleColor},
+      textColor: {color: textColor},
+      inputStyle: {
+         fontFamily: 'open-sans',
+         fontSize: 16,
+         height: 40,
+      },
+      labelStyle: {
+         fontFamily: 'open-sans-bold',
+         fontSize: 20,
+      },
+      background: {backgroundColor: backgroundColor},
+      border: {
+         borderColor: borderColor,
+         borderWidth: 7,
+      },
+      borderBottom: {
+         borderBottomColor: borderColor,
+         borderBottomWidth: 3,
+      },
+      errorTextStyle: {
+         fontFamily: 'open-sans',
+         fontSize: 13,
+         color: red,
+         height: 20
       }
    }
 

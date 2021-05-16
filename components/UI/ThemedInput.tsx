@@ -30,14 +30,14 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
    const [validationState, setValidationState] = useState<ValidationState>(null);
    const [errorText, setErrorText] = useState('')
    const validationColor = getValidationColor(validationState);
-   const { textColor, borderBottom } = Colors.getColors(darkMode);
+   const { textColor, borderBottom, inputStyle, errorTextStyle } = Colors.getColors(darkMode);
 
    const [text, setText] = useState("")
    return (
       <View style={styles.box}>
          <View style={{...styles.inputBox, ...style, ...borderBottom}}>
                {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={"black"}/>}
-               <TextInput style={{...styles.input, ...textColor}} value={text} onChangeText={(text) => setText(text)} onEndEditing={() => {
+               <TextInput style={{...styles.input, ...textColor, ...inputStyle}} value={text} onChangeText={(text) => setText(text)} onEndEditing={() => {
                   const {state, error} = validate(text);
                   setValidationState(state ? 'valid' : 'notValid');
                   setErrorText(error);
@@ -46,7 +46,7 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
                placeholder={placeholder}/>
                {validation && validationState && <Ionicons name={validationState === 'valid' ? 'checkmark-circle' : 'close-circle'} size={25} color={validationColor}/>}
          </View>
-         <Text style={styles.errorText}>{errorText}</Text>
+         <Text style={{...styles.errorText, ...errorTextStyle}}>{errorText}</Text>
       </View>
    )
 }
@@ -63,20 +63,14 @@ const styles = StyleSheet.create({
    },
    input: {
       width: '85%',
-      fontFamily: 'open-sans',
-      fontSize: 16,
-      height: 40,
+     
    },
    icon:{
       marginRight: 10
    },
    errorText: {
-      fontFamily: 'open-sans',
-      fontSize: 13,
-      color: Colors.red,
       textAlign: 'left',
       width: '80%',
-      height: 20
    }
 })
 
