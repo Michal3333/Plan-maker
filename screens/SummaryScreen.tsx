@@ -23,7 +23,6 @@ const SummaryScreen = (props: Props) => {
    const navigation = useNavigation();
    let colorScheme = useColorScheme();
    const darkMode = colorScheme === "dark";
-   const {iconColor} = Colors.getColorsForNavigator(darkMode);
    const logOut = () => {
       dispatch(userActions.asyncSignOut())
    }
@@ -32,16 +31,16 @@ const SummaryScreen = (props: Props) => {
       navigation.setOptions({
          headerRight : () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='log out' iconName={'log-out'} color={iconColor} onPress={logOut}/>
+               <Item title='log out' iconName={'log-out'} iconSize={25} onPress={logOut}/>
             </HeaderButtons>
          ),
          headerLeft : () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='Orders' iconName={'notifications-circle'} color={iconColor} onPress={() => {navigation.navigate('Notifications', {screen: 'Messages'})}}/>
+               <Item title='notification' iconName={'notifications'} iconSize={20} onPress={() => {navigation.navigate('Notifications', {screen: 'Messages'})}}/>
             </HeaderButtons>
          )
       })
-   }, [iconColor])
+   }, [])
 
    return (
       <Screen>
