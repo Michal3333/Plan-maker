@@ -1,10 +1,11 @@
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
-import { TouchableWithoutFeedback, StyleSheet, Keyboard, View, ViewStyle } from 'react-native'
+import { TouchableWithoutFeedback, StyleSheet, Keyboard, View, ViewStyle, useColorScheme } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from './CustomHeader';
 import LoadingIndicator from './LoadingIndicator';
+import * as Colors from '../../constants/Colors'
 
 
 
@@ -15,18 +16,18 @@ type Props = {
 }
 
 const Screen = (props: Props) => {
-   useEffect(() => {
-      // if(props.withDrawerButton){
-      //    navigation.setOptions({
-      //       headerLeft : () => (
-      //          <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-      //             <Item title='Orders' iconName={'ios-menu'} color="#264653" onPress={() => {navigation.dispatch(DrawerActions.toggleDrawer())}}/>
-      //          </HeaderButtons>
-      //       )
-      //    })
-      // }
+   // useEffect(() => {
+   //    if(props.withNotificationButton){
+   //       navigation.setOptions({
+   //          headerLeft : () => (
+   //             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+   //                <Item title='Orders' iconName={'notification-circle'} color={iconColor} onPress={() => {navigation.navigate("")}}/>
+   //             </HeaderButtons>
+   //          )
+   //       })
+   //    }
       
-   })
+   // }, [iconColor])
    const inner = (
       <View style={{...styles.screen, ...props.style}}>
          {

@@ -6,7 +6,7 @@ export const green = "#43AA8B";
 export const red = "#F94144"
 export const disabled = "gray"
 
-export const getColors = (darkMode: boolean) => {
+const getThemeColors = (darkMode: boolean) => {
    let textColor = black;
    let titleColor = white;
    let backgroundColor = mainWhite;
@@ -17,6 +17,16 @@ export const getColors = (darkMode: boolean) => {
       backgroundColor = mainBlack;
       borderColor = black;
    } 
+   return {
+      textColor,
+      titleColor,
+      backgroundColor,
+      borderColor
+   }
+}
+
+export const getColors = (darkMode: boolean) => {
+   const {backgroundColor, borderColor, textColor, titleColor} = getThemeColors(darkMode);
    return {
       buttonColor: {
          color: textColor
@@ -71,4 +81,11 @@ export const getColors = (darkMode: boolean) => {
       }
    }
 
+}
+
+export const getColorsForNavigator = (darkMode: boolean) => {
+   const {backgroundColor, borderColor, textColor, titleColor} = getThemeColors(darkMode);
+   return {
+      iconColor : textColor
+   }
 }

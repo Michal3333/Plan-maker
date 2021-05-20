@@ -3,7 +3,7 @@ import { NavigationContainer, RouteProp, DefaultTheme, DarkTheme } from '@react-
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerNavigationOptions, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { AppStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
+import { MainStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList, AppStackParamList } from './navigationTypes';
 import LoginScreen from '../screens/LoginScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
@@ -17,7 +17,8 @@ import { Ionicons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading'
 import * as Colors from '../constants/Colors'
 
-const AppStack = createStackNavigator<AppStackParamList>()
+const MainStack = createStackNavigator<MainStackParamList>();
+const AppStack = createStackNavigator<AppStackParamList>();
 const LoginStack = createStackNavigator<LoginStackParamList>();
 const AppTab = createBottomTabNavigator<TabNavigationParamList>();
 const SummaryStack = createStackNavigator<SummaryStackParamList>();
@@ -60,16 +61,16 @@ const Navigation = (props: Props) => {
    
    return (
       <NavigationContainer theme={props.theme === "dark" ? myDark : myLight} >
-         <AppStack.Navigator  screenOptions={{
+         <MainStack.Navigator  screenOptions={{
                headerShown: false,
                
          }}>
          {!props.isLoggedIn ?
-            <AppStack.Screen name="Auth" component={Login} />
+            <MainStack.Screen name="Auth" component={Login} />
             :
-            <AppStack.Screen name="App" component={AppTabs}/>
+            <MainStack.Screen name="App" component={AppNavigator}/>
          }
-         </AppStack.Navigator>
+         </MainStack.Navigator>
         
       </NavigationContainer>
    )
@@ -84,6 +85,15 @@ const Login = (props: any) => {
          <LoginStack.Screen name="SignIn" component={SignInScreen} />
       </LoginStack.Navigator>
    );
+}
+
+const AppNavigator = () => {
+   return (
+      <AppStack.Navigator screenOptions={{...defaultStackOptions, headerShown: false}}>
+         <AppStack.Screen name="Tab" component={AppTabs}/>
+         <AppStack.Screen name="Notifications" component={NotificationsTabs}/>
+      </AppStack.Navigator>
+   )
 }
 
 const AppTabs = () => {

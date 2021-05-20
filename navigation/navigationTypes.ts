@@ -1,16 +1,14 @@
 import { StackNavigationProp } from "@react-navigation/stack"
 import { RouteProp } from '@react-navigation/native';
 
-export type AppStackParamList = {
+export type MainStackParamList = {
    Auth: LoginStackParamList,
-   App: TabNavigationParamList
+   App: AppStackParamList
 }
-
-// export type AppDrawerParamList = {
-//    AppTabs: TabNavigationParamList,
-//    NotificationsTab : NotificationTabNavigationParamList
-// }
-
+export type AppStackParamList = {
+   Notifications: NotificationTabNavigationParamList,
+   Tab: TabNavigationParamList
+}
 export type LoginStackParamList = {
    Login: undefined,
    SignIn: undefined
@@ -23,7 +21,7 @@ export type TabNavigationParamList = {
 }
 
 export type SummaryStackParamList = {
-   Summary: undefined
+   Summary: undefined,
 }
 
 export type MessagesStackParamList = {
