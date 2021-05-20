@@ -12,21 +12,19 @@ type Props = {
    children: React.ReactNode
    style?: ViewStyle,
    withKeyboard?: boolean,
-   withDrawerButton? : boolean
 }
 
 const Screen = (props: Props) => {
-   const navigation = useNavigation();
    useEffect(() => {
-      if(props.withDrawerButton){
-         navigation.setOptions({
-            headerLeft : () => (
-               <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                  <Item title='Orders' iconName={'ios-menu'} color="#264653" onPress={() => {navigation.dispatch(DrawerActions.toggleDrawer())}}/>
-               </HeaderButtons>
-            )
-         })
-      }
+      // if(props.withDrawerButton){
+      //    navigation.setOptions({
+      //       headerLeft : () => (
+      //          <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+      //             <Item title='Orders' iconName={'ios-menu'} color="#264653" onPress={() => {navigation.dispatch(DrawerActions.toggleDrawer())}}/>
+      //          </HeaderButtons>
+      //       )
+      //    })
+      // }
       
    })
    const inner = (

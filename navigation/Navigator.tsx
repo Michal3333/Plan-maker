@@ -3,7 +3,7 @@ import { NavigationContainer, RouteProp, DefaultTheme, DarkTheme } from '@react-
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerNavigationOptions, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { AppDrawerParamList, AppStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
+import { AppStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList } from './navigationTypes';
 import LoginScreen from '../screens/LoginScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
@@ -18,7 +18,6 @@ import AppLoading from 'expo-app-loading'
 import * as Colors from '../constants/Colors'
 
 const AppStack = createStackNavigator<AppStackParamList>()
-const AppDrawerNavigator = createDrawerNavigator<AppDrawerParamList>();
 const LoginStack = createStackNavigator<LoginStackParamList>();
 const AppTab = createBottomTabNavigator<TabNavigationParamList>();
 const SummaryStack = createStackNavigator<SummaryStackParamList>();
@@ -68,7 +67,7 @@ const Navigation = (props: Props) => {
          {!props.isLoggedIn ?
             <AppStack.Screen name="Auth" component={Login} />
             :
-            <AppStack.Screen name="App" component={AppDrawer}/>
+            <AppStack.Screen name="App" component={AppTabs}/>
          }
          </AppStack.Navigator>
         
@@ -76,12 +75,6 @@ const Navigation = (props: Props) => {
    )
 }
 
-const AppDrawer = (props: any) => (
-   <AppDrawerNavigator.Navigator >
-      <AppDrawerNavigator.Screen name="AppTabs" component={AppTabs} />
-      <AppDrawerNavigator.Screen name="NotificationsTab" component={NotificationsTabs} />
-   </AppDrawerNavigator.Navigator>
-)
 
 
 const Login = (props: any) => {

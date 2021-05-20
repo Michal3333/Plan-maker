@@ -3,13 +3,13 @@ import { RouteProp } from '@react-navigation/native';
 
 export type AppStackParamList = {
    Auth: LoginStackParamList,
-   App: AppDrawerParamList
+   App: TabNavigationParamList
 }
 
-export type AppDrawerParamList = {
-   AppTabs: TabNavigationParamList,
-   NotificationsTab : NotificationTabNavigationParamList
-}
+// export type AppDrawerParamList = {
+//    AppTabs: TabNavigationParamList,
+//    NotificationsTab : NotificationTabNavigationParamList
+// }
 
 export type LoginStackParamList = {
    Login: undefined,

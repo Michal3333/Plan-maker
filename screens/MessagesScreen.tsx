@@ -13,7 +13,7 @@ const MessagesScreen = (props: Props) => {
    const notifications = useAppSelector(state => state.notifications.notifications);
    const dispatch = useDispatch();
    return (
-      <Screen withDrawerButton={true}>
+      <Screen>
           <FlatList style={styles.list} data={notifications} renderItem={itemData => <NotificationElement 
             id={itemData.item.id} 
             text={itemData.item.text}

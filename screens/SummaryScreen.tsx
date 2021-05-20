@@ -35,7 +35,7 @@ const SummaryScreen = (props: Props) => {
    }, [])
 
    return (
-      <Screen withDrawerButton={true}>
+      <Screen>
          <Text>{userData.id}</Text>
          {/* <Button title="Test rules" onPress={() => {testRules()}}/> */}
       </Screen>

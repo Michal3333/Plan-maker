@@ -13,7 +13,7 @@ const InvitationsScreen = (props: Props) => {
    const invitations = useAppSelector(state => state.invitations.invitations);
    const dispatch = useDispatch()
    return (
-      <Screen withDrawerButton={true}>
+      <Screen>
          <FlatList style={styles.list} data={invitations} renderItem={itemData => <InvitationElement 
             id={itemData.item.id} 
             projectName={itemData.item.projectName}
