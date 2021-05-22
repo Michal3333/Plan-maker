@@ -8,17 +8,19 @@ type Props = {
    style?: ViewStyle,
 }
 
-const ThemedText = ({darkMode, children, style} : Props) => {
-   const {textColor, textStyle} = Colors.getColors(darkMode)
+const Card = ({darkMode, children, style} : Props) => {
+   const {background, cardStyle} = Colors.getColors(darkMode)
    return (
-      <Text style={{...textColor, ...textStyle, ...style}}>
+      <View style={{...background, ...cardStyle, ...style, ...styles.card}}>
          {children}
-      </Text>
+      </View>
    )
 }
 
-const style = StyleSheet.create({
-
+const styles = StyleSheet.create({
+   card: {
+      padding: 20
+   }
 })
 
-export default ThemedText;
+export default Card;

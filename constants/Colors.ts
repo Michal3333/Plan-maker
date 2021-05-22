@@ -59,6 +59,10 @@ export const getColors = (darkMode: boolean) => {
          fontFamily: 'open-sans-bold',
          fontSize: 20,
       },
+      textStyle: {
+         fontFamily: 'open-sans',
+         fontSize: 15,
+      },
       titleHeaderStyle: {
          fontFamily: 'source-sans-pro-bold',
          fontSize: 70,
@@ -79,6 +83,10 @@ export const getColors = (darkMode: boolean) => {
          fontSize: 13,
          color: red,
          height: 20
+      },
+      cardStyle: {
+         width: "100%",
+         maxWidth: 400,
       }
    }
 
