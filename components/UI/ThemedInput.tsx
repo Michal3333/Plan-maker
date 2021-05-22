@@ -41,11 +41,11 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
       }
    }, [validate])
    
-
+   //00A6A6
    return (
       <View style={styles.box}>
          <View style={{...styles.inputBox, ...style, ...borderBottom}}>
-               {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={"black"}/>}
+               {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={Colors.primary}/>}
                <TextInput style={{...styles.input, ...textColor, ...inputStyle}} value={text} 
                   onChangeText={(inputText) => {
                      const {state, error} = validate(inputText);

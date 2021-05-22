@@ -42,7 +42,7 @@ const LoginScreen = (props: Props) => {
             <View style={styles.titleBox}>
                <ThemedTitle darkMode={darkMode}>Welcome</ThemedTitle>
             </View>
-            <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={100}>
+            <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={10}>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Password</ThemedLabel>

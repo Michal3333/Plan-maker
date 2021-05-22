@@ -5,6 +5,7 @@ export const white = 'white';
 export const green = "#43AA8B";
 export const red = "#F94144"
 export const disabled = "gray"
+export const primary = "#00A6A6"
 
 const getThemeColors = (darkMode: boolean) => {
    let textColor = black;
