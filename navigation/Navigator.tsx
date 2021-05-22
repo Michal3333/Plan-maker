@@ -178,6 +178,7 @@ const defaultStackOptions: StackNavigationOptions =  {
    headerTitleStyle: {
       fontFamily: 'open-sans-bold',
    },
+   title: '',
    headerBackTitleStyle: {
       fontFamily: 'open-sans',
    },

@@ -5,6 +5,8 @@ import { StyleSheet, View, Text, FlatList, useColorScheme} from 'react-native'
 import Screen from '../components/UI/Screen';
 import NotificationElement from '../components/Notifications/NotificationElement';
 import * as NotificationActions from '../store/notifications/action'
+import ThemedTitle from '../components/UI/ThemedTitle';
+import * as Colors from '../constants/Colors'
 type Props = {
 
 }
@@ -16,6 +18,9 @@ const MessagesScreen = (props: Props) => {
    const darkMode = colorScheme === "dark";
    return (
       <Screen>
+         <View style={styles.titleBox}>
+            <ThemedTitle darkMode={darkMode}>Messages</ThemedTitle>
+         </View>
           <FlatList style={styles.list} data={notifications} renderItem={itemData => <NotificationElement 
             id={itemData.item.id} 
             text={itemData.item.text}
@@ -34,7 +39,11 @@ const MessagesScreen = (props: Props) => {
 const styles = StyleSheet.create({
    list: {
       width: "100%",
-   }
+   },
+   titleBox: {
+      width: "100%",
+      maxWidth: 400,
+   },
 })
 
 export default MessagesScreen;
