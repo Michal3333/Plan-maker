@@ -7,7 +7,8 @@ export type MainStackParamList = {
 }
 export type AppStackParamList = {
    Notifications: NotificationTabNavigationParamList,
-   Tab: TabNavigationParamList
+   Tab: TabNavigationParamList,
+   Settings: SetttingStackParamList
 }
 export type LoginStackParamList = {
    Login: undefined,
@@ -29,6 +30,9 @@ export type MessagesStackParamList = {
 }
 export type InvitationsStackParamList = {
    Invitations: undefined
+}
+export type SetttingStackParamList = {
+   Settings: undefined
 }
 export type NotificationTabNavigationParamList = {
    Messages: MessagesStackParamList,

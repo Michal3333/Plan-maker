@@ -31,7 +31,7 @@ const SummaryScreen = (props: Props) => {
       navigation.setOptions({
          headerRight : () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='log out' iconName={'log-out'} iconSize={25} onPress={logOut}/>
+               <Item title='settings' iconName={'ios-settings'} iconSize={25} onPress={() => {navigation.navigate('Settings', {screen: 'Settings'})}}/>
             </HeaderButtons>
          ),
          headerLeft : () => (

@@ -3,7 +3,7 @@ import { NavigationContainer, RouteProp, DefaultTheme, DarkTheme } from '@react-
 import { createStackNavigator, StackNavigationOptions, StackNavigationProp, } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerNavigationOptions, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { MainStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList, AppStackParamList } from './navigationTypes';
+import { MainStackParamList, InvitationsStackParamList, LoginStackParamList, MessagesStackParamList, MyProjectsStackParamList, NotificationTabNavigationParamList, OtherProjectsStackParamList, SummaryStackParamList, TabNavigationParamList, AppStackParamList, SetttingStackParamList } from './navigationTypes';
 import LoginScreen from '../screens/LoginScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
@@ -16,10 +16,12 @@ import InvitationsScreen from '../screens/InvitationsScreen';
 import { Ionicons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading'
 import * as Colors from '../constants/Colors'
+import SettingsScreen from '../screens/SettingsScreen';
 
 const MainStack = createStackNavigator<MainStackParamList>();
 const AppStack = createStackNavigator<AppStackParamList>();
 const LoginStack = createStackNavigator<LoginStackParamList>();
+const SettingsStack = createStackNavigator<SetttingStackParamList>()
 const AppTab = createBottomTabNavigator<TabNavigationParamList>();
 const SummaryStack = createStackNavigator<SummaryStackParamList>();
 
@@ -94,6 +96,7 @@ const AppNavigator = () => {
       <AppStack.Navigator screenOptions={{...defaultStackOptions, headerShown: false}}>
          <AppStack.Screen name="Tab" component={AppTabs}/>
          <AppStack.Screen name="Notifications" component={NotificationsTabs}/>
+         <AppStack.Screen name="Settings" component={Settings}/>
       </AppStack.Navigator>
    )
 }
@@ -115,7 +118,14 @@ const Summary = () => {
          <SummaryStack.Screen name="Summary" component={SummaryScreen} />
       </SummaryStack.Navigator>
    )
+}
 
+const Settings = () => {
+   return (
+      <SettingsStack.Navigator screenOptions={defaultStackOptions}>
+         <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      </SettingsStack.Navigator>
+   )
 }
 
 const MyProjects = () => {
