@@ -19,7 +19,9 @@ const Card = ({darkMode, children, style} : Props) => {
 
 const styles = StyleSheet.create({
    card: {
-      padding: 20
+      paddingTop: 15,
+      paddingBottom: 15,
+      paddingHorizontal: 20
    }
 })
 

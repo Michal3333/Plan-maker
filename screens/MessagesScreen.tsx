@@ -33,7 +33,7 @@ const MessagesScreen = (props: Props) => {
 
 const styles = StyleSheet.create({
    list: {
-      width: "100%"
+      width: "100%",
    }
 })
 
