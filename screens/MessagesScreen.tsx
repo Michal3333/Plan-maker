@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 import { useFocusEffect, } from '@react-navigation/native';
-import { StyleSheet, View, Text, FlatList, useColorScheme, ScrollView, Image, Animated, useWindowDimensions, Vibration} from 'react-native'
+import { StyleSheet, View, Text, FlatList, useColorScheme, ScrollView, Image, Animated, useWindowDimensions, Button} from 'react-native'
 import Screen from '../components/UI/Screen';
 import NotificationElement from '../components/Notifications/NotificationElement';
 import * as NotificationActions from '../store/notifications/action'
@@ -12,6 +12,8 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 import Card from '../components/UI/Card';
 import ThemedText from '../components/UI/ThemdText';
+import * as Haptics from 'expo-haptics';
+
 type Props = {
 
 }
@@ -53,9 +55,12 @@ const MessagesScreen = (props: Props) => {
                text={itemData.item.text}
                type={itemData.item.type}
                sender={itemData.item.sender}
+               date={itemData.item.date}
+               message={itemData.item.message}
+               projectName={itemData.item.projectName}
                delete={() => {
                   dispatch(NotificationActions.asyncDeleteNotification(itemData.item.id));
-                  Vibration.vibrate(50);
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
                }}
                darkMode={darkMode}/>}
                ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>Messages</ThemedTitle>}/>
@@ -65,6 +70,12 @@ const MessagesScreen = (props: Props) => {
                   <Card darkMode={darkMode} style={{ ...styles.box}}> 
                      <ThemedText  darkMode={darkMode}>No Messages</ThemedText>
                   </Card>
+                  {/* <Button title="1" onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);}}/>
+                  <Button title="2" onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);}}/>
+                  <Button title="3" onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);}}/>
+                  <Button title="4" onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);}}/>
+                  <Button title="5" onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);}}/>
+                  <Button title="6" onPress={() => {Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);}}/> */}
                </View>
          }
       </Screen>

@@ -15,6 +15,9 @@ type Props = {
    type: NOTIFICATION_TYPE,
    delete: () => void,
    darkMode : boolean,
+   date: Date,
+   projectName: string,
+   message: string,
 
 }
 
@@ -69,15 +72,15 @@ const NotificationElement = (props : Props) => {
             }
             <View style={{width: '80%'}}>
                <ThemedLabel  darkMode={props.darkMode}>{props.text}</ThemedLabel>
-               <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>From: {props.sender}</ThemedText>
             </View>
             <ThemedIcon  darkMode={props.darkMode}  onPress={props.delete} style={{}} icon='ios-close' type='delete'/>
          </View>
          <Animated.View style={{height: heightAnim}}>
             <Animated.View style={{opacity: opdacityAnim}}>
-               <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>From: {props.sender}</ThemedText>
-               <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>From: {props.sender}</ThemedText>
-               <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>From: {props.sender}</ThemedText>
+               <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>{props.date.toUTCString()}</ThemedText>
+               { props.sender !== '' && <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>From : {props.sender}</ThemedText>}
+               { props.projectName !== '' && <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>Refers to : {props.projectName}</ThemedText>}
+               { props.message !== '' && <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>Message : {props.message}</ThemedText>}
             </Animated.View>
             
          </Animated.View >
