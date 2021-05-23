@@ -24,6 +24,7 @@ const MainApp = () => {
       require('../assets/background-black.png'),
       require('../assets/dark_reverse.png'),
       require('../assets/light_reverse.png'),
+      require('../assets/headerColors1.png'),
    ]);
    let colorScheme = useColorScheme();
    colorScheme = colorScheme ? colorScheme : "light";
