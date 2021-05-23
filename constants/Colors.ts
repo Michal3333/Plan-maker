@@ -65,7 +65,7 @@ export const getColors = (darkMode: boolean) => {
       },
       titleHeaderStyle: {
          fontFamily: 'source-sans-pro-bold',
-         fontSize: 50,
+         fontSize: 70,
          textShadowColor: 'black',
          textShadowRadius: 3
       },
