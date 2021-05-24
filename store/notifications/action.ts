@@ -45,12 +45,12 @@ export const initNotifications = ( unsubscribe : () => void) : InitNotifications
 export const asyncDeleteNotification = (notificationId : string) : ThunkAction<void, RootState, unknown, NotificationsActions | PendingStatusActions>  => {
    return async (dispatch, getStore) => {
       try{
-         dispatch(changePendingStatusAction(true))
-         await deleteNotification(getStore().user.id, notificationId);
+         // dispatch(changePendingStatusAction(true))
+         deleteNotification(getStore().user.id, notificationId);
          dispatch(deleteNotificationAction(notificationId))
-         dispatch(changePendingStatusAction(false))
+         // dispatch(changePendingStatusAction(false))
       } catch (err) {
-         dispatch(changePendingStatusAction(false))
+         // dispatch(changePendingStatusAction(false))
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
       }
