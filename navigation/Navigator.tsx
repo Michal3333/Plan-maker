@@ -59,6 +59,7 @@ const Navigation = (props: Props) => {
          ...DefaultTheme.colors,
          card: 'white',
          text: 'black',
+         background: 'white',
          primary: Colors.primary
       }
    }

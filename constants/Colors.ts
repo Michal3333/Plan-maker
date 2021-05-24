@@ -12,11 +12,13 @@ const getThemeColors = (darkMode: boolean) => {
    let titleColor = white;
    let backgroundColor = mainWhite;
    let borderColor = white
+   
    if(darkMode){
       textColor = white;
       titleColor = white;
       backgroundColor = mainBlack;
       borderColor = black;
+      
    } 
    return {
       textColor,
@@ -28,6 +30,13 @@ const getThemeColors = (darkMode: boolean) => {
 
 export const getColors = (darkMode: boolean) => {
    const {backgroundColor, borderColor, textColor, titleColor} = getThemeColors(darkMode);
+   let shadow = {}
+   if(darkMode) {
+      shadow = {
+         textShadowColor: 'black',
+         textShadowRadius: 3
+      }
+   }
    return {
       buttonColor: {
          color: textColor
@@ -66,8 +75,7 @@ export const getColors = (darkMode: boolean) => {
       titleHeaderStyle: {
          fontFamily: 'source-sans-pro-bold',
          fontSize: 70,
-         textShadowColor: 'black',
-         textShadowRadius: 3
+         ...shadow
       },
       background: {backgroundColor: backgroundColor},
       border: {
