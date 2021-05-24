@@ -55,7 +55,7 @@ const NotificationElement = (props : Props) => {
       }).start()
    }
    return (
-      <Card style={{...styles.box}} darkMode={props.darkMode}>
+      <Card style={{}} darkMode={props.darkMode}>
          <View style={styles.header}>
             {!isOpen ?
                <ThemedIcon  darkMode={props.darkMode}  onPress={() => {
@@ -90,16 +90,10 @@ const NotificationElement = (props : Props) => {
 }
 
 const styles = StyleSheet.create({
-   box: {
-      marginTop: 20,
-      width: '100%',
-      alignItems: 'center',
-      borderRadius: 20,
-   },
+  
    header: {
       flexDirection: 'row',
       alignItems: 'center'
-
    },
    buttonsBox: {
       width: "100%",

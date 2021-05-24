@@ -21,7 +21,11 @@ const styles = StyleSheet.create({
    card: {
       paddingTop: 15,
       paddingBottom: 15,
-      paddingHorizontal: 20
+      paddingHorizontal: 20,
+      marginTop: 20,
+      width: '100%',
+      alignItems: 'center',
+      borderRadius: 20,
    }
 })
 

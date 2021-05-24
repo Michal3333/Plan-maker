@@ -8,13 +8,19 @@ type Props = {
    onPress : () => void,
    disabled : boolean
    title: string,
-   type: 'confirm' | 'normal'
+   type: 'confirm' | 'normal',
+   colorText? : 'reject' | 'accept'
 }
 
-const ThemedButton = ({darkMode, style, title, disabled, onPress, type} : Props) => {
+const ThemedButton = ({darkMode, style, title, disabled, onPress, type, colorText} : Props) => {
    const {buttonColor, buttonColorDisabled, buttonTextStyle, buttonTextStyleConfirm, buttonStyle} = Colors.getColors(darkMode);
    const color = disabled ? buttonColorDisabled : buttonColor;
    const styleToType = type === "confirm" ? buttonTextStyleConfirm : buttonTextStyle;
+   if(colorText === 'reject') {
+      color.color = Colors.red;
+   } else if (colorText === 'accept') {
+      color.color = Colors.green;
+   }
    return (
       <Pressable style={{...style, ...buttonStyle}} onPress={() => {
          if(!disabled) {
