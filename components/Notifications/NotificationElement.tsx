@@ -20,15 +20,17 @@ type Props = {
    message: string,
 
 }
+const textHeight = 21;
 
 const NotificationElement = (props : Props) => {
    const {background} = Colors.getColors(props.darkMode);
    const [isOpen, setIsOpen] = useState(false)
+   const height = checkRequredHeight(props.sender, props.projectName, props.message);
    const heightAnim = useRef(new Animated.Value(0)).current;
    const opdacityAnim = useRef(new Animated.Value(0)).current;
    const openBox = () => {
       Animated.timing(heightAnim, {
-         toValue: 100, 
+         toValue: height, 
          duration:100, 
          useNativeDriver: false
       }).start()
@@ -77,10 +79,10 @@ const NotificationElement = (props : Props) => {
          </View>
          <Animated.View style={{height: heightAnim}}>
             <Animated.View style={{opacity: opdacityAnim}}>
-               <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>{props.date.toUTCString()}</ThemedText>
-               { props.sender !== '' && <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>From : {props.sender}</ThemedText>}
-               { props.projectName !== '' && <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>Refers to : {props.projectName}</ThemedText>}
-               { props.message !== '' && <ThemedText style={{...styles.marginLeft}}  darkMode={props.darkMode}>Message : {props.message}</ThemedText>}
+               <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>{props.date.toUTCString()}</ThemedText>
+               { props.sender !== '' && <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>From : {props.sender}</ThemedText>}
+               { props.projectName !== '' && <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>Refers to : {props.projectName}</ThemedText>}
+               { props.message !== '' && <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>Message : {props.message}</ThemedText>}
             </Animated.View>
             
          </Animated.View >
@@ -100,10 +102,20 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-around"
    },
-   marginLeft: {
+   marginAndHeight: {
       marginTop: 5,
-      marginLeft: 10
+      marginLeft: 10,
+      height: textHeight
    }
 })
 
 export default NotificationElement;
+
+const checkRequredHeight = (sender: string, projectName: string, message: string) => {
+
+   let height = textHeight + 15;
+   if(projectName !== '') height += textHeight;
+   if(sender !== '') height += textHeight;
+   if(message !== '') height += textHeight;
+   return height;
+}
