@@ -1,7 +1,7 @@
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
-import { TouchableWithoutFeedback, StyleSheet, Keyboard, View, ViewStyle, useColorScheme } from 'react-native'
+import React, { useEffect, useRef } from 'react';
+import { TouchableWithoutFeedback, StyleSheet, Keyboard, View, ViewStyle, useColorScheme, Animated, Image, useWindowDimensions } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from './CustomHeader';
 import LoadingIndicator from './LoadingIndicator';
@@ -13,7 +13,10 @@ type Props = {
    children: React.ReactNode
    style?: ViewStyle,
    withKeyboard?: boolean,
+   headerImage?: boolean
 }
+export const assets = [require('../../assets/headerColors1.png')]
+
 
 const Screen = (props: Props) => {
    // useEffect(() => {
@@ -28,8 +31,29 @@ const Screen = (props: Props) => {
    //    }
       
    // }, [iconColor])
+   const windowWidth = useWindowDimensions().width;
+   const offsetAnim = useRef(new Animated.Value(-1 * windowWidth)).current
+   const slideIn = () => {
+      Animated.timing(offsetAnim, {
+         toValue: 0, 
+         duration:500,
+         delay: 200, 
+         useNativeDriver: false
+      }).start()
+   }
+   useFocusEffect(
+      
+      React.useCallback(() => {
+         if (props.headerImage) slideIn()
+      }, [])
+    );
    const inner = (
       <View style={{...styles.screen, ...props.style}}>
+         {props.headerImage && 
+            <Animated.View style={{height: 150, width: '85%', position: 'absolute', top: 0, left: offsetAnim}}>
+               <Image source={assets[0]} resizeMode='cover' style={{ height: '100%', width: '100%', borderTopRightRadius: 20, borderBottomRightRadius: 20}}/>
+            </Animated.View>
+         }
          {
             props.children
          }

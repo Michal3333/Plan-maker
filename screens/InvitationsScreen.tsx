@@ -18,26 +18,9 @@ const InvitationsScreen = (props: Props) => {
    const dispatch = useDispatch()
    let colorScheme = useColorScheme();
    const darkMode = colorScheme === "dark";
-   const windowWidth = useWindowDimensions().width;
-   const offsetAnim = useRef(new Animated.Value(-1 * windowWidth)).current
-   const slideIn = () => {
-      Animated.timing(offsetAnim, {
-         toValue: 0, 
-         duration:500,
-         // delay: 200, 
-         useNativeDriver: false
-      }).start()
-   }
-   useFocusEffect(
-      React.useCallback(() => {
-         slideIn()
-      }, [])
-   );
+
    return (
-      <Screen style={{padding: 0}}>
-          <Animated.View style={{height: 150, width: '85%', position: 'absolute', top: 0, left: offsetAnim}}>
-            <Image source={assets[0]} resizeMode='cover' style={{ height: '100%', width: '100%', borderTopRightRadius: 20, borderBottomRightRadius: 20}}/>
-         </Animated.View>
+      <Screen style={{padding: 0}} headerImage={true}>
          <FlatList style={styles.list} data={invitations} renderItem={itemData => <InvitationElement 
             id={itemData.item.id} 
             projectName={itemData.item.projectName}
