@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button, ActivityIndicator, Text, useWindowDimensions } from 'react-native';
 import { useAppSelector } from '../../store/store'
+import * as Colors from '../../constants/Colors'
 
 
 
@@ -10,14 +11,15 @@ type Props = {
 
 const LoadingIndicator = ({darkMode}: Props) => {
    const loading = useAppSelector(state => state.pendingStatus.pendingLoggin);
+   const {buttonTextStyleConfirm, background, textColor} = Colors.getColors(darkMode)
    return (
       <>
       {loading &&
          <View style={{...styles.loading}} pointerEvents={'box-none'}>
             <View style={styles.blocking}>
-               <View style={styles.indicatorBox}>
+               <View style={{...styles.indicatorBox, ...background}}>
                   <ActivityIndicator size='large' />
-                  <Text style={styles.text}>Loading...</Text>
+                  <Text style={{...styles.text, ...buttonTextStyleConfirm, ...textColor}}>Loading...</Text>
                </View>
             </View>
          </View>
@@ -36,13 +38,9 @@ const styles = StyleSheet.create({
       zIndex: 2,
    },
    text: {
-      color: 'white',
       marginTop: 20,
-      fontSize: 18,
-      fontFamily: 'open-sans-bold',
    },
    indicatorBox: {
-      backgroundColor: '#141418',
       paddingVertical: 40,
       paddingHorizontal: 60,
       borderRadius: 20

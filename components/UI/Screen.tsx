@@ -20,21 +20,7 @@ export const assets = [require('../../assets/headerColors1.png')]
 
 
 const Screen = (props: Props) => {
-   // useEffect(() => {
-   //    if(props.withNotificationButton){
-   //       navigation.setOptions({
-   //          headerLeft : () => (
-   //             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-   //                <Item title='Orders' iconName={'notification-circle'} color={iconColor} onPress={() => {navigation.navigate("")}}/>
-   //             </HeaderButtons>
-   //          )
-   //       })
-   //    }
-      
-   // }, [iconColor])
    const windowWidth = useWindowDimensions().width;
-   const windowheight = useWindowDimensions().height;
-   
    const offsetAnim = useRef(new Animated.Value(-1 * windowWidth)).current
    const slideIn = () => {
       Animated.timing(offsetAnim, {
@@ -60,7 +46,6 @@ const Screen = (props: Props) => {
          {
             props.children
          }
-         {/* <LoadingIndicator darkMode={props.darkMode} height={windowheight} width={windowWidth}/> */}
       </View>
    )
    if(props.withKeyboard){
