@@ -13,7 +13,8 @@ type Props = {
    children: React.ReactNode
    style?: ViewStyle,
    withKeyboard?: boolean,
-   headerImage?: boolean
+   headerImage?: boolean,
+   darkMode : boolean
 }
 export const assets = [require('../../assets/headerColors1.png')]
 
@@ -32,6 +33,8 @@ const Screen = (props: Props) => {
       
    // }, [iconColor])
    const windowWidth = useWindowDimensions().width;
+   const windowheight = useWindowDimensions().height;
+   
    const offsetAnim = useRef(new Animated.Value(-1 * windowWidth)).current
    const slideIn = () => {
       Animated.timing(offsetAnim, {
@@ -57,7 +60,7 @@ const Screen = (props: Props) => {
          {
             props.children
          }
-         <LoadingIndicator/>
+         {/* <LoadingIndicator darkMode={props.darkMode} height={windowheight} width={windowWidth}/> */}
       </View>
    )
    if(props.withKeyboard){

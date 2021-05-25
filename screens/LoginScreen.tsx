@@ -38,7 +38,7 @@ const LoginScreen = (props: Props) => {
    }
    return (
       <ImageBackground source={darkMode ? assets[0]: assets[1]} style={styles.imgBackground} resizeMode="cover" >
-         <Screen style={styles.screen} withKeyboard={true}>
+         <Screen style={styles.screen} withKeyboard={true} darkMode={darkMode}>
             <View style={styles.titleBox}>
                <ThemedTitle darkMode={darkMode}>Welcome</ThemedTitle>
             </View>

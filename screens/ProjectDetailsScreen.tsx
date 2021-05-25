@@ -47,7 +47,7 @@ const ProjectDetailsScreen = (props: Props) => {
       }
    }
    return (
-      <Screen>
+      <Screen darkMode={false}>
          {project &&
          <View>
             <Text>{project.name}</Text>

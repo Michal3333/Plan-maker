@@ -43,7 +43,7 @@ const SummaryScreen = (props: Props) => {
    }, [])
 
    return (
-      <Screen>
+      <Screen darkMode={darkMode}>
          <Text>{userData.id}</Text>
          {/* <Button title="Test rules" onPress={() => {testRules()}}/> */}
       </Screen>

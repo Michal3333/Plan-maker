@@ -53,7 +53,7 @@ const SignInScreen = (props: Props) => {
 
    return (
       <ImageBackground source={darkMode ? assets[0]: assets[1]} style={styles.imgBackground} resizeMode="cover" >
-         <Screen style={styles.screen} withKeyboard={true}>
+         <Screen style={styles.screen} withKeyboard={true} darkMode={darkMode}>
          <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={100}>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>

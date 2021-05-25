@@ -7,6 +7,7 @@ import { RootState, useAppSelector } from '../store/store'
 import { useAssets } from 'expo-asset';
 import Navigation from './Navigator';
 import { useColorScheme } from 'react-native';
+import LoadingIndicator from '../components/UI/LoadingIndicator';
 
 
 const fakeTimer = new Promise(resolve => {
@@ -27,6 +28,7 @@ const MainApp = () => {
       require('../assets/headerColors1.png'),
    ]);
    let colorScheme = useColorScheme();
+   const darkMode = colorScheme === "dark";
    colorScheme = colorScheme ? colorScheme : "light";
    useEffect(() => {
       async function fetchKey() {
@@ -51,7 +53,12 @@ const MainApp = () => {
    if(assets) assetsNotLoaded = false;
 
    
-   return <Navigation theme={colorScheme} isLoggedIn={userData.isLoggedIn} appLoaded={isLoading || assetsNotLoaded}/>
+   return (
+      <>
+         <LoadingIndicator darkMode={darkMode}/>
+         <Navigation theme={colorScheme} isLoggedIn={userData.isLoggedIn} appLoaded={isLoading || assetsNotLoaded}/> 
+      </>
+   )
 }
 
 export default MainApp

@@ -20,7 +20,7 @@ const InvitationsScreen = (props: Props) => {
    const darkMode = colorScheme === "dark";
 
    return (
-      <Screen style={{padding: 0}} headerImage={true}>
+      <Screen style={{padding: 0}} headerImage={true} darkMode={darkMode}>
          <FlatList style={styles.list} data={invitations} renderItem={itemData => <InvitationElement 
             id={itemData.item.id} 
             projectName={itemData.item.projectName}

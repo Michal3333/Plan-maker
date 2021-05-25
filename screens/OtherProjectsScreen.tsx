@@ -8,7 +8,7 @@ type Props = {
 
 const OtherProjectsScreen = (props: Props) => {
    return (
-      <Screen>
+      <Screen darkMode={false}>
 
       </Screen>
    )

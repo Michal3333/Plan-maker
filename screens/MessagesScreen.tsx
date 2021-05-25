@@ -26,7 +26,7 @@ const MessagesScreen = (props: Props) => {
    const darkMode = colorScheme === "dark";
 
    return (
-      <Screen style={{padding: 0}} headerImage={true}>
+      <Screen style={{padding: 0}} headerImage={true} darkMode={darkMode}>
          {
             notifications.length > 0 ? 
             <FlatList style={styles.list} data={notifications} renderItem={itemData => <NotificationElement 

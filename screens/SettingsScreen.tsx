@@ -19,12 +19,16 @@ type Props = {
 
 const SettingsScreen = (props: Props) => {
    const dispatch = useDispatch();
+
+   let colorScheme = useColorScheme();
+   const darkMode = colorScheme === "dark";
+
    const logOut = () => {
       dispatch(userActions.asyncSignOut())
    }
 
    return (
-      <Screen>
+      <Screen darkMode={darkMode}>
          <Button title="log out" onPress={logOut} color="white"/>
       </Screen>
    )
