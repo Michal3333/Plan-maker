@@ -16,7 +16,7 @@ const ContributorsModal = (props : Props) => {
    
 
    return (
-      <Screen style={styles.modal}>
+      <Screen style={styles.modal} darkMode={false}>
          <Text>email</Text>
          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
          <View>
