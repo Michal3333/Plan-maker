@@ -10,6 +10,7 @@ import { MyProjectsNavigationProp } from '../navigation/navigationTypes';
 import NewProjectModal from '../components/MyProjects/newProjectModal';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/UI/CustomHeader';
+import ThemedTitle from '../components/UI/ThemedTitle';
 
 type Props = {
    navigation: MyProjectsNavigationProp
@@ -56,7 +57,11 @@ const MyProjectsScreen = (props: Props) => {
             renderItem={(itemData) => <ProjectBox id={itemData.item.id} 
                name={itemData.item.name} 
                openDetails={() => {props.navigation.navigate('ProjectDetails', {id: itemData.item.id})}}
-               darkMode={darkMode}/>}
+               darkMode={darkMode}
+               goal={itemData.item.weeklyLimit}
+               done={itemData.item.weeklyDone}/>
+            }
+            ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>My Projects</ThemedTitle>}
          />
       </Screen>
    )

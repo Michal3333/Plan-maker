@@ -12,24 +12,27 @@ const getThemeColors = (darkMode: boolean) => {
    let titleColor = white;
    let backgroundColor = mainWhite;
    let borderColor = white
+   let backgroundColorBig = white
    
    if(darkMode){
       textColor = white;
       titleColor = white;
       backgroundColor = mainBlack;
       borderColor = black;
+      backgroundColorBig = black
       
    } 
    return {
       textColor,
       titleColor,
       backgroundColor,
-      borderColor
+      borderColor,
+      backgroundColorBig
    }
 }
 
 export const getColors = (darkMode: boolean) => {
-   const {backgroundColor, borderColor, textColor, titleColor} = getThemeColors(darkMode);
+   const {backgroundColor, borderColor, textColor, titleColor, backgroundColorBig} = getThemeColors(darkMode);
    let shadow = {}
    if(darkMode) {
       shadow = {
@@ -38,6 +41,9 @@ export const getColors = (darkMode: boolean) => {
       }
    }
    return {
+      backgroundColorMain: {
+         backgroundColor: backgroundColorBig
+      },
       buttonColor: {
          color: textColor
       },
