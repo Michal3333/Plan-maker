@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native'
+import ColorPicker from '../UI/ColorPicker';
 
 type Props = {
    addProject: (name: string, weeklyLimit: string, dueDate: string) => void,
-   closeModel: () => void
+   closeModel: () => void,
+   darkMode : boolean
 }
 
 const NewProjectModal = (props : Props) => {
@@ -20,6 +22,7 @@ const NewProjectModal = (props : Props) => {
          <TextInput style={styles.input} onChangeText={(text) => setDueDate(text)} value={dueDate} />
          <Text>Weeky Limit</Text>
          <TextInput style={styles.input} onChangeText={(text) => setWeeklyLimit(text)} value={weeklyLimit.toString()} keyboardType='number-pad'/>
+         <ColorPicker darkMode={props.darkMode}/>
          <View>
             <Button title="Add" onPress={() => props.addProject(name, weeklyLimit, dueDate)}/>
             <Button title="Cancel" onPress={props.closeModel}/>
@@ -38,7 +41,9 @@ const styles = StyleSheet.create({
    },
    modal: {
       alignItems: 'center',
-      padding: 10
+      padding: 10,
+      height: '100%',
+      backgroundColor: 'black'
    }
 })
 

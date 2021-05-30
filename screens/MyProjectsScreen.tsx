@@ -50,7 +50,7 @@ const MyProjectsScreen = (props: Props) => {
       <Screen headerImage={true} darkMode={darkMode}>
          <Modal style={styles.modal} animationType='slide'
             visible={createNewProjectModal} presentationStyle="pageSheet" >
-               <NewProjectModal addProject={addNewProject} closeModel={() => {setCreateNewProjectModal(false)}}/>
+               <NewProjectModal darkMode={darkMode} addProject={addNewProject} closeModel={() => {setCreateNewProjectModal(false)}}/>
          </Modal>
          <FlatList style={styles.list}
             data={myProjects.projects} 
@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
       width: '100%'
    },
    modal:{
-      height: '80%'
+      height: '80%',
+      backgroundColor: 'black'
    }
 })
 
