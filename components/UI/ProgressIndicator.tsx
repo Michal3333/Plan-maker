@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { StyleSheet, View, Text, Button, ViewStyle, TextInput, Animated } from 'react-native';
 import * as Colors from '../../constants/Colors'
 
@@ -13,14 +13,35 @@ type Props = {
 const ProgressIndicator = ({darkMode, style, current, max, color} : Props) => {
    const {textColor, backgroundColorMain, textStyle} = Colors.getColors(darkMode)
    const percent = current / max;
+
+   const widthDone = useRef(new Animated.Value(0)).current;
+   const widthNotDone = useRef(new Animated.Value(100)).current;
+
+   useEffect(() => {
+      const percent = current / max;
+      Animated.timing(widthDone, {
+         toValue: 100 * percent,
+         duration: 500,
+         delay: 500,
+         useNativeDriver: false
+      }).start();
+      Animated.timing(widthNotDone, {
+         toValue: 100 - (100 * percent),
+         duration: 500,
+         delay: 500,
+         useNativeDriver: false
+      }).start();
+   }, [max, current])
+
+
    return (
       <View style={{...styles.indicator, ...backgroundColorMain, ...style}}>
-         <View style={{width : percent * 100 + '%', backgroundColor: color,  borderRadius: 20, ...styles.indicatorBar}}>
+         <Animated.View style={{width : widthDone.interpolate({inputRange : [0,100], outputRange : ['0%', '100%']}), backgroundColor: color,  borderRadius: 20, ...styles.indicatorBar}}>
             <Text style={{color: 'white', ...textStyle}}>{current}h</Text>
-         </View>
-         <View style={{width :  100 - (percent * 100) + '%', ...styles.indicatorBar}}>
+         </Animated.View>
+         <Animated.View style={{width :  widthNotDone.interpolate({inputRange : [0,100], outputRange : ['0%', '100%']}), ...styles.indicatorBar}}>
             <Text style={{...textColor, ...textStyle}}>{max - current}h</Text>
-         </View>
+         </Animated.View>
       </View>
    )
 }
