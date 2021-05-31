@@ -11,15 +11,15 @@ type Props = {
 }
 
 const ProgressIndicator = ({darkMode, style, current, max, color} : Props) => {
-   const {textColor, backgroundColorMain} = Colors.getColors(darkMode)
+   const {textColor, backgroundColorMain, textStyle} = Colors.getColors(darkMode)
    const percent = current / max;
    return (
-      <View style={{...styles.indicator, ...backgroundColorMain}}>
+      <View style={{...styles.indicator, ...backgroundColorMain, ...style}}>
          <View style={{width : percent * 100 + '%', backgroundColor: color,  borderRadius: 20, ...styles.indicatorBar}}>
-            <Text style={{...textColor}}>{current}</Text>
+            <Text style={{color: 'white', ...textStyle}}>{current}h</Text>
          </View>
          <View style={{width :  100 - (percent * 100) + '%', ...styles.indicatorBar}}>
-            <Text style={{...textColor}}>{max - current}</Text>
+            <Text style={{...textColor, ...textStyle}}>{max - current}h</Text>
          </View>
       </View>
    )
@@ -28,7 +28,7 @@ const ProgressIndicator = ({darkMode, style, current, max, color} : Props) => {
 const styles = StyleSheet.create({
    indicator: {
       width: '100%',
-      height: 30,
+      height: 35,
       borderRadius: 20,
       flexDirection: 'row'
    },

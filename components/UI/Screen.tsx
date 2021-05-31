@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
    screen: {
       flex: 1,
       alignItems: 'center',
-      padding: 10,
+      paddingHorizontal: 10,
    }
 })
 
