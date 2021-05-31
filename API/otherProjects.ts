@@ -11,7 +11,6 @@ export async function keepGettingOtherProjects(userId: string, addOtherProject: 
       .withConverter(otherProjectConverter)
       .onSnapshot(snapShots => {
          snapShots.docChanges().forEach(x => {
-            console.log(x)
             if (x.type === "added") {
                const data = x.doc.data()
                addOtherProject(data)

@@ -21,7 +21,40 @@ export const validatePassword = (text: string) => {
       error: errorText
    }
 }
-
+export const validateProjectName = (text: string) => {
+   const state = text.length >= 1;
+   let errorText = "";
+   if(!state){
+      errorText = "Invalid Project Name"
+   }
+   return {
+      state: state,
+      error: errorText
+   }
+}
+export const validateWeeklyLimit = (text: string) => {
+   const number = parseInt(text)
+   const state = number ? number > 0 : false;
+   let errorText = "";
+   if(!state){
+      errorText = "Invalid Weekly Limit"
+   }
+   return {
+      state: state,
+      error: errorText
+   }
+}
+export const validateDueDate = (text: string) => {
+   const state = text.length >= 1;
+   let errorText = "";
+   if(!state){
+      errorText = "Invalid Due Date"
+   }
+   return {
+      state: state,
+      error: errorText
+   }
+}
 export const createConfirmPasswordValidator = (password: string) => {
    return (text: string) => {
       const state = text === password;

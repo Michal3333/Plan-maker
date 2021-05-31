@@ -16,13 +16,13 @@ const ThemedButton = ({darkMode, style, title, disabled, onPress, type, colorTex
    const {buttonColor, buttonColorDisabled, buttonTextStyle, buttonTextStyleConfirm, buttonStyle} = Colors.getColors(darkMode);
    const color = disabled ? buttonColorDisabled : buttonColor;
    const styleToType = type === "confirm" ? buttonTextStyleConfirm : buttonTextStyle;
-   if(colorText === 'reject') {
+   if(colorText === 'reject' && !disabled ) {
       color.color = Colors.red;
-   } else if (colorText === 'accept') {
+   } else if (colorText === 'accept' && !disabled) {
       color.color = Colors.green;
    }
    return (
-      <Pressable style={{...style, ...buttonStyle}} onPress={() => {
+      <Pressable style={{...buttonStyle, ...style}} onPress={() => {
          if(!disabled) {
             onPress()
          }

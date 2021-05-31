@@ -7,12 +7,13 @@ import * as Colors from '../../constants/Colors'
 type Props = {
    initialValue? : string
    style?: ViewStyle,
-   leftIcon?: "mail" | "key-sharp",
+   leftIcon?: "mail" | "key-sharp" | "ios-text" | "ios-calendar" | "cellular",
    validation: boolean,
    validate: (text: string) => {state: boolean, error: string},
    setTextAndState: (text: string, state: boolean) => void,
    placeholder: string,
    darkMode: boolean,
+   type? : 'number-pad'
 }
 
 type ValidationState = 'valid' | 'notValid' | null
@@ -26,7 +27,7 @@ const getValidationColor = (state: ValidationState) => {
 }
 
 
-const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode, initialValue} : Props) => {
+const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode, initialValue, type} : Props) => {
    const [text, setText] = useState(initialValue ? initialValue : "");
    const [validationState, setValidationState] = useState<ValidationState>(null);
    const [errorText, setErrorText] = useState('')
@@ -47,6 +48,7 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
          <View style={{...styles.inputBox, ...style, ...borderBottom}}>
                {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={Colors.primary}/>}
                <TextInput style={{...styles.input, ...textColor, ...inputStyle}} value={text} 
+                  keyboardType={type ? type : "default"}
                   onChangeText={(inputText) => {
                      const {state, error} = validate(inputText);
                      if(validationState === null){

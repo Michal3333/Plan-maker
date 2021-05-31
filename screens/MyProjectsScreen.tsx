@@ -35,9 +35,9 @@ const MyProjectsScreen = (props: Props) => {
       })
    }, [])
 
-   const addNewProject = async (name: string, weeklyLimit: string, dueDateStr: string) => {
+   const addNewProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string) => {
       const dueDate = new Date(dueDateStr);
-      const project = new MyProject('', name, '', dueDate, [], parseInt(weeklyLimit), 0, 0, false)
+      const project = new MyProject('', name, color, dueDate, [], parseInt(weeklyLimit), 0, 0, false)
       const result = await dispatch(MyProjectsActions.asyncAddProject(project));
        //@ts-ignore
        if(result){
@@ -59,7 +59,8 @@ const MyProjectsScreen = (props: Props) => {
                openDetails={() => {props.navigation.navigate('ProjectDetails', {id: itemData.item.id})}}
                darkMode={darkMode}
                goal={itemData.item.weeklyLimit}
-               done={itemData.item.weeklyDone}/>
+               done={itemData.item.weeklyDone}
+               color={itemData.item.color}/>
             }
             ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>My Projects</ThemedTitle>}
          />

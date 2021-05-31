@@ -107,9 +107,10 @@ export const getColors = (darkMode: boolean) => {
 }
 
 export const getColorsForNavigator = (darkMode: boolean) => {
-   const {backgroundColor, borderColor, textColor, titleColor} = getThemeColors(darkMode);
+   const {backgroundColor, borderColor, textColor, titleColor,backgroundColorBig} = getThemeColors(darkMode);
    return {
       iconColor : textColor,
-      colorPickerCheckColor: backgroundColor
+      backgroundLighter: backgroundColor,
+      backgroundDarker: backgroundColorBig
    }
 }

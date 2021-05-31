@@ -10,7 +10,8 @@ type Props = {
    openDetails: () => void,
    darkMode: boolean,
    goal : number,
-   done: number
+   done: number,
+   color: string,
 }
 
 const ProjectBox = (props : Props) => {
@@ -20,7 +21,7 @@ const ProjectBox = (props : Props) => {
          <View style={styles.projectName} >
             <ThemedLabel  darkMode={props.darkMode}>{props.name}</ThemedLabel>
          </View>
-         <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={"green"}/>
+         <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color}/>
          
          <View>
             <Button title="Details" onPress={props.openDetails}/>
