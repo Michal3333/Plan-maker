@@ -18,7 +18,8 @@ type Props = {
    goal : number,
    done: number,
    color: string,
-   openAddTimeModal: () => void
+   openAddTimeModal: () => void,
+   total: number
 }
 
 const ProjectBox = (props : Props) => {
@@ -40,17 +41,14 @@ const ProjectBox = (props : Props) => {
             </View>
             <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
             <View style={styles.scoreBox}>
-               <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker}}>
-                  <ThemedText darkMode={props.darkMode}>Total</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>3h</ThemedLabel>
+               <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker, marginRight: 20 }}>
+                  <ThemedText darkMode={props.darkMode}>Total hours</ThemedText>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>{props.total}</ThemedLabel>
                </View>
-               <View style={{...styles.scoreSqare, marginHorizontal: 10, backgroundColor: backgroundDarker}}>
-                  <ThemedText darkMode={props.darkMode}>Total Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{ fontSize: 60}}>3</ThemedLabel>
-               </View>
+            
                <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
-                  <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Week streak</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
+                  <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>3</ThemedLabel>
                </View>
             </View>
 
