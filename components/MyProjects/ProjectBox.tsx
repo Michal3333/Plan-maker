@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native'
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, View, Text, Button, Animated } from 'react-native'
 import Card from '../UI/Card';
 import ProgressIndicator from '../UI/ProgressIndicator';
 import ThemedText from '../UI/ThemdText';
@@ -23,48 +23,59 @@ type Props = {
 
 const ProjectBox = (props : Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(props.darkMode)
+   const animatedOpacity = useRef(new Animated.Value(0)).current;
+   useEffect(() => {
+      Animated.timing(animatedOpacity, {
+         toValue: 1,
+         duration: 300,
+         useNativeDriver: false
+      }).start();
+   }, [])
 
    return (
-      <Card darkMode={props.darkMode}>
-         <View style={styles.projectName} >
-            <ThemedLabel style={{fontSize: 40}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
-         </View>
-         <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
-         <View style={styles.scoreBox}>
-            <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker}}>
-               <ThemedText darkMode={props.darkMode}>Total</ThemedText>
-               <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>3h</ThemedLabel>
+      <Animated.View style={{opacity: animatedOpacity}}>
+         <Card darkMode={props.darkMode}>
+            <View style={styles.projectName} >
+               <ThemedLabel style={{fontSize: 40}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
             </View>
-            <View style={{...styles.scoreSqare, marginHorizontal: 10, backgroundColor: backgroundDarker}}>
-               <ThemedText darkMode={props.darkMode}>Total Weeks</ThemedText>
-               <ThemedLabel darkMode={props.darkMode} style={{ fontSize: 60}}>3</ThemedLabel>
-            </View>
-            <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
-               <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Week streak</ThemedText>
-               <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
-            </View>
-         </View>
-
-         <View style={styles.buttonsBox}>
-                  <ThemedButton title="Add time" 
-                     darkMode={props.darkMode} 
-                     disabled={false} 
-                     onPress={() => {props.openAddTimeModal()}}
-                     type="confirm" 
-                     style={{ width: "48%"}}/>
-                  <ThemedButton title="Details" 
-                     darkMode={props.darkMode} 
-                     disabled={false} 
-                     onPress={props.openDetails}
-                     type="confirm" 
-                     style={{width: "48%"}}/>
+            <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
+            <View style={styles.scoreBox}>
+               <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker}}>
+                  <ThemedText darkMode={props.darkMode}>Total</ThemedText>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>3h</ThemedLabel>
                </View>
-         
-         
-         {/* <View>
-            <Button title="Details" onPress={props.openDetails}/>
-         </View> */}
-      </Card>
+               <View style={{...styles.scoreSqare, marginHorizontal: 10, backgroundColor: backgroundDarker}}>
+                  <ThemedText darkMode={props.darkMode}>Total Weeks</ThemedText>
+                  <ThemedLabel darkMode={props.darkMode} style={{ fontSize: 60}}>3</ThemedLabel>
+               </View>
+               <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
+                  <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Week streak</ThemedText>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
+               </View>
+            </View>
+
+            <View style={styles.buttonsBox}>
+                     <ThemedButton title="Add time" 
+                        darkMode={props.darkMode} 
+                        disabled={false} 
+                        onPress={() => {props.openAddTimeModal()}}
+                        type="confirm" 
+                        style={{ width: "48%"}}/>
+                     <ThemedButton title="Details" 
+                        darkMode={props.darkMode} 
+                        disabled={false} 
+                        onPress={props.openDetails}
+                        type="confirm" 
+                        style={{width: "48%"}}/>
+                  </View>
+            
+            
+            {/* <View>
+               <Button title="Details" onPress={props.openDetails}/>
+            </View> */}
+         </Card>
+      </Animated.View>
+      
 
    )
 }

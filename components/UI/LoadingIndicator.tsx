@@ -17,7 +17,6 @@ const LoadingIndicator = ({darkMode}: Props) => {
    const [loadingVisible, setLoadingVisible] = useState(false)
 
    useEffect(() => {
-      console.log(loading)
       if(loading) {
          setLoadingVisible(true)
          Animated.timing(opacityAll, {
