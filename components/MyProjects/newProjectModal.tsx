@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, Text, Button, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { validateDueDate, validateProjectName, validateWeeklyLimit } from '../../utils/validators';
 import ColorPicker from '../UI/ColorPicker';
 import ThemedInput from '../UI/ThemedInput';
@@ -49,42 +49,43 @@ const NewProjectModal = (props : Props) => {
 
    return (
       <TouchableWithoutFeedback  onPress={() => Keyboard.dismiss()}>
-         <View style={{...styles.modal, backgroundColor: backgroundDarker}}>
-         <View style={{width: '100%', paddingVertical: 30}}>
-            <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>Create Project</ThemedTitle>
-         </View>
-            <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={10}>
-               <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Name</ThemedLabel>
-               <ThemedInput validate={validateProjectName} setTextAndState={nameCallback} leftIcon="ios-text" validation={true} placeholder="Project name..." darkMode={props.darkMode}/>
-               <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Weekly Goal</ThemedLabel>
-               <ThemedInput validate={validateWeeklyLimit} setTextAndState={weeklyGoalCallback} leftIcon="cellular" validation={true} placeholder="Weekly goal..." darkMode={props.darkMode} type="number-pad"/>
-               <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Due Date</ThemedLabel>
-               <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode}/>
-            </KeyboardAvoidingView>
-            
-            <ColorPicker darkMode={props.darkMode} pickColor={(color) => {
-                  setColor(color);
-                  setColorState(true)
-               }}/>
+         <ScrollView style={{backgroundColor: backgroundDarker}}>
+            <View style={{...styles.modal, backgroundColor: backgroundDarker}}>
+            <View style={{width: '100%', paddingBottom: 20, paddingTop: 70}}>
+               <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>Create Project</ThemedTitle>
+            </View>
+               <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={10}>
+                  <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Name</ThemedLabel>
+                  <ThemedInput validate={validateProjectName} setTextAndState={nameCallback} leftIcon="ios-text" validation={true} placeholder="Project name..." darkMode={props.darkMode}/>
+                  <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Weekly Goal</ThemedLabel>
+                  <ThemedInput validate={validateWeeklyLimit} setTextAndState={weeklyGoalCallback} leftIcon="cellular" validation={true} placeholder="Weekly goal..." darkMode={props.darkMode} type="number-pad"/>
+                  <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Due Date</ThemedLabel>
+                  <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode}/>
+               </KeyboardAvoidingView>
+               
+               <ColorPicker darkMode={props.darkMode} pickColor={(color) => {
+                     setColor(color);
+                     setColorState(true)
+                  }}/>
 
-            <View style={styles.buttonsBox}>
-            <ThemedButton title="Cancel" 
-               darkMode={props.darkMode} 
-               disabled={false} 
-               onPress={() => props.closeModel()}
-               type="confirm" 
-               style={{ width: "48%", backgroundColor: backgroundLighter}}
-               colorText="reject"/>
-            <ThemedButton title="Create" 
-               darkMode={props.darkMode} 
-               disabled={!createValidation} 
-               onPress={() => props.addProject(name, weeklyLimit, dueDate, color)}
-               type="confirm" 
-               style={{width: "48%", backgroundColor: backgroundLighter}}
-               colorText="accept"/>
-            
-         </View>
-         </View>
+               <View style={styles.buttonsBox}>
+                  <ThemedButton title="Cancel" 
+                     darkMode={props.darkMode} 
+                     disabled={false} 
+                     onPress={() => props.closeModel()}
+                     type="confirm" 
+                     style={{ width: "48%", backgroundColor: backgroundLighter, paddingVertical: 10}}
+                     colorText="reject"/>
+                  <ThemedButton title="Create" 
+                     darkMode={props.darkMode} 
+                     disabled={!createValidation} 
+                     onPress={() => props.addProject(name, weeklyLimit, dueDate, color)}
+                     type="confirm" 
+                     style={{width: "48%", backgroundColor: backgroundLighter, paddingVertical: 10}}
+                     colorText="accept"/>
+               </View>
+            </View>
+         </ScrollView>
       </TouchableWithoutFeedback>
    )
 }
@@ -101,6 +102,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       padding: 10,
       height: '100%',
+      width: "100%",
+      // borderColor: 'red',
+      // borderWidth: 1
    },
    text: {
       textAlign: 'left',
@@ -118,7 +122,9 @@ const styles = StyleSheet.create({
       width: "100%",
       flexDirection: "row",
       justifyContent: "space-between",
-      marginTop: 20
+      marginTop: 20,
+      maxWidth: 400,
+      marginBottom: 40
    },
 })
 

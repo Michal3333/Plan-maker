@@ -49,28 +49,31 @@ const MyProjectsScreen = (props: Props) => {
    return (
       <Screen headerImage={true} darkMode={darkMode}>
          <Modal style={styles.modal} animationType='slide'
-            visible={createNewProjectModal} presentationStyle="pageSheet" >
+            visible={createNewProjectModal} presentationStyle="fullScreen" >
                <NewProjectModal darkMode={darkMode} addProject={addNewProject} closeModel={() => {setCreateNewProjectModal(false)}}/>
          </Modal>
-         <FlatList style={styles.list}
-            data={myProjects.projects} 
-            renderItem={(itemData) => <ProjectBox id={itemData.item.id} 
-               name={itemData.item.name} 
-               openDetails={() => {props.navigation.navigate('ProjectDetails', {id: itemData.item.id})}}
-               darkMode={darkMode}
-               goal={itemData.item.weeklyLimit}
-               done={itemData.item.weeklyDone}
-               color={itemData.item.color}/>
-            }
-            ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>My Projects</ThemedTitle>}
-         />
+         <View style={styles.list}>
+            <FlatList 
+               data={myProjects.projects} 
+               renderItem={(itemData) => <ProjectBox id={itemData.item.id} 
+                  name={itemData.item.name} 
+                  openDetails={() => {props.navigation.navigate('ProjectDetails', {id: itemData.item.id})}}
+                  darkMode={darkMode}
+                  goal={itemData.item.weeklyLimit}
+                  done={itemData.item.weeklyDone}
+                  color={itemData.item.color}/>
+               }
+               ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>My Projects</ThemedTitle>}
+            />
+         </View>
+        
       </Screen>
    )
 }
 
 const styles = StyleSheet.create({
    list: {
-      width: '100%'
+      // width: '100%',
    },
    modal:{
       height: '80%',
