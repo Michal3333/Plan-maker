@@ -18,6 +18,7 @@ type Props = {
    goal : number,
    done: number,
    color: string,
+   openAddTimeModal: () => void
 }
 
 const ProjectBox = (props : Props) => {
@@ -32,15 +33,15 @@ const ProjectBox = (props : Props) => {
          <View style={styles.scoreBox}>
             <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker}}>
                <ThemedText darkMode={props.darkMode}>Total</ThemedText>
-               <ThemedTitle darkMode={props.darkMode} style={{color: props.color}}>3h</ThemedTitle>
+               <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>3h</ThemedLabel>
             </View>
             <View style={{...styles.scoreSqare, marginHorizontal: 10, backgroundColor: backgroundDarker}}>
                <ThemedText darkMode={props.darkMode}>Total Weeks</ThemedText>
-               <ThemedTitle darkMode={props.darkMode}>3</ThemedTitle>
+               <ThemedLabel darkMode={props.darkMode} style={{ fontSize: 60}}>3</ThemedLabel>
             </View>
             <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
                <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Week streak</ThemedText>
-               <ThemedTitle darkMode={props.darkMode} style={{color: 'white'}}>0</ThemedTitle>
+               <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
             </View>
          </View>
 
@@ -48,7 +49,7 @@ const ProjectBox = (props : Props) => {
                   <ThemedButton title="Add time" 
                      darkMode={props.darkMode} 
                      disabled={false} 
-                     onPress={() => {}}
+                     onPress={() => {props.openAddTimeModal()}}
                      type="confirm" 
                      style={{ width: "48%"}}/>
                   <ThemedButton title="Details" 

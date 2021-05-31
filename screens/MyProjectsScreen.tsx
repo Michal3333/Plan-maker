@@ -11,6 +11,7 @@ import NewProjectModal from '../components/MyProjects/newProjectModal';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/UI/CustomHeader';
 import ThemedTitle from '../components/UI/ThemedTitle';
+import AddTimeModal from '../components/MyProjects/addTimeModal';
 
 type Props = {
    navigation: MyProjectsNavigationProp
@@ -20,6 +21,8 @@ const MyProjectsScreen = (props: Props) => {
    const dispatch = useDispatch()
    const myProjects = useAppSelector(state => state.myProjects);
    const [createNewProjectModal, setCreateNewProjectModal] = useState(false)
+   const [addTimeModal,setAddTimeModal] = useState(false)
+   const [projectToAddTimeId, setProjectToAddTimeId] = useState("")
 
    let colorScheme = useColorScheme();
    const darkMode = colorScheme === "dark";
@@ -52,6 +55,19 @@ const MyProjectsScreen = (props: Props) => {
             visible={createNewProjectModal} presentationStyle="fullScreen" >
                <NewProjectModal darkMode={darkMode} addProject={addNewProject} closeModel={() => {setCreateNewProjectModal(false)}}/>
          </Modal>
+         <Modal animationType='fade'
+            visible={addTimeModal} 
+            transparent={true}>
+               <AddTimeModal darkMode={darkMode} 
+               closeModal={() => {setAddTimeModal(false)}} 
+               addTime={(time: number) => {
+                  const selectedProject = myProjects.projects.find(x => x.id === projectToAddTimeId)
+                  if(selectedProject){
+                     dispatch(MyProjectsActions.asyncAddTime(selectedProject.id, selectedProject.shared, time));
+                     setAddTimeModal(false);
+                  }
+               }}/>
+         </Modal>
          <View style={styles.list}>
             <FlatList 
                data={myProjects.projects} 
@@ -61,7 +77,12 @@ const MyProjectsScreen = (props: Props) => {
                   darkMode={darkMode}
                   goal={itemData.item.weeklyLimit}
                   done={itemData.item.weeklyDone}
-                  color={itemData.item.color}/>
+                  color={itemData.item.color}
+                  openAddTimeModal={() => {
+                     setProjectToAddTimeId(itemData.item.id)
+                     setAddTimeModal(true)
+                  }}/>
+                 
                }
                ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>My Projects</ThemedTitle>}
             />
@@ -78,7 +99,7 @@ const styles = StyleSheet.create({
    modal:{
       height: '80%',
       backgroundColor: 'black'
-   }
+   },
 })
 
 export default MyProjectsScreen;

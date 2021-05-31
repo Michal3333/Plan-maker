@@ -7,7 +7,7 @@ import * as Colors from '../../constants/Colors'
 type Props = {
    initialValue? : string
    style?: ViewStyle,
-   leftIcon?: "mail" | "key-sharp" | "ios-text" | "ios-calendar" | "cellular",
+   leftIcon?: "mail" | "key-sharp" | "ios-text" | "ios-calendar" | "cellular" | "time-sharp",
    validation: boolean,
    validate: (text: string) => {state: boolean, error: string},
    setTextAndState: (text: string, state: boolean) => void,

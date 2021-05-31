@@ -55,6 +55,18 @@ export const validateDueDate = (text: string) => {
       error: errorText
    }
 }
+export const validateTimeToAdd = (text: string) => {
+   const number = parseInt(text)
+   const state = number ? number > 0 : false;
+   let errorText = "";
+   if(!state){
+      errorText = "Invalid Time"
+   }
+   return {
+      state: state,
+      error: errorText
+   }
+}
 export const createConfirmPasswordValidator = (password: string) => {
    return (text: string) => {
       const state = text === password;
