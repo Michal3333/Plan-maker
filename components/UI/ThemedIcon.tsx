@@ -20,9 +20,9 @@ const ThemedIcon = ({darkMode, style, onPress, icon, type, color, size = 25} : P
    if(type === 'accept') iconColor = Colors.green;
    if(color) iconColor = color
    return (
-      <Pressable style={{ padding: 10, margin:10, alignItems: 'center', ...style}} onPress={onPress}>
+      <TouchableOpacity style={{ padding: 10, margin:10, alignItems: 'center', ...style}} onPress={onPress}>
          <Ionicons name={icon} size={size} color={iconColor}/>
-      </Pressable>
+      </TouchableOpacity>
    )
 }
 const styles = StyleSheet.create({

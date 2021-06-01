@@ -22,13 +22,13 @@ const ThemedButton = ({darkMode, style, title, disabled, onPress, type, colorTex
       color.color = Colors.green;
    }
    return (
-      <Pressable style={{...buttonStyle, ...style}} onPress={() => {
+      <TouchableOpacity style={{...buttonStyle, ...style}} onPress={() => {
          if(!disabled) {
             onPress()
          }
       }}>
          <Text style={{...color,...styles.buttonText, ...styleToType}}>{title}</Text>
-      </Pressable>
+      </TouchableOpacity>
    )
 }
 const styles = StyleSheet.create({
