@@ -50,7 +50,7 @@ const Navigation = (props: Props) => {
          card: 'black',
          text: 'white',
          background: 'black',
-         primary: Colors.primary
+         primary: 'white'
       }
    }
    const myLight = {
@@ -60,7 +60,7 @@ const Navigation = (props: Props) => {
          card: 'white',
          text: 'black',
          background: 'white',
-         primary: Colors.primary
+         primary: 'black'
       }
    }
    

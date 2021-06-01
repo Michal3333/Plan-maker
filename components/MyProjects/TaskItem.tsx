@@ -44,7 +44,8 @@ const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, cha
      <View style={{...styles.item, backgroundColor: backgroundDarker, ...style}}>
          <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}}
             value={done}
-            onValueChange={changeDone}/>
+            onValueChange={changeDone}
+            trackColor={{ false: backgroundLighter, true: color }}/>
          <ThemedLabel darkMode={darkMode} style={{width: '70%'}}>{text}</ThemedLabel>
          <Animated.View style={{width : widthDelete.interpolate({inputRange: [0, 100], outputRange: ["0%", "15%"]})}}>
             <ThemedIcon  darkMode={darkMode}  onPress={deleteTask} style={{padding: 2, margin: 0}} size={30} icon='ios-close' type='delete'/>

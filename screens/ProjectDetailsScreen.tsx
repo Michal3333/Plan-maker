@@ -94,41 +94,7 @@ const ProjectDetailsScreen = (props: Props) => {
                }}/>
          </Modal>
          {project &&
-         // <View>
-         //    <Text>{project.name}</Text>
-         //    <Text>{project.dueDate.toDateString()}</Text>
-         //    <Text>{project.weeklyLimit}</Text>
-         //    <Text>{project.weeklyDone}</Text>
-         //    <Text>{project.totalHours}</Text>
-         //    <Button title="Delete Project" onPress={deleteProject}/>
-
-         //    {
-         //       !project.shared ?
-         //          <Button title="Convert To Shared Project" onPress={() => {dispatch(MyProjectsActions.asyncConvertToShared(project))}}/>
-         //       :
-         //       (
-         //          <View>
-         //             <Button title="Convert To Normal Project" onPress={() => {dispatch(MyProjectsActions.asyncConvertToNormal(project));}}/>
-         //             <Button title="Contributors" onPress={() => {setContributorsModal(true)}}/>
-         //             <Modal  animationType='slide' visible={contributorsModal} presentationStyle="pageSheet" >
-         //                   <ContributorsModal closeModel={() => {setContributorsModal(false)}} contributors={project.contributors} addConributor={addContributor} deleteContributor={deleteContributor}/>
-         //             </Modal>
-         //          </View>
-         //       )
-         //    }
-         //    <Button title="Add 2h" onPress={() => {
-         //       dispatch(MyProjectsActions.asyncAddTime(project.id, project.shared, 2))
-         //    }}/>
-
-         //    <Button title="updated +1h and + 1 to name" onPress={() => {
          //       dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, project.name + '1', project.dueDate, project.color, project.weeklyLimit + 1))
-         //    }}/>
-            
-            
-           
-
-         //    <FlatList data={project?.tasks} renderItem={(itemData) => <Text>{itemData.item.text}</Text>}/>
-         // </View>
          <View style={{width: '100%'}}>
              <View style={{marginTop: 10, marginLeft: 10}} >
                   <ThemedLabel style={{fontSize: 40}} darkMode={darkMode}>{project.name}</ThemedLabel>
@@ -159,8 +125,8 @@ const ProjectDetailsScreen = (props: Props) => {
                <View style={styles.tasksBar}>
                   <ThemedLabel style={{fontSize: 20,}} darkMode={darkMode}>Tasks</ThemedLabel>
                   <View style={{flexDirection: 'row'}}>
-                     <ThemedIcon darkMode={darkMode} icon='pencil' onPress={() => {setTasksEditMode((editMode) => !editMode)}} color={project.color} style={{...styles.addTaskIcon, marginRight: 5}} size={35} />
-                     <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {setAddTaskModal(true)}} color={project.color} style={{...styles.addTaskIcon}} size={35} />
+                     <ThemedIcon darkMode={darkMode} icon='pencil' onPress={() => {setTasksEditMode((editMode) => !editMode)}} color={project.color} style={{...styles.addTaskIcon, marginRight: 5, backgroundColor: backgroundDarker}} size={35} />
+                     <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {setAddTaskModal(true)}} color={project.color} style={{...styles.addTaskIcon, backgroundColor: backgroundDarker}} size={35} />
                   </View>
                </View>
                {project.tasks.length > 0 ?
@@ -202,16 +168,8 @@ const styles = StyleSheet.create({
       width: '100%',
       marginTop: 10,
    },
-   input: {
-      height: 40,
-      borderBottomColor: 'gray',
-      borderBottomWidth: 1,
-      width: '80%',
-      marginBottom: 20
-   },
    scoreSqare: {
       alignItems: 'center',
-      // width: '30%',
       flex: 1,
       borderRadius: 10,
       paddingTop: 15
