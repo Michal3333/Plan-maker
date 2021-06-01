@@ -122,6 +122,19 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                return x
             })
          }
+      case MY_PROJECTS_ACTION_TYPES.DELETE_TASK:
+         return {
+            ...state,
+            projects: state.projects.map(x => {
+               if(x.id === acton.projectId){
+                  return {
+                     ...x,
+                     tasks: x.tasks.filter(task => task.id !== acton.task.id)
+                  }
+               }
+               return x
+            })
+         }
    }
    return state;
 } 

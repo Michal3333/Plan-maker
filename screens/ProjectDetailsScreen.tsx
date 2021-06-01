@@ -163,7 +163,14 @@ const ProjectDetailsScreen = (props: Props) => {
                   </View>
                </View>
                {project.tasks.length > 0 ?
-                  <FlatList style={styles.list} data={project.tasks} renderItem={(itemData) => <TaskItem darkMode={darkMode} editMode={tasksEditMode} text={itemData.item.text} color={project.color}/>}/>
+                  <FlatList style={styles.list} data={project.tasks} renderItem={(itemData) => <TaskItem 
+                     darkMode={darkMode} 
+                     editMode={tasksEditMode} 
+                     text={itemData.item.text} 
+                     color={project.color}
+                     deleteTask={() => {
+                        dispatch(MyProjectsActions.asyncDeleteTask(project.id, project.shared, itemData.item))
+                     }}/>}/>
                   :
                   <View style={{alignItems: 'center', padding: 50, backgroundColor: 'black', width: '100%', marginTop: 10, borderRadius: 20}}>
                      <ThemedLabel style={{fontSize: 20}} darkMode={darkMode}>No Task</ThemedLabel>

@@ -166,6 +166,28 @@ export const addTask = async (userId: string, projectId: string, shared: boolean
          })
       })
 }
+export const deleteTask = async (userId: string, projectId: string, shared: boolean, task : projecTask) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
+      .doc(projectId)
+      .update({
+         tasks : firebase.firestore.FieldValue.arrayRemove({
+            ...task
+         })
+      })
+}
+export const updateTask = async (userId: string, projectId: string, shared: boolean, updatedTasks : projecTask[]) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
+      .doc(projectId)
+      .update({
+         tasks : updatedTasks
+      })
+}
 // export const testRules = async () => {
 //    try {
 //       const db = firebase.firestore();

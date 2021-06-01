@@ -80,6 +80,16 @@ export type AddTask = {
    projectId: string,
    task : projecTask
 }
+export type DeleteTask = {
+   type: MY_PROJECTS_ACTION_TYPES.DELETE_TASK,
+   projectId: string,
+   task : projecTask
+}
+export type UpdateTask = {
+   type: MY_PROJECTS_ACTION_TYPES.UPDATE_TASK,
+   projectId: string,
+   task : projecTask
+}
 export type ConvertToShared = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
    sharedProject : MyProject
@@ -98,7 +108,7 @@ export type DeleteContributor = {
    contributorId : string,
    projectId: string
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask | UpdateTask | DeleteTask
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,
