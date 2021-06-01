@@ -11,7 +11,7 @@ type Props = {
 const Card = ({darkMode, children, style} : Props) => {
    const {background, cardStyle} = Colors.getColors(darkMode)
    return (
-      <View style={{...background, ...cardStyle, ...style, ...styles.card}}>
+      <View style={{...background, ...cardStyle, ...styles.card, ...style}}>
          {children}
       </View>
    )

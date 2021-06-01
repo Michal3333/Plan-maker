@@ -51,26 +51,20 @@ const ProjectBox = (props : Props) => {
                   <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>3</ThemedLabel>
                </View>
             </View>
-
             <View style={styles.buttonsBox}>
-                     <ThemedButton title="Add time" 
-                        darkMode={props.darkMode} 
-                        disabled={false} 
-                        onPress={() => {props.openAddTimeModal()}}
-                        type="confirm" 
-                        style={{ width: "48%"}}/>
-                     <ThemedButton title="Details" 
-                        darkMode={props.darkMode} 
-                        disabled={false} 
-                        onPress={props.openDetails}
-                        type="confirm" 
-                        style={{width: "48%"}}/>
-                  </View>
-            
-            
-            {/* <View>
-               <Button title="Details" onPress={props.openDetails}/>
-            </View> */}
+               <ThemedButton title="Add time" 
+                  darkMode={props.darkMode} 
+                  disabled={false} 
+                  onPress={() => {props.openAddTimeModal()}}
+                  type="confirm" 
+                  style={{ width: "48%"}}/>
+               <ThemedButton title="Details" 
+                  darkMode={props.darkMode} 
+                  disabled={false} 
+                  onPress={props.openDetails}
+                  type="confirm" 
+                  style={{width: "48%"}}/>
+            </View>
          </Card>
       </Animated.View>
       

@@ -7,25 +7,25 @@ type Props = {
    darkMode: boolean,
    style?: ViewStyle,
    onPress : () => void,
-   icon : 'ios-close' | 'chevron-down-circle' | 'chevron-up-circle' | 'md-checkmark-circle',
-   type?: 'delete' | 'accept'
+   icon : 'ios-close' | 'chevron-down-circle' | 'chevron-up-circle' | 'md-checkmark-circle' | 'ios-add',
+   type?: 'delete' | 'accept',
+   color? :string,
+   size? : number
+
 }
 
-const ThemedIcon = ({darkMode, style, onPress, icon, type} : Props) => {
+const ThemedIcon = ({darkMode, style, onPress, icon, type, color, size = 25} : Props) => {
    let {iconColor} = Colors.getColorsForNavigator(darkMode);
    if(type === 'delete') iconColor = Colors.red;
    if(type === 'accept') iconColor = Colors.green;
+   if(color) iconColor = color
    return (
-      <Pressable style={{...style, padding: 10, margin:10}} onPress={onPress}>
-         <Ionicons name={icon} size={25} color={iconColor}/>
+      <Pressable style={{ padding: 10, margin:10, alignItems: 'center', ...style}} onPress={onPress}>
+         <Ionicons name={icon} size={size} color={iconColor}/>
       </Pressable>
    )
 }
 const styles = StyleSheet.create({
-   buttonText : {
-      width: '100%',
-      textAlign: 'center'
-   }
 })
 
 export default ThemedIcon;
