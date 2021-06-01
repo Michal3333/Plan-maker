@@ -109,6 +109,19 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                return x;
             })
          }
+      case MY_PROJECTS_ACTION_TYPES.ADD_TASK:
+         return {
+            ...state,
+            projects: state.projects.map(x => {
+               if(x.id === acton.projectId){
+                  return {
+                     ...x,
+                     tasks: [...x.tasks, acton.task]
+                  }
+               }
+               return x
+            })
+         }
    }
    return state;
 } 

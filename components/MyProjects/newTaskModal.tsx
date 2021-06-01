@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, Text, Button, ViewStyle, TextInput, Animated, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Colors from '../../constants/Colors'
-import { validateProjectName, validateTimeToAdd } from '../../utils/validators';
+import { validateTaskName } from '../../utils/validators';
 import ThemedButton from '../UI/ThemedButton';
 import ThemedInput from '../UI/ThemedInput';
 import ThemedLabel from '../UI/ThemedLabel';
@@ -9,27 +9,32 @@ import ThemedLabel from '../UI/ThemedLabel';
 type Props = {
    darkMode: boolean,
    closeModal : () => void,
-   addTime : (time: number) => void
+   addTask : (name: string) => void
 }
 
-const AddTimeModal = ({darkMode, closeModal, addTime} : Props) => {
+const AddTaskModal = ({darkMode, closeModal, addTask} : Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode);
-   const [timeToAdd, setTimeToAdd] = useState(0);
-   const [timeToAddState, setTimeToAddState] = useState(false);
+   const [taskName, setTaskName] = useState('');
+   const [taskNameState, setTaskNameState] = useState(false);
 
 
-   const timeToAddCallback = (text: string, state:boolean) => {
-      const timeToAdd = parseInt(text)
-      timeToAdd ? setTimeToAdd(timeToAdd) : setTimeToAdd(0)
-      setTimeToAddState(state)
+   const addTaskCallback = (text: string, state:boolean) => {
+      setTaskName(text)
+      setTaskNameState(state)
    }
 
    return (
       <TouchableWithoutFeedback  onPress={() => Keyboard.dismiss()}>
          <View style={{...styles.centeredView, backgroundColor: 'rgba(0, 0, 0, 0.7)'}}>
          <View style={{backgroundColor: backgroundLighter, borderRadius: 20, ...styles.contentBox}}>
-            <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Register Time</ThemedLabel>
-            <ThemedInput validate={validateTimeToAdd} setTextAndState={timeToAddCallback} leftIcon="time-sharp" validation={true} placeholder="Hours.." darkMode={darkMode} type="number-pad" style={{width: '90%'}}/>
+            <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Add Task</ThemedLabel>
+            <ThemedInput validate={validateTaskName} 
+               setTextAndState={addTaskCallback} 
+               leftIcon="ios-text" 
+               validation={true} 
+               placeholder="Text..." 
+               darkMode={darkMode}
+               style={{width: '90%'}}/>
             <View style={styles.buttonsBox}>
                <ThemedButton title="Cancel" 
                   darkMode={darkMode} 
@@ -38,10 +43,10 @@ const AddTimeModal = ({darkMode, closeModal, addTime} : Props) => {
                   type="confirm" 
                   style={{ width: "40%",  paddingVertical: 10}}
                   colorText="reject"/>
-               <ThemedButton title="Add Time" 
+               <ThemedButton title="Add Task" 
                   darkMode={darkMode} 
-                  disabled={!timeToAddState} 
-                  onPress={() => {addTime(timeToAdd)}}
+                  disabled={!taskNameState} 
+                  onPress={() => {addTask(taskName)}}
                   type="confirm" 
                   style={{width: "40%",  paddingVertical: 10}}
                   colorText="accept"/>
@@ -81,4 +86,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AddTimeModal;
+export default AddTaskModal;

@@ -67,6 +67,17 @@ export const validateTimeToAdd = (text: string) => {
       error: errorText
    }
 }
+export const validateTaskName = (text: string) => {
+   const state = text.length >= 1;
+   let errorText = "";
+   if(!state){
+      errorText = "Invalid Task Name"
+   }
+   return {
+      state: state,
+      error: errorText
+   }
+}
 export const createConfirmPasswordValidator = (password: string) => {
    return (text: string) => {
       const state = text === password;

@@ -14,6 +14,7 @@ import * as Colors from '../constants/Colors'
 import ThemedText from '../components/UI/ThemdText';
 import ThemedButton from '../components/UI/ThemedButton';
 import AddTimeModal from '../components/MyProjects/addTimeModal';
+import AddTaskModal from '../components/MyProjects/newTaskModal';
 import ThemedIcon from '../components/UI/ThemedIcon';
 
 
@@ -30,6 +31,8 @@ const ProjectDetailsScreen = (props: Props) => {
    const [editMode, setEditMode] = useState(false);
    const [contributorsModal, setContributorsModal] = useState(false)
    const [addTimeModal,setAddTimeModal] = useState(false)
+   const [addTaskModal,setAddTaskModal] = useState(false)
+
 
    const {id} = route.params;
    const project = useAppSelector(state => state.myProjects.projects).find(x => x.id === id);
@@ -72,6 +75,18 @@ const ProjectDetailsScreen = (props: Props) => {
                   if(project){
                      dispatch(MyProjectsActions.asyncAddTime(project.id, project.shared, time));
                      setAddTimeModal(false);
+                  }
+               }}/>
+         </Modal>
+         <Modal animationType='fade'
+            visible={addTaskModal} 
+            transparent={true}>
+               <AddTaskModal darkMode={darkMode} 
+               closeModal={() => {setAddTaskModal(false)}} 
+               addTask={(taskName: string) => {
+                  if(project){
+                     dispatch(MyProjectsActions.asyncAddTask(project.id, project.shared, taskName));
+                     setAddTaskModal(false)
                   }
                }}/>
          </Modal>
@@ -140,10 +155,10 @@ const ProjectDetailsScreen = (props: Props) => {
             <Card darkMode={darkMode} style={{width: '100%'}}>
                <View style={styles.tasksBar}>
                   <ThemedLabel style={{fontSize: 20,}} darkMode={darkMode}>Tasks</ThemedLabel>
-                  <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {}} color={project.color} style={{padding: 2, paddingHorizontal: 15,  margin: 0, backgroundColor: 'black', borderRadius: 20}} size={35}/>
+                  <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {setAddTaskModal(true)}} color={project.color} style={{...styles.addTaskIcon}} size={35} />
                </View>
                {project.tasks.length > 0 ?
-                  <FlatList data={project.tasks} renderItem={(itemData) => <Text>{itemData.item.dueDate}</Text>}/>
+                  <FlatList data={project.tasks} renderItem={(itemData) => <Text>{itemData.item.text}</Text>}/>
                   :
                   <View style={{alignItems: 'center', padding: 50, backgroundColor: 'black', width: '100%', marginTop: 10, borderRadius: 20}}>
                      <ThemedLabel style={{fontSize: 20}} darkMode={darkMode}>No Task</ThemedLabel>
@@ -193,6 +208,13 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%'
+   },
+   addTaskIcon : {
+      padding: 2, 
+      paddingHorizontal: 15,  
+      margin: 0, 
+      backgroundColor: 'black', 
+      borderRadius: 20
    }
 })
 

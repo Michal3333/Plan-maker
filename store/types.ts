@@ -1,6 +1,6 @@
 import Contributor from "../models/Contributor";
 import Invitation from "../models/Invitation";
-import MyProject from "../models/MyProject";
+import MyProject, { projecTask } from "../models/MyProject";
 import NotificationUser from "../models/NotificationUser";
 import OtherProject from "../models/OtherProject";
 import { INVITATION_ACTION_TYPES } from "./invitations/action";
@@ -75,6 +75,11 @@ export type AddProjectTime = {
    projectId: string,
    time : number
 }
+export type AddTask = {
+   type: MY_PROJECTS_ACTION_TYPES.ADD_TASK,
+   projectId: string,
+   task : projecTask
+}
 export type ConvertToShared = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,
    sharedProject : MyProject
@@ -93,7 +98,7 @@ export type DeleteContributor = {
    contributorId : string,
    projectId: string
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,

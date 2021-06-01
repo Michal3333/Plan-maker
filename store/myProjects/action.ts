@@ -1,12 +1,12 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects } from "../../API/myProjects"
+import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
-import MyProject from "../../models/MyProject"
+import MyProject, { projecTask } from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, AddProjectTime, ConvertToNormal, ConvertToShared, DeleteContributor, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
+import { AddContributor, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -17,7 +17,8 @@ export enum MY_PROJECTS_ACTION_TYPES {
    CONVERT_TO_SHARED = 'CONVERT_TO_SHARED',
    CONVERT_TO_NORMAL = 'CONVERT_TO_NORMAL',
    ADD_CONTRIBUTOR = 'ADD_CONTRIBUTOR',
-   DELETE_CONTRIBUTOR = 'DELETE_CONTRIBUTOR'
+   DELETE_CONTRIBUTOR = 'DELETE_CONTRIBUTOR',
+   ADD_TASK = 'ADD_TASK'
 }
 
 export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
@@ -234,6 +235,37 @@ export const deleteContributorAction = (projectId: string, contributorId: string
    return {
       type: MY_PROJECTS_ACTION_TYPES.DELETE_CONTRIBUTOR,
       contributorId: contributorId,
+      projectId: projectId
+   }
+}
+
+export const asyncAddTask = (projectId: string, shared: boolean ,taskName: string) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         const newTask : projecTask = {
+            text: taskName,
+            id: new Date().getTime().toString(),
+            dueDate: new Date(),
+            done: false
+         }
+         dispatch(changePendingStatusAction(true))
+         await addTask(getState().user.id, projectId, shared, newTask);
+         dispatch(addTaskAction(projectId, newTask))
+         dispatch(changePendingStatusAction(false))
+         return true;
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+         return false;
+      }
+   }
+}
+
+export const addTaskAction = (projectId: string, task : projecTask) : AddTask => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.ADD_TASK,
+      task: task,
       projectId: projectId
    }
 }

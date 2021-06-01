@@ -42,10 +42,9 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
       }
    }, [validate])
    
-   //00A6A6
    return (
-      <View style={styles.box}>
-         <View style={{...styles.inputBox, ...style, ...borderBottom}}>
+      <View style={{...styles.box, ...style}}>
+         <View style={{...styles.inputBox, ...borderBottom }}>
                {leftIcon && <Ionicons style={styles.icon} name={leftIcon} size={20} color={Colors.primary}/>}
                <TextInput style={{...styles.input, ...textColor, ...inputStyle}} value={text} 
                   keyboardType={type ? type : "default"}
@@ -81,7 +80,9 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
 const styles = StyleSheet.create({
    box: {
       marginBottom: 15,
-      width: '80%'
+      width: '80%',
+      // borderColor: 'red',
+      // borderWidth: 2
    },
    inputBox: {
       width: '100%',

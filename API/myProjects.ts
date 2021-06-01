@@ -2,7 +2,7 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
 import Contributor, { contributorConverter } from "../models/Contributor";
-import MyProject, { projectConverter, sharedProjectConverter } from "../models/MyProject";
+import MyProject, { projecTask, projectConverter, sharedProjectConverter } from "../models/MyProject";
 import { FB_COLLECTIONS } from "./collections";
 
 export async function createProject(userId : string, project : MyProject) {
@@ -152,6 +152,18 @@ export const editProject = async (userId: string, projectId: string, shared: boo
          color,
          weeklyLimit,
          dueDate: firebase.firestore.Timestamp.fromDate(dueDate),
+      })
+}
+export const addTask = async (userId: string, projectId: string, shared: boolean, task : projecTask) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(shared ? FB_COLLECTIONS.MY_PROJECTS_SHARED : FB_COLLECTIONS.MY_PROJECTS)
+      .doc(projectId)
+      .update({
+         tasks : firebase.firestore.FieldValue.arrayUnion({
+            ...task
+         })
       })
 }
 // export const testRules = async () => {
