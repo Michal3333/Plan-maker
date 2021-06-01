@@ -16,6 +16,7 @@ import ThemedButton from '../components/UI/ThemedButton';
 import AddTimeModal from '../components/MyProjects/addTimeModal';
 import AddTaskModal from '../components/MyProjects/newTaskModal';
 import ThemedIcon from '../components/UI/ThemedIcon';
+import TaskItem from '../components/MyProjects/TaskItem';
 
 
 
@@ -32,6 +33,7 @@ const ProjectDetailsScreen = (props: Props) => {
    const [contributorsModal, setContributorsModal] = useState(false)
    const [addTimeModal,setAddTimeModal] = useState(false)
    const [addTaskModal,setAddTaskModal] = useState(false)
+   const [tasksEditMode, setTasksEditMode] = useState(false)
 
 
    const {id} = route.params;
@@ -155,10 +157,13 @@ const ProjectDetailsScreen = (props: Props) => {
             <Card darkMode={darkMode} style={{width: '100%'}}>
                <View style={styles.tasksBar}>
                   <ThemedLabel style={{fontSize: 20,}} darkMode={darkMode}>Tasks</ThemedLabel>
-                  <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {setAddTaskModal(true)}} color={project.color} style={{...styles.addTaskIcon}} size={35} />
+                  <View style={{flexDirection: 'row'}}>
+                     <ThemedIcon darkMode={darkMode} icon='pencil' onPress={() => {setTasksEditMode((editMode) => !editMode)}} color={project.color} style={{...styles.addTaskIcon, marginRight: 5}} size={35} />
+                     <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {setAddTaskModal(true)}} color={project.color} style={{...styles.addTaskIcon}} size={35} />
+                  </View>
                </View>
                {project.tasks.length > 0 ?
-                  <FlatList data={project.tasks} renderItem={(itemData) => <Text>{itemData.item.text}</Text>}/>
+                  <FlatList style={styles.list} data={project.tasks} renderItem={(itemData) => <TaskItem darkMode={darkMode} editMode={tasksEditMode} text={itemData.item.text} color={project.color}/>}/>
                   :
                   <View style={{alignItems: 'center', padding: 50, backgroundColor: 'black', width: '100%', marginTop: 10, borderRadius: 20}}>
                      <ThemedLabel style={{fontSize: 20}} darkMode={darkMode}>No Task</ThemedLabel>
@@ -175,6 +180,10 @@ const ProjectDetailsScreen = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
+   list : {
+      width: '100%',
+      marginTop: 10
+   },
    input: {
       height: 40,
       borderBottomColor: 'gray',
