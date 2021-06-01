@@ -1,12 +1,12 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects } from "../../API/myProjects"
+import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects, updateTask } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject, { projecTask } from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UserActions } from "../types"
+import { AddContributor, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UpdateTask, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -271,6 +271,7 @@ export const addTaskAction = (projectId: string, task : projecTask) : AddTask =>
       projectId: projectId
    }
 }
+
 export const asyncDeleteTask = (projectId: string, shared: boolean, task: projecTask) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
@@ -293,6 +294,50 @@ export const deleteTaskAction = (projectId: string, task : projecTask) : DeleteT
       type: MY_PROJECTS_ACTION_TYPES.DELETE_TASK,
       task: task,
       projectId: projectId
+   }
+}
+
+export const asyncUpdateTask = (projectId: string, shared: boolean, taskId: string, done: boolean, text: string) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         const selectedProject = getState().myProjects.projects.find(x => x.id === projectId);
+         if(selectedProject) {
+            const tasks = selectedProject.tasks.map(x => {
+               if(x.id === taskId){
+                  return {
+                     ...x,
+                     done: done,
+                     text: text
+                  }
+               }
+               return {
+                  ...x
+               }
+            })
+            dispatch(changePendingStatusAction(true))
+            await updateTask(getState().user.id, projectId, shared, tasks);
+            dispatch(updateTaskAction(projectId, taskId, done, text))
+            dispatch(changePendingStatusAction(false))
+            
+         }
+         
+         return true;
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+         return false;
+      }
+   }
+}
+
+export const updateTaskAction = (projectId: string, taskId: string ,done: boolean, text: string) : UpdateTask => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.UPDATE_TASK,
+      projectId: projectId,
+      taskId: taskId,
+      done: done,
+      text: text
    }
 }
 

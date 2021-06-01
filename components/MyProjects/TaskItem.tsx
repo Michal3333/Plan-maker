@@ -13,10 +13,12 @@ type Props = {
    darkMode: boolean,
    editMode: boolean,
    color: string,
+   done: boolean,
    deleteTask : () => void
+   changeDone : () => void
 }
 
-const TaskItem = ({text, style, darkMode, editMode, color, deleteTask} : Props) => {
+const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, changeDone} : Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
 
    const widthDelete = useRef(new Animated.Value(0)).current;
@@ -41,7 +43,8 @@ const TaskItem = ({text, style, darkMode, editMode, color, deleteTask} : Props) 
    return (
      <View style={{...styles.item, backgroundColor: backgroundDarker, ...style}}>
          <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}}
-            thumbColor={color}/>
+            value={done}
+            onValueChange={changeDone}/>
          <ThemedLabel darkMode={darkMode} style={{width: '70%'}}>{text}</ThemedLabel>
          <Animated.View style={{width : widthDelete.interpolate({inputRange: [0, 100], outputRange: ["0%", "15%"]})}}>
             <ThemedIcon  darkMode={darkMode}  onPress={deleteTask} style={{padding: 2, margin: 0}} size={30} icon='ios-close' type='delete'/>

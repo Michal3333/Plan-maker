@@ -88,7 +88,9 @@ export type DeleteTask = {
 export type UpdateTask = {
    type: MY_PROJECTS_ACTION_TYPES.UPDATE_TASK,
    projectId: string,
-   task : projecTask
+   taskId : string,
+   done : boolean,
+   text: string
 }
 export type ConvertToShared = {
    type: MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED,

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TextInput, Button, FlatList, Modal, useColorScheme } from 'react-native'
+import { StyleSheet, View, Text, TextInput, Button, FlatList, Modal, useColorScheme, ScrollView, SafeAreaView } from 'react-native'
 import { useDispatch } from 'react-redux';
 import Screen from '../components/UI/Screen';
 import { MyProjectDetailsNavigationProp, MyProjectDetailsRouteProp } from '../navigation/navigationTypes';
@@ -67,6 +67,7 @@ const ProjectDetailsScreen = (props: Props) => {
       }
    }
    return (
+      <ScrollView>
       <Screen darkMode={false}>
           <Modal animationType='fade'
             visible={addTimeModal} 
@@ -154,7 +155,7 @@ const ProjectDetailsScreen = (props: Props) => {
                      style={{ width: "100%"}}/>
                </View>
             </Card>
-            <Card darkMode={darkMode} style={{width: '100%'}}>
+            <Card darkMode={darkMode} style={{width: '100%', marginBottom: 20}}>
                <View style={styles.tasksBar}>
                   <ThemedLabel style={{fontSize: 20,}} darkMode={darkMode}>Tasks</ThemedLabel>
                   <View style={{flexDirection: 'row'}}>
@@ -163,14 +164,23 @@ const ProjectDetailsScreen = (props: Props) => {
                   </View>
                </View>
                {project.tasks.length > 0 ?
-                  <FlatList style={styles.list} data={project.tasks} renderItem={(itemData) => <TaskItem 
-                     darkMode={darkMode} 
-                     editMode={tasksEditMode} 
-                     text={itemData.item.text} 
-                     color={project.color}
-                     deleteTask={() => {
-                        dispatch(MyProjectsActions.asyncDeleteTask(project.id, project.shared, itemData.item))
-                     }}/>}/>
+                  <View style={styles.list}>
+                     {
+                        project.tasks.map(task => {
+                           return <TaskItem key={task.id} darkMode={darkMode} 
+                              editMode={tasksEditMode} 
+                              text={task.text} 
+                              color={project.color}
+                              done={task.done}
+                              deleteTask={() => {
+                                 dispatch(MyProjectsActions.asyncDeleteTask(project.id, project.shared, task))
+                              }}
+                              changeDone={() => {
+                                 dispatch(MyProjectsActions.asyncUpdateTask(project.id, project.shared, task.id, !task.done, task.text))
+                              }}/>
+                        })
+                     }
+                  </View>
                   :
                   <View style={{alignItems: 'center', padding: 50, backgroundColor: 'black', width: '100%', marginTop: 10, borderRadius: 20}}>
                      <ThemedLabel style={{fontSize: 20}} darkMode={darkMode}>No Task</ThemedLabel>
@@ -183,13 +193,14 @@ const ProjectDetailsScreen = (props: Props) => {
          }
          {!project && <Text>{'Project Not Found'}</Text>}
       </Screen> 
+      </ScrollView>
    )
 }
 
 const styles = StyleSheet.create({
    list : {
       width: '100%',
-      marginTop: 10
+      marginTop: 10,
    },
    input: {
       height: 40,

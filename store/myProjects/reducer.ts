@@ -135,6 +135,28 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                return x
             })
          }
+      case MY_PROJECTS_ACTION_TYPES.UPDATE_TASK:
+         return {
+            ...state,
+            projects: state.projects.map(x => {
+               if(x.id === acton.projectId){
+                  return {
+                     ...x,
+                     tasks: x.tasks.map(task => {
+                        if(task.id === acton.taskId){
+                           return {
+                              ...task,
+                              done: acton.done,
+                              text: acton.text
+                           }
+                        }
+                        return task
+                     })
+                  }
+               }
+               return x
+            })
+         }
    }
    return state;
 } 
