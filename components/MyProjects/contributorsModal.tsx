@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, FlatList } from 'react-native'
+import { StyleSheet, View, Text, Button, TextInput, FlatList, Modal } from 'react-native'
 import Contributor from '../../models/Contributor';
 import Card from '../UI/Card';
 import Screen from '../UI/Screen';
@@ -8,6 +8,7 @@ import ThemedIcon from '../UI/ThemedIcon';
 import ThemedLabel from '../UI/ThemedLabel';
 import * as Colors from '../../constants/Colors'
 import ThemedTitle from '../UI/ThemedTitle';
+import AddContributorModal from './addContributorModal';
 
 
 
@@ -26,6 +27,7 @@ type Props = {
 
 const ContributorsModal = (props : Props) => {
    const [email, setEmail] = useState('');
+   const [addContributorModal, setAddContributorModal] = useState(false)
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(props.darkMode)
 
    const [tasksEditMode, setTasksEditMode] = useState(false)
@@ -47,20 +49,30 @@ const ContributorsModal = (props : Props) => {
       //       </View>}/> */}
       // </Screen>
       <View style={styles.modal}>
-          
+         <Modal animationType='fade'
+            visible={addContributorModal} 
+            transparent={true}>
+               <AddContributorModal darkMode={props.darkMode} 
+                  closeModal={() => {setAddContributorModal(false)}} 
+                  addContributor={(mail: string, allowMessages: boolean, allowDetails: boolean) => {
+                     props.addConributor(mail);
+                     setAddContributorModal(false)
+                  }}
+               />
+         </Modal>
           <Card darkMode={props.darkMode} style={{width: '100%', marginBottom: 20}}>
             <View style={{width: '100%', marginBottom: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>Contributors</ThemedTitle>
                {props.shared && <ThemedIcon darkMode={props.darkMode} onPress={props.convertToNormal} icon={"people-circle-sharp"} type="delete" size={40} style={{padding: 0, margin: 0}}/>}
             </View>
             <View style={{ ...styles.tasksBar}}>
-               <ThemedIcon darkMode={props.darkMode} icon='ios-add' onPress={() => {}} color={props.shared ? props.color : 'gray'} style={{ ...styles.addTaskIcon, backgroundColor: backgroundDarker}} size={35} />
+               <ThemedIcon darkMode={props.darkMode} icon='ios-add' onPress={() => {setAddContributorModal(true)}} color={props.shared ? props.color : 'gray'} style={{ ...styles.addTaskIcon, backgroundColor: backgroundDarker}} size={35} />
                <ThemedButton darkMode={props.darkMode} onPress={() => {}} disabled={!props.shared} title={editButtonText} type='confirm' style={{paddingHorizontal: 20, marginLeft: 5}}/>
             </View>
             {props.contributors.length > 0 ?
                <View style={styles.list}>
                   {
-                     <FlatList data={props.contributors} renderItem={(itemData) => <Text>{itemData.item.contributorMail}</Text>}/>
+                     <FlatList data={props.contributors} renderItem={(itemData) => <Text style={{color: 'white'}}>{itemData.item.contributorMail}</Text>}/>
                   }
                </View>
                :
@@ -108,6 +120,9 @@ const styles = StyleSheet.create({
    list : {
       width: '100%',
       marginTop: 10,
+      height:250,
+      backgroundColor: 'black',
+      borderRadius: 20
    },
    buttonsBox: {
       width: "100%",
