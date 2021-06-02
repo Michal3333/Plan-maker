@@ -26,6 +26,7 @@ const MainApp = () => {
       require('../assets/dark_reverse.png'),
       require('../assets/light_reverse.png'),
       require('../assets/headerColors1.png'),
+      require('../assets/screen-background-1.png')
    ]);
    let colorScheme = useColorScheme();
    const darkMode = colorScheme === "dark";

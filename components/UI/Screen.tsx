@@ -16,7 +16,7 @@ type Props = {
    headerImage?: boolean,
    darkMode : boolean
 }
-export const assets = [require('../../assets/headerColors1.png')]
+export const assets = [require('../../assets/headerColors1.png'), require('../../assets/screen-background-1.png')]
 
 
 const Screen = (props: Props) => {
@@ -39,8 +39,8 @@ const Screen = (props: Props) => {
    const inner = (
       <View style={{...styles.screen, ...props.style}}>
          {props.headerImage && 
-            <Animated.View style={{height: 150, width: '85%', position: 'absolute', top: 0, left: offsetAnim}}>
-               <Image source={assets[0]} resizeMode='cover' style={{ height: '100%', width: '100%', borderTopRightRadius: 20, borderBottomRightRadius: 20}}/>
+            <Animated.View style={{height: "100%", width: '90%', position: 'absolute', top: 0, left: offsetAnim}}>
+               <Image source={assets[1]} resizeMode='cover' style={{ height: '100%', width: '100%', borderTopRightRadius: 20, borderBottomRightRadius: 20}}/>
             </Animated.View>
          }
          {
