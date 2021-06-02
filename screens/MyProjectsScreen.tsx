@@ -95,7 +95,7 @@ const MyProjectsScreen = (props: Props) => {
 
 const styles = StyleSheet.create({
    list: {
-      // width: '100%',
+      width: '100%',
    },
    modal:{
       height: '80%',

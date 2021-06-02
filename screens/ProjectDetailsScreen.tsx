@@ -66,6 +66,8 @@ const ProjectDetailsScreen = (props: Props) => {
          
       }
    }
+
+   const editButtonText = tasksEditMode ? "Cancel" : "Edit"
    return (
       <ScrollView>
       <Screen darkMode={false}>
@@ -96,17 +98,19 @@ const ProjectDetailsScreen = (props: Props) => {
          {project &&
          //       dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, project.name + '1', project.dueDate, project.color, project.weeklyLimit + 1))
          <View style={{width: '100%'}}>
-             <View style={{marginTop: 10, marginLeft: 10}} >
-                  <ThemedLabel style={{fontSize: 40}} darkMode={darkMode}>{project.name}</ThemedLabel>
+            <View style={{marginTop: 10, marginLeft: 10}} >
+               <ThemedLabel style={{fontSize: 40}} darkMode={darkMode}>{project.name}</ThemedLabel>
+            </View>
+            <Card darkMode={darkMode}>
+               <View style={{width: '100%', alignItems:'flex-end'}}>
+                  <ThemedButton darkMode={darkMode} onPress={() => {}} disabled={false} title="Edit" type='confirm' style={{paddingHorizontal: 20}}/>
                </View>
-             <Card darkMode={darkMode}>
                <ProgressIndicator darkMode={darkMode} max={project.weeklyLimit} current={project.weeklyDone} color={project.color} style={{marginTop: 10}}/>
                <View style={styles.scoreBox}>
                   <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker, marginRight: 20 }}>
                      <ThemedText darkMode={darkMode}>Total hours</ThemedText>
                      <ThemedLabel darkMode={darkMode} style={{color: project.color, fontSize: 60}}>{project.totalHours}</ThemedLabel>
                   </View>
-               
                   <View style={{...styles.scoreSqare, backgroundColor: project.color}}>
                      <ThemedText darkMode={darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
                      <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>3</ThemedLabel>
@@ -125,8 +129,8 @@ const ProjectDetailsScreen = (props: Props) => {
                <View style={styles.tasksBar}>
                   <ThemedLabel style={{fontSize: 20,}} darkMode={darkMode}>Tasks</ThemedLabel>
                   <View style={{flexDirection: 'row'}}>
-                     <ThemedIcon darkMode={darkMode} icon='pencil' onPress={() => {setTasksEditMode((editMode) => !editMode)}} color={project.color} style={{...styles.addTaskIcon, marginRight: 5, backgroundColor: backgroundDarker}} size={35} />
                      <ThemedIcon darkMode={darkMode} icon='ios-add' onPress={() => {setAddTaskModal(true)}} color={project.color} style={{...styles.addTaskIcon, backgroundColor: backgroundDarker}} size={35} />
+                     <ThemedButton darkMode={darkMode} onPress={() => {setTasksEditMode((editMode) => !editMode)}} disabled={false} title={editButtonText} type='confirm' style={{paddingHorizontal: 20, marginLeft: 5}}/>
                   </View>
                </View>
                {project.tasks.length > 0 ?
@@ -154,8 +158,6 @@ const ProjectDetailsScreen = (props: Props) => {
                }
             </Card>
          </View>
-        
-
          }
          {!project && <Text>{'Project Not Found'}</Text>}
       </Screen> 
