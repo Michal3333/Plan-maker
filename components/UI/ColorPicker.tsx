@@ -18,7 +18,6 @@ const ColorPicker = ({darkMode, pickColor, initialColor} : Props) => {
    const {backgroundLighter} = Colors.getColorsForNavigator(darkMode)
    let startingColor = ColorsToPick[0]
    useEffect(() => {
-      console.log('coloe')
       if(initialColor){
          const initialColorFromArray = ColorsToPick.find(x => x === initialColor);
          if(initialColorFromArray) {
