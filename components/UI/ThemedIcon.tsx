@@ -7,7 +7,7 @@ type Props = {
    darkMode: boolean,
    style?: ViewStyle,
    onPress : () => void,
-   icon : 'ios-close' | 'chevron-down-circle' | 'chevron-up-circle' | 'md-checkmark-circle' | 'ios-add' | 'pencil',
+   icon : 'ios-close' | 'chevron-down-circle' | 'chevron-up-circle' | 'md-checkmark-circle' | 'ios-add' | 'pencil' |'ios-trash',
    type?: 'delete' | 'accept',
    color? :string,
    size? : number

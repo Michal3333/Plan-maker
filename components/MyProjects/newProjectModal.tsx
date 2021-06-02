@@ -7,6 +7,7 @@ import ThemedLabel from '../UI/ThemedLabel';
 import * as Colors from '../../constants/Colors'
 import ThemedTitle from '../UI/ThemedTitle';
 import ThemedButton from '../UI/ThemedButton';
+import ThemedIcon from '../UI/ThemedIcon';
 
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
    color? : string,
    weeklyLimit?: string,
    date? : string,
+   deleteProject? : () => void
 }
 
 const NewProjectModal = (props : Props) => {
@@ -55,8 +57,11 @@ const NewProjectModal = (props : Props) => {
       <TouchableWithoutFeedback  onPress={() => Keyboard.dismiss()}>
          <ScrollView style={{backgroundColor: backgroundDarker}}>
             <View style={{...styles.modal, backgroundColor: backgroundDarker}}>
-            <View style={{width: '100%', paddingBottom: 20, paddingTop: 70}}>
+            <View style={{width: '100%', paddingBottom: 20, paddingTop: 70, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>{props.name ? 'Update Project' : 'Create Project'}</ThemedTitle>
+               {
+                  props.deleteProject && <ThemedIcon darkMode={props.darkMode} onPress={props.deleteProject} icon={"ios-trash"} type="delete" size={35}/>
+               }
             </View>
                <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={10}>
                   <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Name</ThemedLabel>

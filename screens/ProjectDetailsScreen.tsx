@@ -113,7 +113,7 @@ const ProjectDetailsScreen = (props: Props) => {
          </Modal>
          <Modal style={styles.modal} animationType='slide'
             visible={updateModal} presentationStyle="fullScreen" >
-               <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()}/>
+               <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()} deleteProject={deleteProject}/>
          </Modal>
          {project &&    
          <View style={{width: '100%'}}>
