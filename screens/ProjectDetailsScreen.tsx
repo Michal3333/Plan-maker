@@ -17,6 +17,7 @@ import AddTimeModal from '../components/MyProjects/addTimeModal';
 import AddTaskModal from '../components/MyProjects/newTaskModal';
 import ThemedIcon from '../components/UI/ThemedIcon';
 import TaskItem from '../components/MyProjects/TaskItem';
+import NewProjectModal from '../components/MyProjects/newProjectModal';
 
 
 
@@ -33,7 +34,9 @@ const ProjectDetailsScreen = (props: Props) => {
    const [contributorsModal, setContributorsModal] = useState(false)
    const [addTimeModal,setAddTimeModal] = useState(false)
    const [addTaskModal,setAddTaskModal] = useState(false)
+   const [updateModal, setUpdateModal] = useState(false)
    const [tasksEditMode, setTasksEditMode] = useState(false)
+
 
 
    const {id} = route.params;
@@ -44,6 +47,7 @@ const ProjectDetailsScreen = (props: Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
   
    const dispatch = useDispatch()
+
    const deleteProject = async () => {
       if(project){
          await dispatch(MyProjectsActions.asyncDeleteProject(project));
@@ -65,6 +69,18 @@ const ProjectDetailsScreen = (props: Props) => {
          }
          
       }
+   }
+   const updateProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string) => {
+      if(project){
+         const dueDate = new Date(dueDateStr);
+         const result = await dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, name, project.dueDate, color, parseInt(weeklyLimit)))
+         //@ts-ignore
+         if(result){
+            setUpdateModal(false)
+         }
+      }
+      
+  
    }
 
    const editButtonText = tasksEditMode ? "Cancel" : "Edit"
@@ -95,15 +111,18 @@ const ProjectDetailsScreen = (props: Props) => {
                   }
                }}/>
          </Modal>
-         {project &&
-         //       dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, project.name + '1', project.dueDate, project.color, project.weeklyLimit + 1))
+         <Modal style={styles.modal} animationType='slide'
+            visible={updateModal} presentationStyle="fullScreen" >
+               <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()}/>
+         </Modal>
+         {project &&    
          <View style={{width: '100%'}}>
             <View style={{marginTop: 10, marginLeft: 10}} >
                <ThemedLabel style={{fontSize: 40}} darkMode={darkMode}>{project.name}</ThemedLabel>
             </View>
             <Card darkMode={darkMode}>
                <View style={{width: '100%', alignItems:'flex-end'}}>
-                  <ThemedButton darkMode={darkMode} onPress={() => {}} disabled={false} title="Edit" type='confirm' style={{paddingHorizontal: 20}}/>
+                  <ThemedButton darkMode={darkMode} onPress={() => {setUpdateModal(true)}} disabled={false} title="Edit" type='confirm' style={{paddingHorizontal: 20}}/>
                </View>
                <ProgressIndicator darkMode={darkMode} max={project.weeklyLimit} current={project.weeklyDone} color={project.color} style={{marginTop: 10}}/>
                <View style={styles.scoreBox}>
@@ -196,13 +215,17 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       width: '100%'
    },
-   addTaskIcon : {
+   addTaskIcon: {
       padding: 2, 
       paddingHorizontal: 15,  
       margin: 0, 
       backgroundColor: 'black', 
       borderRadius: 20
-   }
+   },
+   modal: {
+      height: '80%',
+      backgroundColor: 'black'
+   },
 })
 
 export default ProjectDetailsScreen;

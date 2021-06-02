@@ -12,7 +12,11 @@ import ThemedButton from '../UI/ThemedButton';
 type Props = {
    addProject: (name: string, weeklyLimit: string, dueDate: string, color: string) => void,
    closeModel: () => void,
-   darkMode : boolean
+   darkMode : boolean,
+   name? : string,
+   color? : string,
+   weeklyLimit?: string,
+   date? : string,
 }
 
 const NewProjectModal = (props : Props) => {
@@ -52,21 +56,22 @@ const NewProjectModal = (props : Props) => {
          <ScrollView style={{backgroundColor: backgroundDarker}}>
             <View style={{...styles.modal, backgroundColor: backgroundDarker}}>
             <View style={{width: '100%', paddingBottom: 20, paddingTop: 70}}>
-               <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>Create Project</ThemedTitle>
+               <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>{props.name ? 'Update Project' : 'Create Project'}</ThemedTitle>
             </View>
                <KeyboardAvoidingView style={{...styles.contentBox, ...background}} behavior={'padding'} keyboardVerticalOffset={10}>
                   <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Name</ThemedLabel>
-                  <ThemedInput validate={validateProjectName} setTextAndState={nameCallback} leftIcon="ios-text" validation={true} placeholder="Project name..." darkMode={props.darkMode}/>
+                  <ThemedInput validate={validateProjectName} setTextAndState={nameCallback} leftIcon="ios-text" validation={true} placeholder="Project name..." darkMode={props.darkMode} initialValue={props.name}/>
                   <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Weekly Goal</ThemedLabel>
-                  <ThemedInput validate={validateWeeklyLimit} setTextAndState={weeklyGoalCallback} leftIcon="cellular" validation={true} placeholder="Weekly goal..." darkMode={props.darkMode} type="number-pad"/>
+                  <ThemedInput validate={validateWeeklyLimit} setTextAndState={weeklyGoalCallback} leftIcon="cellular" validation={true} placeholder="Weekly goal..." darkMode={props.darkMode} type="number-pad" initialValue={props.weeklyLimit}/>
                   <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Due Date</ThemedLabel>
-                  <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode}/>
+                  <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode} initialValue={props.date}/>
                </KeyboardAvoidingView>
                
                <ColorPicker darkMode={props.darkMode} pickColor={(color) => {
                      setColor(color);
                      setColorState(true)
-                  }}/>
+                  }}
+                  initialColor={props.color}/>
 
                <View style={styles.buttonsBox}>
                   <ThemedButton title="Cancel" 
@@ -76,7 +81,7 @@ const NewProjectModal = (props : Props) => {
                      type="confirm" 
                      style={{ width: "48%", backgroundColor: backgroundLighter, paddingVertical: 10}}
                      colorText="reject"/>
-                  <ThemedButton title="Create" 
+                  <ThemedButton title={props.name ? 'Update' : 'Create'}
                      darkMode={props.darkMode} 
                      disabled={!createValidation} 
                      onPress={() => props.addProject(name, weeklyLimit, dueDate, color)}

@@ -37,7 +37,7 @@ const ProjectBox = (props : Props) => {
       <Animated.View style={{opacity: animatedOpacity}}>
          <Card darkMode={props.darkMode}>
             <View style={styles.projectName} >
-               <ThemedLabel style={{fontSize: 40}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
+               <ThemedLabel style={{fontSize: 40, width: '70%'}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
             </View>
             <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
             <View style={styles.scoreBox}>

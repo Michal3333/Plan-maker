@@ -13,7 +13,7 @@ type Props = {
    setTextAndState: (text: string, state: boolean) => void,
    placeholder: string,
    darkMode: boolean,
-   type? : 'number-pad'
+   type? : 'number-pad',
 }
 
 type ValidationState = 'valid' | 'notValid' | null
@@ -29,7 +29,7 @@ const getValidationColor = (state: ValidationState) => {
 
 const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode, initialValue, type} : Props) => {
    const [text, setText] = useState(initialValue ? initialValue : "");
-   const [validationState, setValidationState] = useState<ValidationState>(null);
+   const [validationState, setValidationState] = useState<ValidationState>(initialValue ? 'valid' : null);
    const [errorText, setErrorText] = useState('')
    const validationColor = getValidationColor(validationState);
    const { textColor, borderBottom, inputStyle, errorTextStyle } = Colors.getColors(darkMode);
