@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, Text, TextInput, Button, FlatList, Modal, useColorScheme, ScrollView, SafeAreaView } from 'react-native'
 import { useDispatch } from 'react-redux';
 import Screen from '../components/UI/Screen';
@@ -18,6 +18,8 @@ import AddTaskModal from '../components/MyProjects/newTaskModal';
 import ThemedIcon from '../components/UI/ThemedIcon';
 import TaskItem from '../components/MyProjects/TaskItem';
 import NewProjectModal from '../components/MyProjects/newProjectModal';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/UI/CustomHeader';
 
 
 
@@ -30,12 +32,23 @@ type Props = {
 const ProjectDetailsScreen = (props: Props) => {
    const navigation = useNavigation<MyProjectDetailsNavigationProp>();
    const route = useRoute<MyProjectDetailsRouteProp>();
-   const [editMode, setEditMode] = useState(false);
    const [contributorsModal, setContributorsModal] = useState(false)
    const [addTimeModal,setAddTimeModal] = useState(false)
    const [addTaskModal,setAddTaskModal] = useState(false)
    const [updateModal, setUpdateModal] = useState(false)
    const [tasksEditMode, setTasksEditMode] = useState(false)
+
+   useEffect(() => {
+      dispatch(MyProjectsActions.asyncFetchProjects());
+      navigation.setOptions({
+         headerRight : () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+               <Item title='add project' iconName={'ios-chatbubble-ellipses-sharp'} onPress={() => {}}/>
+               <Item title='contributors' iconName={'people-circle-sharp'} onPress={() => {setContributorsModal(true)}}/>
+            </HeaderButtons>
+         )
+      })
+   }, [])
 
 
 
@@ -56,7 +69,6 @@ const ProjectDetailsScreen = (props: Props) => {
    }
    const deleteContributor = (contributorId : string) => {
       if(project){
-         console.log(contributorId)
          dispatch(MyProjectsActions.asyncDeleteContributor(project.id, contributorId));
       }
    }
@@ -114,6 +126,27 @@ const ProjectDetailsScreen = (props: Props) => {
          <Modal style={styles.modal} animationType='slide'
             visible={updateModal} presentationStyle="fullScreen" >
                <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()} deleteProject={deleteProject}/>
+         </Modal>
+         <Modal style={styles.modal} animationType='fade'
+            visible={contributorsModal} transparent={true}>
+               <ContributorsModal color={project ? project.color : 'black'} 
+                  darkMode={darkMode}  
+                  closeModel={() => {setContributorsModal(false)}} 
+                  addConributor={addContributor} 
+                  deleteContributor={deleteContributor} 
+                  contributors={project ? project.contributors : []}
+                  shared={project ? project.shared : false}
+                  convertToShared={() => {
+                     if(project){
+                       dispatch(MyProjectsActions.asyncConvertToShared(project))
+                     }
+                  }}
+                  convertToNormal={() => {
+                     if(project){
+                       dispatch(MyProjectsActions.asyncConvertToNormal(project))
+                     }
+                  }}
+                  />
          </Modal>
          {project &&    
          <View style={{width: '100%'}}>
