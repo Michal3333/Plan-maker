@@ -117,6 +117,21 @@ export const addContributor = async (userId: string, contributor: Contributor, p
    }
 }
 
+export const updateContributor = async (userId: string, projectId: string, contributorId: string, allowMessage: boolean, allowDetails: boolean ) => {
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+   .doc(userId)
+   .collection(FB_COLLECTIONS.MY_PROJECTS_SHARED)
+   .doc(projectId)
+   .collection(FB_COLLECTIONS.CONTRIBUTORS)
+   .doc(contributorId)
+   .withConverter(contributorConverter)
+   .update({
+      allowMessage: allowMessage,
+      allowDetails: allowDetails
+   })
+}
+
 export const deleteContributor = async (userId: string, projectId: string ,contributorId: string) => {
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)

@@ -1,12 +1,12 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects, updateTask } from "../../API/myProjects"
+import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects, updateContributor, updateTask } from "../../API/myProjects"
 import Contributor from "../../models/Contributor"
 import MyProject, { projecTask } from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UpdateTask, UserActions } from "../types"
+import { AddContributor, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UpdateContributor, UpdateTask, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -18,6 +18,7 @@ export enum MY_PROJECTS_ACTION_TYPES {
    CONVERT_TO_NORMAL = 'CONVERT_TO_NORMAL',
    ADD_CONTRIBUTOR = 'ADD_CONTRIBUTOR',
    DELETE_CONTRIBUTOR = 'DELETE_CONTRIBUTOR',
+   UPDATE_CONTRIBUTOR = 'UPDATE_CONTRIBUTOR',
    ADD_TASK = 'ADD_TASK',
    DELETE_TASK = "DELETE_TASK",
    UPDATE_TASK = "UPDATE_TASK"
@@ -136,7 +137,6 @@ export const asyncAddContributor = (projectId: string, mail : string, allowMessa
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
-         //TODO add allow flags
          const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, allowMessage, allowDetails, "")
          const contributorId = await addContributor(getState().user.id, contributor, projectId, getState().user.email);
          contributor.setId(contributorId)
@@ -156,6 +156,32 @@ export const addContributorAction = (projectId: string, contributor: Contributor
       type: MY_PROJECTS_ACTION_TYPES.ADD_CONTRIBUTOR,
       projectId: projectId,
       contributor: contributor
+   }
+}
+
+export const asyncUpdateContributor = (projectId: string, contributorId: string, allowMessage: boolean, allowDetails: boolean) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+   return async (dispatch, getState) => {
+      try {
+         dispatch(changePendingStatusAction(true))
+         await updateContributor(getState().user.id, projectId, contributorId, allowMessage, allowDetails);
+         dispatch(updateContributorAction(projectId, contributorId, allowMessage, allowDetails))
+         dispatch(changePendingStatusAction(false))
+         return true;
+      } catch (err) {
+         console.log(err)
+         Alert.alert("There is something wrong!!!!", err.message);
+         dispatch(changePendingStatusAction(false))
+         return false;
+      }
+   }
+}
+export const updateContributorAction = (projectId: string, contributorId: string, allowMessage: boolean, allowDetails: boolean) : UpdateContributor => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.UPDATE_CONTRIBUTOR,
+      projectId: projectId,
+      contributorId: contributorId,
+      allowMessages: allowMessage,
+      allowDetails: allowDetails
    }
 }
 

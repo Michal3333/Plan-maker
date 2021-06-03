@@ -15,7 +15,8 @@ type Props = {
    allowDetails: boolean
    delete: () => void,
    darkMode : boolean,
-   editMode : boolean
+   editMode : boolean,
+   updateContributor: (allowMessages : boolean, allowDetails: boolean) => void
 }
 const textHeight = 21;
 
@@ -78,11 +79,19 @@ const ContributorItem = (props : Props) => {
             <Animated.View style={{opacity: opdacityAnim, width: '70%'}}>
                <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>Status   :   {props.status}</ThemedText>
                <View style={{...styles.switchbox, marginTop: 10}}>
-                  <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}} value={props.allowMessages} disabled={!props.editMode}/>
+                  <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}} value={props.allowMessages} disabled={!props.editMode}
+                     onValueChange={() => {
+                        props.updateContributor(!props.allowMessages, props.allowDetails)
+                     }}
+                  />
                   <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>Allow messages</ThemedText>
                </View>
                <View style={styles.switchbox}>
-                  <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}} value={props.allowDetails} disabled={!props.editMode}/>
+                  <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}} value={props.allowDetails} disabled={!props.editMode}
+                     onValueChange={() => {
+                        props.updateContributor(props.allowMessages, !props.allowDetails)
+                     }}
+                  />
                   <ThemedText style={{...styles.marginAndHeight}}  darkMode={props.darkMode}>Allow details</ThemedText>
                </View>
                

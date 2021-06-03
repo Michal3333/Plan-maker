@@ -77,6 +77,11 @@ const ProjectDetailsScreen = (props: Props) => {
          dispatch(MyProjectsActions.asyncAddContributor(project.id, email, allowMessages, allowDetails));
       }
    }
+   const updateContributor = async(contributorId : string, allowMessages: boolean, allowDetails: boolean) => {
+      if(project){
+         dispatch(MyProjectsActions.asyncUpdateContributor(project.id, contributorId, allowMessages, allowDetails));
+      }
+   }
    const updateProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string) => {
       if(project){
          const dueDate = new Date(dueDateStr);
@@ -141,7 +146,8 @@ const ProjectDetailsScreen = (props: Props) => {
                        dispatch(MyProjectsActions.asyncConvertToNormal(project))
                      }
                   }}
-                  />
+                  updateContributor={updateContributor}
+               />
          </Modal>
          {project &&    
          <View style={{width: '100%'}}>

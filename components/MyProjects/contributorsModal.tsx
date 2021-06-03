@@ -18,10 +18,11 @@ type Props = {
    closeModel: () => void,
    contributors : Contributor[],
    deleteContributor: (contributorId: string) => void,
+   updateContributor: (contributorId: string, allowMessages: boolean, allowDetails: boolean) => void,
    darkMode: boolean,
    color: string,
    shared: boolean,
-   convertToShared : () => void,
+   convertToShared: () => void,
    convertToNormal: () => void
 
 }
@@ -72,6 +73,9 @@ const ContributorsModal = (props : Props) => {
                            props.deleteContributor(itemData.item.id)
                         }}
                         editMode={tasksEditMode}
+                        updateContributor={(allowMessages: boolean, allowDetails: boolean) => {
+                           props.updateContributor(itemData.item.id ,allowMessages, allowDetails)
+                        }}
                      />}/>
                      // <FlatList data={props.contributors} renderItem={(itemData) => <Text>asdasdasd</Text>}/>
                   }
