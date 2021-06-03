@@ -14,9 +14,9 @@ type Props = {
    addProject: (name: string, weeklyLimit: string, dueDate: string, color: string) => void,
    closeModel: () => void,
    darkMode : boolean,
-   name? : string,
-   color? : string,
-   weeklyLimit?: string,
+   name? : string | undefined,
+   color? : string | undefined,
+   weeklyLimit?: string | undefined,
    date? : string,
    deleteProject? : () => void
 }

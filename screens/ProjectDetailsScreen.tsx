@@ -25,13 +25,13 @@ import CustomHeaderButton from '../components/UI/CustomHeader';
 
 
 type Props = {
-   // route: MyProjectDetailsRouteProp,
-   // navigation: MyProjectDetailsNavigationProp
+   route: MyProjectDetailsRouteProp,
+   navigation: MyProjectDetailsNavigationProp
 }
 
-const ProjectDetailsScreen = (props: Props) => {
-   const navigation = useNavigation<MyProjectDetailsNavigationProp>();
-   const route = useRoute<MyProjectDetailsRouteProp>();
+const ProjectDetailsScreen = ({navigation, route}: Props) => {
+   // const navigation = useNavigation<MyProjectDetailsNavigationProp>();
+   // const route = useRoute<MyProjectDetailsRouteProp>();
    const [contributorsModal, setContributorsModal] = useState(false)
    const [addTimeModal,setAddTimeModal] = useState(false)
    const [addTaskModal,setAddTaskModal] = useState(false)

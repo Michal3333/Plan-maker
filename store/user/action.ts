@@ -1,4 +1,4 @@
-import { ChangePendingStatus, InvitationActions, NotificationsActions, PendingStatusActions, SignIn, SignOut, UserActions } from "../types";
+import { AddLogs, ChangePendingStatus, InvitationActions, MyProjectsActions, NotificationsActions, PendingStatusActions, SignIn, SignOut, UserActions } from "../types";
 import { ThunkAction } from 'redux-thunk'
 import { RootState } from "../store";
 import { AnyAction, Dispatch } from 'redux'
@@ -8,6 +8,8 @@ import { asyncKeepGettingNotifications } from "../notifications/action";
 import { asyncKeepGettingInvitations } from "../invitations/action";
 import { changePendingStatusAction } from "../pendingStatus/action";
 import { asyncKeepGettingOtherProjects } from "../otherProjects/action";
+import { fetchTimeLog, timeLog } from "../../API/userData";
+import { addLogsAction } from "../myProjects/action";
 
 
 
@@ -34,12 +36,14 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
    }
 }
 
-export const asyncSignIn = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions | PendingStatusActions | NotificationsActions | InvitationActions>  => {
+export const asyncSignIn = (email : string, password: string) : ThunkAction<void, RootState, unknown, UserActions | PendingStatusActions | NotificationsActions | InvitationActions | MyProjectsActions>  => {
    return async (dispatch) => {
       try {
          dispatch(changePendingStatusAction(true))
          const uid = await signIn(email, password);
+         const logs = await fetchTimeLog(uid)
          dispatch(signInAction(uid, email))
+         dispatch(addLogsAction(logs))
          dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
          dispatch(asyncKeepGettingOtherProjects())

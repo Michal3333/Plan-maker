@@ -26,11 +26,11 @@ import * as OtherProjectActions from '../store/otherProjects/action'
 
 
 type Props = {
-
+   navigation: OtherProjectDetailsNavigationProp
 }
 
-const OtherProjectDetailsScreen = (props: Props) => {
-   const navigation = useNavigation<OtherProjectDetailsNavigationProp>();
+const OtherProjectDetailsScreen = ({navigation}: Props) => {
+   
    const route = useRoute<OtherProjectDetailsRouteProp>();
 
    const [editMode, setEditMode] = useState(false)

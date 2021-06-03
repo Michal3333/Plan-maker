@@ -2,11 +2,12 @@ import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
 import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects, updateContributor, updateTask } from "../../API/myProjects"
+import { addTimeLog, timeLog } from "../../API/userData"
 import Contributor from "../../models/Contributor"
 import MyProject, { projecTask } from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UpdateContributor, UpdateTask, UserActions } from "../types"
+import { AddContributor, AddLogs, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UpdateContributor, UpdateTask, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -21,7 +22,9 @@ export enum MY_PROJECTS_ACTION_TYPES {
    UPDATE_CONTRIBUTOR = 'UPDATE_CONTRIBUTOR',
    ADD_TASK = 'ADD_TASK',
    DELETE_TASK = "DELETE_TASK",
-   UPDATE_TASK = "UPDATE_TASK"
+   UPDATE_TASK = "UPDATE_TASK",
+   ADD_LOGS = 'ADD_LOGS'
+
 }
 
 export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
@@ -190,6 +193,7 @@ export const asyncAddTime = (projectId: string, shared: boolean, time: number) :
       try {
          dispatch(changePendingStatusAction(true))
          await addTime(getState().user.id, projectId, shared, time);
+         await addTimeLog(getState().user.id, time)
          dispatch(addTimeAction(projectId, time))
          dispatch(changePendingStatusAction(false))
          return true;
@@ -199,6 +203,13 @@ export const asyncAddTime = (projectId: string, shared: boolean, time: number) :
          dispatch(changePendingStatusAction(false))
          return false;
       }
+   }
+}
+
+export const addLogsAction = (logs : timeLog[]) :AddLogs => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.ADD_LOGS,
+      logs: logs
    }
 }
 

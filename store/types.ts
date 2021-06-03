@@ -1,3 +1,4 @@
+import { timeLog } from "../API/userData";
 import Contributor from "../models/Contributor";
 import Invitation from "../models/Invitation";
 import MyProject, { projecTask } from "../models/MyProject";
@@ -23,10 +24,11 @@ export type PendingStatusActions = ChangePendingStatus
 export interface UserState {
    isLoggedIn: boolean,
    id: string,
-   email: string
+   email: string,
 }
 export interface MyProjectsState {
-   projects : MyProject[]
+   projects : MyProject[],
+   logs : timeLog[]
 }
 
 export type SignIn = {
@@ -37,6 +39,8 @@ export type SignIn = {
 export type SignOut = {
    type : USER_ACTION_TYPES.SIGN_OUT
 }
+
+
 
 export type UserActions = SignIn | SignOut
 
@@ -68,6 +72,10 @@ export type AddProjectTime = {
    type: MY_PROJECTS_ACTION_TYPES.ADD_TIME,
    projectId: string,
    time : number
+}
+export type AddLogs = {
+   type : MY_PROJECTS_ACTION_TYPES.ADD_LOGS,
+   logs : timeLog[]
 }
 export type AddTask = {
    type: MY_PROJECTS_ACTION_TYPES.ADD_TASK,
@@ -111,7 +119,7 @@ export type UpdateContributor = {
    allowMessages: boolean,
    allowDetails: boolean
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask | UpdateTask | DeleteTask | UpdateContributor
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask | UpdateTask | DeleteTask | UpdateContributor | AddLogs
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,

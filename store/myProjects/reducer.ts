@@ -3,17 +3,20 @@ import { USER_ACTION_TYPES } from "../user/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./action";
 
 const initialState : MyProjectsState = {
-   projects: []
+   projects: [],
+   logs : []
 }
 
 export default (state = initialState, acton: MyProjectsActions | UserActions) : MyProjectsState => {
    switch(acton.type) {
       case MY_PROJECTS_ACTION_TYPES.ADD_PROJECT:
          return {
+            ...state,
             projects: [...state.projects, acton.project]
          }
       case MY_PROJECTS_ACTION_TYPES.SET_PROJECTS:
          return {
+            ...state,
             projects: [...acton.projects]
          }
       case USER_ACTION_TYPES.SIGN_OUT:
@@ -23,11 +26,14 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
       case MY_PROJECTS_ACTION_TYPES.REMOVE_PROJECT:
          const id = acton.projectId;
          return {
+            ...state,
+
             projects: state.projects.filter(x => x.id !== id)
          }
       case MY_PROJECTS_ACTION_TYPES.CONVERT_TO_SHARED:
          const projectShared = acton.sharedProject;
          return {
+            ...state,
             projects : state.projects.map(x => {
                if(x.id === projectShared.id){
                   // x.setContributors([])
@@ -42,6 +48,7 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
       case MY_PROJECTS_ACTION_TYPES.CONVERT_TO_NORMAL:
          const projectNormal = acton.normalProject;
          return {
+            ...state,
             projects : state.projects.map(x => {
                if(x.id === projectNormal.id){
                   // x.setNotShared();
@@ -57,6 +64,7 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
       case MY_PROJECTS_ACTION_TYPES.ADD_CONTRIBUTOR:
          const idToAdd = acton.projectId
          return {
+            ...state,
             projects: state.projects.map(x => {
                if(x.id === idToAdd){
                   return {
@@ -116,7 +124,14 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                   }
                }
                return x;
-            })
+            }),
+            logs : [...state.logs, {date: new Date(), time: timeToAdd}]
+         }
+      case MY_PROJECTS_ACTION_TYPES.ADD_LOGS:
+         const logs = acton.logs.filter(x => x.date.getMonth() === new Date().getMonth())
+         return {
+            ...state,
+            logs: [...logs]
          }
       case MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT:
          return {

@@ -19,7 +19,8 @@ type Props = {
 }
 
 const SummaryScreen = (props: Props) => {
-   const userData = useAppSelector(state => state.user);
+   const logs = useAppSelector(state => state.myProjects.logs);
+   console.log(logs)
    const dispatch = useDispatch();
    const navigation = useNavigation();
    let colorScheme = useColorScheme();
