@@ -19,7 +19,7 @@ type Props = {
    disabled? : boolean
 }
 
-const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, changeDone, disabled} : Props) => {
+const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, changeDone, disabled=false} : Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
 
    const widthDelete = useRef(new Animated.Value(0)).current;

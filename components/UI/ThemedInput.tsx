@@ -5,7 +5,7 @@ import * as Colors from '../../constants/Colors'
 
 
 type Props = {
-   initialValue? : string
+   initialValue? : string | undefined
    style?: ViewStyle,
    leftIcon?: "mail" | "key-sharp" | "ios-text" | "ios-calendar" | "cellular" | "time-sharp",
    validation: boolean,
@@ -24,6 +24,7 @@ const getValidationColor = (state: ValidationState) => {
    } else if (state === 'notValid') {
       return Colors.red
    }
+   return 'white'
 }
 
 

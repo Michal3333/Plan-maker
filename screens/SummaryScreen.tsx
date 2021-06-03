@@ -10,6 +10,7 @@ import { SummaryNavigationProp } from '../navigation/navigationTypes';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/UI/CustomHeader';
 import * as Colors from '../constants/Colors'
+import Calendar from '../components/UI/Calendar';
 
 
 
@@ -44,8 +45,7 @@ const SummaryScreen = (props: Props) => {
 
    return (
       <Screen darkMode={darkMode}>
-         <Text>{userData.id}</Text>
-         {/* <Button title="Test rules" onPress={() => {testRules()}}/> */}
+         <Calendar darkMode={darkMode}/>
       </Screen>
    )
 }

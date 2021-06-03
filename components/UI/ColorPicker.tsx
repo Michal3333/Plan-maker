@@ -7,7 +7,7 @@ import * as Colors from '../../constants/Colors'
 type Props = {
    darkMode: boolean,
    pickColor: (color: string) => void,
-   initialColor? : string
+   initialColor? : string | undefined
 }
 
 const ColorsToPick = ["#16BAC5", '#5FBFF9', '#00A676', '#F0C808', '#DD1C1A', '#FF8600', '#A3333D', '#202C59'];
