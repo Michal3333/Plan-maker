@@ -24,7 +24,10 @@ export const asyncKeepGettingOtherProjects = () : ThunkAction<void, RootState, u
          const callBackUpdate = (otherProject: OtherProject) => {
             dispatch(updateOtherProject(otherProject));
          }
-         const unsubscribe = await keepGettingOtherProjects(getStore().user.id, callBackAdd, callBackUpdate);
+         const callBackDelete = (otherProjectId: string) => {
+            dispatch(deleteOtherProjectAction(otherProjectId));
+         }
+         const unsubscribe = await keepGettingOtherProjects(getStore().user.id, callBackAdd, callBackUpdate, callBackDelete);
          dispatch(initOtherProjects(unsubscribe))
       } catch (err) {
          console.log(err)

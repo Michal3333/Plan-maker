@@ -20,6 +20,7 @@ import TaskItem from '../components/MyProjects/TaskItem';
 import NewProjectModal from '../components/MyProjects/newProjectModal';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/UI/CustomHeader';
+import * as OtherProjectActions from '../store/otherProjects/action' 
 
 
 
@@ -32,11 +33,7 @@ const OtherProjectDetailsScreen = (props: Props) => {
    const navigation = useNavigation<OtherProjectDetailsNavigationProp>();
    const route = useRoute<OtherProjectDetailsRouteProp>();
 
-   const [contributorsModal, setContributorsModal] = useState(false)
-   const [addTimeModal,setAddTimeModal] = useState(false)
-   const [addTaskModal,setAddTaskModal] = useState(false)
-   const [updateModal, setUpdateModal] = useState(false)
-   const [tasksEditMode, setTasksEditMode] = useState(false)
+   const [editMode, setEditMode] = useState(false)
 
    const {id} = route.params;
    const project = useAppSelector(state => state.otherProjects.otherProjects).find(x => x.id === id);
@@ -44,8 +41,14 @@ const OtherProjectDetailsScreen = (props: Props) => {
    let colorScheme = useColorScheme();
    const darkMode = colorScheme === "dark";
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
+
+   const deleteOtherProject = () => {
+      // dispatch(OtherProjectActions.)
+   }
   
    const dispatch = useDispatch()
+
+   const editButtonText = editMode ? "Cancel" : "Edit"
    return (
       <ScrollView>
       <Screen darkMode={false}>
@@ -56,10 +59,12 @@ const OtherProjectDetailsScreen = (props: Props) => {
                <ThemedLabel style={{fontSize: 40}} darkMode={darkMode}>{project.name}</ThemedLabel>
             </View>
             <Card darkMode={darkMode}>
-               <View style={{width: '100%', alignItems:'flex-end'}}>
-                  <ThemedButton darkMode={darkMode} onPress={() => {setUpdateModal(true)}} disabled={false} title="Edit" type='confirm' style={{paddingHorizontal: 20}}/>
+               <View style={{width: '100%',alignItems: 'center', justifyContent:'flex-end', flexDirection: 'row'}}>
+                  <ThemedButton darkMode={darkMode} onPress={() => {setEditMode(mode => !mode)}} disabled={false} title={editButtonText} type='confirm' style={{paddingHorizontal: 20}}/>
+                  {editMode && <ThemedIcon darkMode={darkMode} onPress={deleteOtherProject} icon={"ios-trash"} type="delete" size={30} style={{padding: 0, margin: 0, marginLeft: 20}}/>}
                </View>
                <ProgressIndicator darkMode={darkMode} max={project.weeklyLimit} current={project.weeklyDone} color={project.color} style={{marginTop: 10}}/>
+               <ThemedLabel style={{width: '100%', marginTop: 20}} darkMode={darkMode}> Owner : {project.ownerMail}</ThemedLabel>
                <View style={styles.scoreBox}>
                   <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker, marginRight: 20 }}>
                      <ThemedText darkMode={darkMode}>Total hours</ThemedText>
@@ -74,7 +79,7 @@ const OtherProjectDetailsScreen = (props: Props) => {
                   <ThemedButton title="Send Message" 
                      darkMode={darkMode} 
                      disabled={false} 
-                     onPress={() => {setAddTimeModal(true)}}
+                     onPress={() => {}}
                      type="confirm" 
                      style={{ width: "100%"}}/>
                </View>
