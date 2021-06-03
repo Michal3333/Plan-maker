@@ -54,7 +54,7 @@ export const otherProjectConverter = {
    }),
    fromFirestore: (snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions) => {
       const data = snapshot.data(options);
-      return new OtherProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, data.ownerMail, data.sharedStatusId, data.allowNotification, data.allowDetails);
+      return new OtherProject(snapshot.id, data.name, data.color, data.dueDate.toDate(), data.tasks.map((x : any) => ({...x, dueDate: x.dueDate.toDate()})), data.weeklyLimit, data.weeklyDone, data.totalHours, data.ownerMail, data.sharedStatusId, data.allowMessage, data.allowDetails);
   }
 }
 

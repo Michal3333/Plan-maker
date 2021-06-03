@@ -9,6 +9,7 @@ import SummaryScreen from '../screens/SummaryScreen';
 import MyProjectsScreen from '../screens/MyProjectsScreen';
 import OtherProjectsScreen from '../screens/OtherProjectsScreen';
 import ProjectDetailsScreen from '../screens/ProjectDetailsScreen';
+import OtherProjectDetailsScreen from '../screens/OtherProjectDetailsScreen'
 import SignInScreen from '../screens/SignUpScreen';
 import { DrawerActions, StackActions, TabActions, CommonActions} from '@react-navigation/native';
 import MessagesScreen from '../screens/MessagesScreen';
@@ -142,7 +143,7 @@ const OtherProjecsts = () => {
    return (
       <OtherProjecstStack.Navigator screenOptions={defaultStackOptions}>
          <OtherProjecstStack.Screen name="OtherProjects" component={OtherProjectsScreen} />
-         <OtherProjecstStack.Screen name="ProjectDetails" component={ProjectDetailsScreen} />
+         <OtherProjecstStack.Screen name="ProjectDetails" component={OtherProjectDetailsScreen} />
       </OtherProjecstStack.Navigator>
    )
 }

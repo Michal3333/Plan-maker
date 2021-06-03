@@ -15,10 +15,11 @@ type Props = {
    color: string,
    done: boolean,
    deleteTask : () => void
-   changeDone : () => void
+   changeDone : () => void,
+   disabled? : boolean
 }
 
-const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, changeDone} : Props) => {
+const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, changeDone, disabled} : Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
 
    const widthDelete = useRef(new Animated.Value(0)).current;
@@ -45,6 +46,7 @@ const TaskItem = ({text, style, darkMode, editMode, color, deleteTask, done, cha
          <Switch style={{transform: [{ scaleX: .8 }, { scaleY: .8 }], marginRight: 3}}
             value={done}
             onValueChange={changeDone}
+            disabled={disabled}
             trackColor={{ false: backgroundLighter, true: color }}/>
          <ThemedLabel darkMode={darkMode} style={{width: '70%'}}>{text}</ThemedLabel>
          <Animated.View style={{width : widthDelete.interpolate({inputRange: [0, 100], outputRange: ["0%", "15%"]})}}>
