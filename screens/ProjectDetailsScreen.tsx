@@ -72,9 +72,9 @@ const ProjectDetailsScreen = (props: Props) => {
          dispatch(MyProjectsActions.asyncDeleteContributor(project.id, contributorId));
       }
    }
-   const addContributor = async (email:string) => {
+   const addContributor = async (email : string, allowMessages: boolean, allowDetails: boolean) => {
       if(project){
-         dispatch(MyProjectsActions.asyncAddContributor(project.id, email));
+         dispatch(MyProjectsActions.asyncAddContributor(project.id, email, allowMessages, allowDetails));
       }
    }
    const updateProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string) => {
@@ -122,8 +122,8 @@ const ProjectDetailsScreen = (props: Props) => {
             visible={updateModal} presentationStyle="fullScreen" >
                <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()} deleteProject={deleteProject}/>
          </Modal>
-         <Modal style={styles.modal} animationType='fade'
-            visible={contributorsModal} transparent={true}>
+         <Modal style={styles.modal} animationType='slide'
+            visible={contributorsModal}presentationStyle="fullScreen">
                <ContributorsModal color={project ? project.color : 'black'} 
                   darkMode={darkMode}  
                   closeModel={() => {setContributorsModal(false)}} 

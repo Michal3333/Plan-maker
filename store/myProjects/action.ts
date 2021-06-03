@@ -132,12 +132,12 @@ export const convertToNormalAction = (normalProject : MyProject) : ConvertToNorm
    }
 }
 
-export const asyncAddContributor = (projectId: string, mail : string) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+export const asyncAddContributor = (projectId: string, mail : string, allowMessage: boolean, allowDetails: boolean) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
          //TODO add allow flags
-         const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, false, false, "")
+         const contributor = new Contributor("", mail, CONTRIBUTOR_STATUS.PENDING, allowMessage, allowDetails, "")
          const contributorId = await addContributor(getState().user.id, contributor, projectId, getState().user.email);
          contributor.setId(contributorId)
          dispatch(addContributorAction(projectId, contributor))

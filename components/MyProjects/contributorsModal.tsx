@@ -9,11 +9,12 @@ import ThemedLabel from '../UI/ThemedLabel';
 import * as Colors from '../../constants/Colors'
 import ThemedTitle from '../UI/ThemedTitle';
 import AddContributorModal from './addContributorModal';
+import ContributorItem from './ContributorItem';
 
 
 
 type Props = {
-   addConributor: (email: string) => void,
+   addConributor: (email: string, allowMessages: boolean, allowDetails: boolean) => void,
    closeModel: () => void,
    contributors : Contributor[],
    deleteContributor: (contributorId: string) => void,
@@ -36,18 +37,6 @@ const ContributorsModal = (props : Props) => {
    const editButtonText = tasksEditMode ? "Cancel" : "Edit"
 
    return (
-      // <Screen style={styles.modal} darkMode={false}>
-      //    {/* <Text>email</Text>
-      //    <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
-      //    <View>
-      //       <Button title="Add" onPress={() => props.addConributor(email)}/>
-      //       <Button title="Cancel" onPress={props.closeModel}/>
-      //    </View>
-      //    <FlatList data={props.contributors} renderItem={(itemData) => <View>
-      //          <Text>{itemData.item.contributorMail}</Text>
-      //          <Button title="delete" onPress={() => {props.deleteContributor(itemData.item.id)}}/>
-      //       </View>}/> */}
-      // </Screen>
       <View style={styles.modal}>
          <Modal animationType='fade'
             visible={addContributorModal} 
@@ -55,28 +44,40 @@ const ContributorsModal = (props : Props) => {
                <AddContributorModal darkMode={props.darkMode} 
                   closeModal={() => {setAddContributorModal(false)}} 
                   addContributor={(mail: string, allowMessages: boolean, allowDetails: boolean) => {
-                     props.addConributor(mail);
+                     props.addConributor(mail, allowMessages, allowDetails);
                      setAddContributorModal(false)
                   }}
                />
          </Modal>
-          <Card darkMode={props.darkMode} style={{width: '100%', marginBottom: 20}}>
+          <Screen darkMode={props.darkMode} style={{width: '100%', marginBottom: 20, marginTop: 70}}>
             <View style={{width: '100%', marginBottom: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                <ThemedTitle style={{fontSize: 45}} darkMode={props.darkMode}>Contributors</ThemedTitle>
-               {props.shared && <ThemedIcon darkMode={props.darkMode} onPress={props.convertToNormal} icon={"people-circle-sharp"} type="delete" size={40} style={{padding: 0, margin: 0}}/>}
+               {props.shared && false && <ThemedIcon darkMode={props.darkMode} onPress={props.convertToNormal} icon={"people-circle-sharp"} type="delete" size={40} style={{padding: 0, margin: 0}}/>}
             </View>
             <View style={{ ...styles.tasksBar}}>
-               <ThemedIcon darkMode={props.darkMode} icon='ios-add' onPress={() => {setAddContributorModal(true)}} color={props.shared ? props.color : 'gray'} style={{ ...styles.addTaskIcon, backgroundColor: backgroundDarker}} size={35} />
-               <ThemedButton darkMode={props.darkMode} onPress={() => {}} disabled={!props.shared} title={editButtonText} type='confirm' style={{paddingHorizontal: 20, marginLeft: 5}}/>
+               <ThemedIcon darkMode={props.darkMode} icon='ios-add' onPress={() => {setAddContributorModal(true)}} color={props.shared ? props.color : 'gray'} style={{ ...styles.addTaskIcon, backgroundColor : backgroundLighter}} size={35} />
+               
+               <ThemedButton darkMode={props.darkMode} onPress={() => {setTasksEditMode((mode) => !mode)}} disabled={!props.shared} title={editButtonText} type='confirm' style={{paddingHorizontal: 20, marginLeft: 5, backgroundColor: backgroundLighter}}/>
             </View>
             {props.contributors.length > 0 ?
                <View style={styles.list}>
                   {
-                     <FlatList data={props.contributors} renderItem={(itemData) => <Text style={{color: 'white'}}>{itemData.item.contributorMail}</Text>}/>
+                     <FlatList data={props.contributors} renderItem={(itemData) => <ContributorItem
+                        darkMode={props.darkMode}
+                        mail={itemData.item.contributorMail}
+                        allowDetails={itemData.item.allowDetails}
+                        allowMessages={itemData.item.allowMessage}
+                        status={itemData.item.status}
+                        delete={() => {
+                           props.deleteContributor(itemData.item.id)
+                        }}
+                        editMode={tasksEditMode}
+                     />}/>
+                     // <FlatList data={props.contributors} renderItem={(itemData) => <Text>asdasdasd</Text>}/>
                   }
                </View>
                :
-               <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: backgroundDarker, width: '100%', marginTop: 10, borderRadius: 20, height:250}}>
+               <View style={{justifyContent: 'center', alignItems: 'center', backgroundColor: backgroundLighter, width: '100%', marginTop: 10, borderRadius: 20, flex: 1}}>
                   <ThemedLabel style={{fontSize: 20}} darkMode={props.darkMode}>{props.shared ? "No Contributors" : "Project not shared"}</ThemedLabel>
                   {!props.shared && <ThemedButton title={'Convert to shared'} darkMode={props.darkMode} onPress={props.convertToShared} disabled={false} type="confirm" style={{backgroundColor : backgroundLighter, paddingHorizontal: 20, marginTop: 20}}/>}
                </View>
@@ -87,9 +88,9 @@ const ContributorsModal = (props : Props) => {
                   disabled={false} 
                   onPress={() => props.closeModel()}
                   type="confirm" 
-                  style={{ width: "100%", marginBottom: 0}}/>
+                  style={{ width: "100%", backgroundColor: backgroundLighter, marginBottom: 30}}/>
             </View>
-         </Card>
+         </Screen>
         
       </View>
       
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
    modal: {
       alignItems: 'center',
       padding: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      backgroundColor: 'black',
       height: '100%',
       justifyContent: 'center'
    },
@@ -120,9 +121,10 @@ const styles = StyleSheet.create({
    list : {
       width: '100%',
       marginTop: 10,
-      height:250,
+      flex : 1,
       backgroundColor: 'black',
-      borderRadius: 20
+      borderRadius: 20,
+      // paddingHorizontal: 5
    },
    buttonsBox: {
       width: "100%",
