@@ -9,7 +9,7 @@ import { asyncKeepGettingInvitations } from "../invitations/action";
 import { changePendingStatusAction } from "../pendingStatus/action";
 import { asyncKeepGettingOtherProjects } from "../otherProjects/action";
 import { fetchTimeLog, timeLog } from "../../API/userData";
-import { addLogsAction } from "../myProjects/action";
+import { addLogsAction, asyncFetchProjects } from "../myProjects/action";
 
 
 
@@ -24,7 +24,7 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
          dispatch(changePendingStatusAction(true))
          const uid = await registration(email, password)
          dispatch(signInAction(uid, email))
-         dispatch(asyncKeepGettingNotifications())
+         await dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
          dispatch(asyncKeepGettingOtherProjects())
          dispatch(changePendingStatusAction(false))
@@ -44,6 +44,7 @@ export const asyncSignIn = (email : string, password: string) : ThunkAction<void
          const logs = await fetchTimeLog(uid)
          dispatch(signInAction(uid, email))
          dispatch(addLogsAction(logs))
+         dispatch(asyncFetchProjects())
          dispatch(asyncKeepGettingNotifications())
          dispatch(asyncKeepGettingInvitations())
          dispatch(asyncKeepGettingOtherProjects())

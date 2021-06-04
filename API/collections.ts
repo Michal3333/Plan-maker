@@ -6,7 +6,8 @@ export enum FB_COLLECTIONS {
    SHARED_STATUSES = "sharedStatuses",
    INVITATIONS = "invitations",
    OTHER_PROJECTS = "otherProjects",
-   NOTIFICATIONS = "notifications"
+   NOTIFICATIONS = "notifications",
+   MESSAGES_OUT="messagesOut"
 }
 
 export enum CONTRIBUTOR_STATUS {

@@ -28,3 +28,16 @@ export async function deleteNotification(userId: string, notificationId : string
       .doc(notificationId)
       .delete()
 }
+
+export async function sendMessage(userId: string, myEmail: string, email: string, sharedStatus: string, text: string){
+   const db = firebase.firestore();
+   await db.collection(FB_COLLECTIONS.USERS)
+      .doc(userId)
+      .collection(FB_COLLECTIONS.MESSAGES_OUT)
+      .add({
+         text: text,
+         email: email,
+         sharedStatus: sharedStatus,
+         sender: myEmail
+      })
+}

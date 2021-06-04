@@ -48,7 +48,7 @@ const ProjectBox = (props : Props) => {
             
                <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
                   <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>3</ThemedLabel>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
                </View>
             </View>
             <View style={styles.buttonsBox}>

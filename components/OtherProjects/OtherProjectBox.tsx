@@ -19,7 +19,8 @@ type Props = {
    total: number,
    owner: string,
    allowMessages: boolean,
-   allowDetails : boolean
+   allowDetails : boolean,
+   openModal: ()=> void
 }
 
 const OtherProjectBox = (props : Props) => {
@@ -48,7 +49,7 @@ const OtherProjectBox = (props : Props) => {
                </View>
                <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
                   <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>3</ThemedLabel>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
                </View>
             </View>
            
@@ -56,7 +57,7 @@ const OtherProjectBox = (props : Props) => {
                <ThemedButton title="Message" 
                   darkMode={props.darkMode} 
                   disabled={!props.allowMessages} 
-                  onPress={() => {}}
+                  onPress={props.openModal}
                   type="confirm" 
                   style={{ width: "48%"}}/>
                <ThemedButton title="Details" 
