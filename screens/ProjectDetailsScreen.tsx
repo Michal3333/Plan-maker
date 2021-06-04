@@ -20,6 +20,7 @@ import TaskItem from '../components/MyProjects/TaskItem';
 import NewProjectModal from '../components/MyProjects/newProjectModal';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/UI/CustomHeader';
+import MessagesModal from '../components/MyProjects/messagesModal';
 
 
 
@@ -37,13 +38,14 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
    const [addTaskModal,setAddTaskModal] = useState(false)
    const [updateModal, setUpdateModal] = useState(false)
    const [tasksEditMode, setTasksEditMode] = useState(false)
+   const [messagesModal, setMessagesModal] = useState(false)
 
    useEffect(() => {
       dispatch(MyProjectsActions.asyncFetchProjects());
       navigation.setOptions({
          headerRight : () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='add project' iconName={'ios-chatbubble-ellipses-sharp'} onPress={() => {}}/>
+               <Item title='add project' iconName={'ios-chatbubble-ellipses-sharp'} onPress={() => {setMessagesModal(true)}}/>
                <Item title='contributors' iconName={'people-circle-sharp'} onPress={() => {setContributorsModal(true)}}/>
             </HeaderButtons>
          )
@@ -126,6 +128,10 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
          <Modal style={styles.modal} animationType='slide'
             visible={updateModal} presentationStyle="fullScreen" >
                <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()} deleteProject={deleteProject}/>
+         </Modal>
+         <Modal style={styles.modal} animationType='slide'
+            visible={messagesModal} presentationStyle="fullScreen" >
+               <MessagesModal darkMode={darkMode} projectId={project ? project.id : ''} closeModal={() => {setMessagesModal(false)}}/>
          </Modal>
          <Modal style={styles.modal} animationType='slide'
             visible={contributorsModal}presentationStyle="fullScreen">
