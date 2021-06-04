@@ -51,7 +51,7 @@ const NewProjectModal = (props : Props) => {
       setDueDateState(state);
    }
 
-   const createValidation = nameState && weeklyLimitState && colorState && dueDateState;
+   const createValidation = nameState && weeklyLimitState && colorState;
 
    return (
       <TouchableWithoutFeedback  onPress={() => Keyboard.dismiss()}>
@@ -68,8 +68,8 @@ const NewProjectModal = (props : Props) => {
                   <ThemedInput validate={validateProjectName} setTextAndState={nameCallback} leftIcon="ios-text" validation={true} placeholder="Project name..." darkMode={props.darkMode} initialValue={props.name}/>
                   <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Weekly Goal</ThemedLabel>
                   <ThemedInput validate={validateWeeklyLimit} setTextAndState={weeklyGoalCallback} leftIcon="cellular" validation={true} placeholder="Weekly goal..." darkMode={props.darkMode} type="number-pad" initialValue={props.weeklyLimit}/>
-                  <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Due Date</ThemedLabel>
-                  <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode} initialValue={props.date}/>
+                  {/* <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Due Date</ThemedLabel>
+                  <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode} initialValue={props.date}/> */}
                </KeyboardAvoidingView>
                
                <ColorPicker darkMode={props.darkMode} pickColor={(color) => {
