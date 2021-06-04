@@ -28,7 +28,7 @@ export interface UserState {
 }
 export interface MyProjectsState {
    projects : MyProject[],
-   logs : timeLog[]
+   logs : timeLog[],
 }
 
 export type SignIn = {

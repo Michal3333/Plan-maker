@@ -12,6 +12,17 @@ export const green_2 = '#6DCDB0'
 export const green_3 = '#43AA8B'
 export const green_4 = '#008960'
 
+export const theme_red = '#F94144'
+export const theme_green = '#2A9D8F'
+export const theme_yellow = '#F9C74F'
+export const theme_blue = '#277DA1'
+export const theme_orange = '#F3722C'
+
+
+
+
+
+
 
 
 

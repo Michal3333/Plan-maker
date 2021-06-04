@@ -4,7 +4,7 @@ import { MY_PROJECTS_ACTION_TYPES } from "./action";
 
 const initialState : MyProjectsState = {
    projects: [],
-   logs : []
+   logs : [],
 }
 
 export default (state = initialState, acton: MyProjectsActions | UserActions) : MyProjectsState => {
@@ -17,7 +17,7 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
       case MY_PROJECTS_ACTION_TYPES.SET_PROJECTS:
          return {
             ...state,
-            projects: [...acton.projects]
+            projects: [...acton.projects],
          }
       case USER_ACTION_TYPES.SIGN_OUT:
          return {
