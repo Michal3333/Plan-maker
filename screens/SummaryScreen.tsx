@@ -20,7 +20,6 @@ type Props = {
 
 const SummaryScreen = (props: Props) => {
    const logs = useAppSelector(state => state.myProjects.logs);
-   console.log(logs)
    const dispatch = useDispatch();
    const navigation = useNavigation();
    let colorScheme = useColorScheme();
@@ -46,7 +45,7 @@ const SummaryScreen = (props: Props) => {
 
    return (
       <Screen darkMode={darkMode}>
-         <Calendar darkMode={darkMode}/>
+         <Calendar darkMode={darkMode} logs={logs}/>
       </Screen>
    )
 }

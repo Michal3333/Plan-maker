@@ -7,6 +7,14 @@ export const red = "#F94144"
 export const disabled = "gray"
 export const primary = "#00A6A6"
 
+export const green_1 = '#B0F3DF'
+export const green_2 = '#6DCDB0'
+export const green_3 = '#43AA8B'
+export const green_4 = '#008960'
+
+
+
+
 const getThemeColors = (darkMode: boolean) => {
    let textColor = black;
    let titleColor = white;
