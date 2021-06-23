@@ -1,4 +1,10 @@
-export const validateEmail = (text: string) => {
+export type validationResult = {
+   state: boolean,
+   error: string,
+}
+export type validationFunction = (text: string) => validationResult
+
+export const validateEmail : validationFunction = (text: string) => {
    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
    const state = re.test(String(text).toLowerCase());
    let errorText = "";
@@ -10,7 +16,7 @@ export const validateEmail = (text: string) => {
       error: errorText
    }
 }
-export const validatePassword = (text: string) => {
+export const validatePassword : validationFunction  = (text: string) => {
    const state = text.length >= 6;
    let errorText = "";
    if(!state){
@@ -21,7 +27,7 @@ export const validatePassword = (text: string) => {
       error: errorText
    }
 }
-export const validateProjectName = (text: string) => {
+export const validateProjectName : validationFunction  = (text: string) => {
    const state = text.length >= 1;
    let errorText = "";
    if(!state){
@@ -32,7 +38,7 @@ export const validateProjectName = (text: string) => {
       error: errorText
    }
 }
-export const validateWeeklyLimit = (text: string) => {
+export const validateWeeklyLimit : validationFunction  = (text: string) => {
    const number = parseInt(text)
    const state = number ? number > 0 : false;
    let errorText = "";
@@ -44,18 +50,18 @@ export const validateWeeklyLimit = (text: string) => {
       error: errorText
    }
 }
-export const validateDueDate = (text: string) => {
-   const state = text.length >= 1;
-   let errorText = "";
-   if(!state){
-      errorText = "Invalid Due Date"
-   }
-   return {
-      state: state,
-      error: errorText
-   }
-}
-export const validateTimeToAdd = (text: string) => {
+// export const validateDueDate : validationFunction  = (text: string) => {
+//    const state = text.length >= 1;
+//    let errorText = "";
+//    if(!state){
+//       errorText = "Invalid Due Date"
+//    }
+//    return {
+//       state: state,
+//       error: errorText
+//    }
+// }
+export const validateTimeToAdd : validationFunction  = (text: string) => {
    const number = parseInt(text)
    const state = number ? number > 0 : false;
    let errorText = "";
@@ -67,7 +73,7 @@ export const validateTimeToAdd = (text: string) => {
       error: errorText
    }
 }
-export const validateTaskName = (text: string) => {
+export const validateTaskName : validationFunction  = (text: string) => {
    const state = text.length >= 1;
    let errorText = "";
    if(!state){
@@ -78,7 +84,7 @@ export const validateTaskName = (text: string) => {
       error: errorText
    }
 }
-export const createConfirmPasswordValidator = (password: string) => {
+export const createConfirmPasswordValidator = (password: string) : validationFunction  =>  {
    return (text: string) => {
       const state = text === password;
       let errorText = "";

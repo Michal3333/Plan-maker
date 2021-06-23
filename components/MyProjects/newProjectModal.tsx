@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native'
-import { validateDueDate, validateProjectName, validateWeeklyLimit } from '../../utils/validators';
+import { validateProjectName, validateWeeklyLimit } from '../../utils/validators';
 import ColorPicker from '../UI/ColorPicker';
 import ThemedInput from '../UI/ThemedInput';
 import ThemedLabel from '../UI/ThemedLabel';
@@ -68,8 +68,6 @@ const NewProjectModal = (props : Props) => {
                   <ThemedInput validate={validateProjectName} setTextAndState={nameCallback} leftIcon="ios-text" validation={true} placeholder="Project name..." darkMode={props.darkMode} initialValue={props.name}/>
                   <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Weekly Goal</ThemedLabel>
                   <ThemedInput validate={validateWeeklyLimit} setTextAndState={weeklyGoalCallback} leftIcon="cellular" validation={true} placeholder="Weekly goal..." darkMode={props.darkMode} type="number-pad" initialValue={props.weeklyLimit}/>
-                  {/* <ThemedLabel style={{...styles.text}} darkMode={props.darkMode}>Due Date</ThemedLabel>
-                  <ThemedInput validate={validateDueDate} setTextAndState={DueDateCallback} leftIcon="ios-calendar" validation={true} placeholder="Due Date..." darkMode={props.darkMode} initialValue={props.date}/> */}
                </KeyboardAvoidingView>
                
                <ColorPicker darkMode={props.darkMode} pickColor={(color) => {
