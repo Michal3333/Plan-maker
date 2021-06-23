@@ -29,7 +29,7 @@ export const asyncKeepGettingOtherProjects = () : ThunkAction<void, RootState, u
          }
          const unsubscribe = await keepGettingOtherProjects(getStore().user.id, callBackAdd, callBackUpdate, callBackDelete);
          dispatch(initOtherProjects(unsubscribe))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
       }
@@ -65,7 +65,7 @@ export const asyncAnswerInvitation = (projectId: string) : ThunkAction<void, Roo
          await deleteOtherProject(getStore().user.id, projectId);
          dispatch(deleteOtherProjectAction(projectId))
          dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          dispatch(changePendingStatusAction(false))
          Alert.alert("There is something wrong!!!!", err.message);

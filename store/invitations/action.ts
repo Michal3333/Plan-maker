@@ -21,7 +21,7 @@ export const asyncKeepGettingInvitations = () : ThunkAction<void, RootState, unk
          }
          const unsubscribe = await keepGettingInvitations(getStore().user.id, callBackAdd);
          dispatch(initInvitations(unsubscribe))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
       }
@@ -49,7 +49,7 @@ export const asyncAnswerInvitation = (invitationId: string, answer: boolean) : T
          await sendInvitationAnswer(getStore().user.id, invitationId, status);
          dispatch(deleteAnsweredInvitation(invitationId))
          dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          dispatch(changePendingStatusAction(false))
          Alert.alert("There is something wrong!!!!", err.message);

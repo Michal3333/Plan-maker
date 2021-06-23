@@ -28,7 +28,7 @@ export const asyncSignUp = (email : string, password: string) : ThunkAction<void
          dispatch(asyncKeepGettingInvitations())
          dispatch(asyncKeepGettingOtherProjects())
          dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -51,7 +51,7 @@ export const asyncSignIn = (email : string, password: string) : ThunkAction<void
          dispatch(changePendingStatusAction(false))
          return true;
       }
-      catch (err) {
+      catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -65,7 +65,7 @@ export const asyncSignOut = () : ThunkAction<void, RootState, unknown, UserActio
       try {
          await loggingOut();
          dispatch(signOutAction()) 
-      } catch (err) {
+      } catch (err : any) {
          Alert.alert('There is something wrong!', err.message);
       }
       

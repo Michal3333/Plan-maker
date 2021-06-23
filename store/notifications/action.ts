@@ -21,7 +21,7 @@ export const asyncKeepGettingNotifications = () : ThunkAction<void, RootState, u
          }
          const unsubscribe = await keepGettingNotifications(getStore().user.id, callBackAdd);
          dispatch(initNotifications(unsubscribe))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
       }
@@ -49,7 +49,7 @@ export const asyncDeleteNotification = (notificationId : string) : ThunkAction<v
          deleteNotification(getStore().user.id, notificationId);
          dispatch(deleteNotificationAction(notificationId))
          // dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          // dispatch(changePendingStatusAction(false))
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);

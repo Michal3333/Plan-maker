@@ -36,7 +36,7 @@ export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootStat
          dispatch(addProjectAction(project))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -59,7 +59,7 @@ export const asyncFetchProjects = () : ThunkAction<void, RootState, unknown, MyP
          const projects = await getMyProjects(getState().user.id)
          dispatch(setProjectsAction(projects))
          dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -81,7 +81,7 @@ export const asyncDeleteProject = (project : MyProject) : ThunkAction<void, Root
          dispatch(deleteProjectAction(project.id))
          dispatch(changePendingStatusAction(false))
 
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -101,7 +101,7 @@ export const asyncConvertToShared = (project : MyProject) : ThunkAction<void, Ro
          const sharedProject = await convertToSharedProject(getState().user.id, project)
          dispatch(convertToSharedAction(sharedProject))
          dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -122,7 +122,7 @@ export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, Ro
          const normalProject = await convertToMyProject(getState().user.id, project)
          dispatch(convertToNormalAction(normalProject))
          dispatch(changePendingStatusAction(false))
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -146,7 +146,7 @@ export const asyncAddContributor = (projectId: string, mail : string, allowMessa
          dispatch(addContributorAction(projectId, contributor))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -170,7 +170,7 @@ export const asyncUpdateContributor = (projectId: string, contributorId: string,
          dispatch(updateContributorAction(projectId, contributorId, allowMessage, allowDetails))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -197,7 +197,7 @@ export const asyncAddTime = (projectId: string, shared: boolean, time: number) :
          dispatch(addTimeAction(projectId, time))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -229,7 +229,7 @@ export const asyncEditProjectData = (projectId: string, shared: boolean, name: s
          dispatch(editProjectAction(projectId, name, dueDate, color, weeklyLimit))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -261,7 +261,7 @@ export const asyncDeleteContributor = (projectId: string, contributorId: string)
          dispatch(deleteContributorAction(projectId, contributorId))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -292,7 +292,7 @@ export const asyncAddTask = (projectId: string, shared: boolean ,taskName: strin
          dispatch(addTaskAction(projectId, newTask))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -317,7 +317,7 @@ export const asyncDeleteTask = (projectId: string, shared: boolean, task: projec
          dispatch(deleteTaskAction(projectId, task))
          dispatch(changePendingStatusAction(false))
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
@@ -359,7 +359,7 @@ export const asyncUpdateTask = (projectId: string, shared: boolean, taskId: stri
          }
          
          return true;
-      } catch (err) {
+      } catch (err : any) {
          console.log(err)
          Alert.alert("There is something wrong!!!!", err.message);
          dispatch(changePendingStatusAction(false))
