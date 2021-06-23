@@ -1,8 +1,8 @@
 import * as Validators from './validators'
-import {describe, expect, test} from '@jest/globals'
+import {describe, expect, test, it} from '@jest/globals'
 import { validationResult } from './validators';
 
-test("email validator", () => {
+describe("email validator", () => {
    const validator = Validators.validateEmail;
    const valid : validationResult = {
       state : true,
@@ -12,12 +12,27 @@ test("email validator", () => {
       state : false,
       error: "Invalid Email"
    }
-   expect(validator("test@gmail.com")).toStrictEqual(valid)
-   expect(validator("testgmail.com")).toStrictEqual(inValid)
-   expect(validator("test@gmail.c")).toStrictEqual(inValid)
-   expect(validator("test@gmail")).toStrictEqual(inValid)
-   expect(validator("@gmail.com")).toStrictEqual(inValid)
-   expect(validator("test@gtest.pl")).toStrictEqual(valid)
+   it('valid email com', () => {
+      expect(validator("test@gmail.com")).toStrictEqual(valid)
+   })
+   it('no @', () => {
+      expect(validator("testgmail.com")).toStrictEqual(inValid)
+   })
+   it('invalid end', () => {
+      expect(validator("test@gmail.c")).toStrictEqual(inValid)
+   })
+   
+   it('no end', () => {
+      expect(validator("test@gmail")).toStrictEqual(inValid)
+   })
+   
+   it('no front', () => {
+      expect(validator("@gmail.com")).toStrictEqual(inValid)
+   })
+   
+   it('valid email pl', () => {
+      expect(validator("test@gtest.pl")).toStrictEqual(valid)
+   })
 })
 
 test("password validator", () => {
