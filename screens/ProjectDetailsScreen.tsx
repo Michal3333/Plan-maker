@@ -21,7 +21,7 @@ import NewProjectModal from '../components/MyProjects/newProjectModal';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/UI/CustomHeader';
 import MessagesModal from '../components/MyProjects/messagesModal';
-
+import StatsModal from '../components/MyProjects/StatsModal';
 
 
 
@@ -39,6 +39,7 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
    const [updateModal, setUpdateModal] = useState(false)
    const [tasksEditMode, setTasksEditMode] = useState(false)
    const [messagesModal, setMessagesModal] = useState(false)
+   const [statsModal, setStatsModal] = useState(false)
 
    useEffect(() => {
       dispatch(MyProjectsActions.asyncFetchProjects());
@@ -47,15 +48,17 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                <Item title='add project' iconName={'ios-chatbubble-ellipses-sharp'} onPress={() => {setMessagesModal(true)}}/>
                <Item title='contributors' iconName={'people-circle-sharp'} onPress={() => {setContributorsModal(true)}}/>
+               <Item title='stats' iconName={'ios-stats-chart'} onPress={() => {setStatsModal(true)}}/>
             </HeaderButtons>
          )
       })
    }, [])
 
-
+   
 
    const {id} = route.params;
    const project = useAppSelector(state => state.myProjects.projects).find(x => x.id === id);
+   const logs = useAppSelector(state => state.myProjects.logs).filter(x => x.projectId === id);
 
    let colorScheme = useColorScheme();
    const darkMode = colorScheme === "dark";
@@ -134,7 +137,11 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
                <MessagesModal darkMode={darkMode} projectId={project ? project.id : ''} closeModal={() => {setMessagesModal(false)}}/>
          </Modal>
          <Modal style={styles.modal} animationType='slide'
-            visible={contributorsModal}presentationStyle="fullScreen">
+            visible={statsModal} presentationStyle="fullScreen">
+               <StatsModal darkMode={darkMode} closeModel={() => setStatsModal(false)} logs={logs}/>
+         </Modal>
+         <Modal style={styles.modal} animationType='slide'
+            visible={contributorsModal} presentationStyle="fullScreen">
                <ContributorsModal color={project ? project.color : 'black'} 
                   darkMode={darkMode}  
                   closeModel={() => {setContributorsModal(false)}} 

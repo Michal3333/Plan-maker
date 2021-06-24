@@ -18,7 +18,8 @@ const ProgressIndicator = ({darkMode, style, current, max, color} : Props) => {
    const widthNotDone = useRef(new Animated.Value(100)).current;
 
    useEffect(() => {
-      const percent = current / max;
+      let percent = current / max;
+      if(percent > 1) percent = 1;
       Animated.timing(widthDone, {
          toValue: 100 * percent,
          duration: 500,
