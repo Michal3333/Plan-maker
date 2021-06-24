@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Button, useColorScheme, ScrollView} from 'react-native'
@@ -14,13 +14,13 @@ import Calendar from '../components/UI/Calendar';
 import ThemedText from '../components/UI/ThemdText';
 import ThemedLabel from '../components/UI/ThemedLabel';
 import Card from '../components/UI/Card';
+import Diagram from '../components/UI/Diagram';
 
 
 
 type Props = {
 
 }
-
 const SummaryScreen = (props: Props) => {
    const logs = useAppSelector(state => state.myProjects.logs);
    const projects = useAppSelector(state => state.myProjects.projects);
@@ -39,6 +39,7 @@ const SummaryScreen = (props: Props) => {
       }
       return sum;
    }, 0)
+
    const dispatch = useDispatch();
    const navigation = useNavigation();
    let colorScheme = useColorScheme();
@@ -48,6 +49,36 @@ const SummaryScreen = (props: Props) => {
    const logOut = () => {
       dispatch(userActions.asyncSignOut())
    }
+
+   const [diagramData, setDiagramData] = useState([{
+      title: 'Mo',
+      value: 10
+      },
+      {
+         title: 'Tu',
+         value: 5
+      },
+      {
+         title: 'We',
+         value: 7
+      },
+      {
+         title: 'Th',
+         value: 0
+      },
+      {
+         title: 'Fr',
+         value: 11
+      },
+      {
+         title: 'Sa',
+         value: -1
+      },
+      {
+         title: 'Su',
+         value: -1
+      }
+   ])
 
    useEffect(() => {
       navigation.setOptions({
@@ -95,7 +126,7 @@ const SummaryScreen = (props: Props) => {
                   
                </View>
             </Card>
-           
+            <Diagram darkMode={darkMode} heigth={400} data={diagramData}/>
             <Calendar darkMode={darkMode} logs={logs} style={{marginBottom: 20}}/>
          </Screen>
       </ScrollView>
