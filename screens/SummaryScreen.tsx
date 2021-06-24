@@ -15,6 +15,7 @@ import ThemedText from '../components/UI/ThemdText';
 import ThemedLabel from '../components/UI/ThemedLabel';
 import Card from '../components/UI/Card';
 import Diagram from '../components/UI/Diagram';
+import { prepareDataForDiagram } from '../utils/Utils';
 
 
 
@@ -49,37 +50,9 @@ const SummaryScreen = (props: Props) => {
    const logOut = () => {
       dispatch(userActions.asyncSignOut())
    }
-
-   const [diagramData, setDiagramData] = useState([{
-      title: 'Mo',
-      value: 10
-      },
-      {
-         title: 'Tu',
-         value: 5
-      },
-      {
-         title: 'We',
-         value: 7
-      },
-      {
-         title: 'Th',
-         value: 0
-      },
-      {
-         title: 'Fr',
-         value: 11
-      },
-      {
-         title: 'Sa',
-         value: -1
-      },
-      {
-         title: 'Su',
-         value: -1
-      }
-   ])
-
+   const diagramData =  prepareDataForDiagram(logs)
+   console.log(logs)
+   
    useEffect(() => {
       navigation.setOptions({
          headerRight : () => (
@@ -104,12 +77,12 @@ const SummaryScreen = (props: Props) => {
                </View>
                <View style={styles.scoreBox}>
                   <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_red, marginRight: 20 }}>
-                     <ThemedText darkMode={darkMode}>Week Hours</ThemedText>
+                     <ThemedText darkMode={darkMode}>Weekly Hours</ThemedText>
                      <ThemedLabel darkMode={darkMode} style={{fontSize: 60}}>{weekHours}</ThemedLabel>
                   </View>
                
                   <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_green}}>
-                     <ThemedText darkMode={darkMode} style={{color: 'white'}}>Week Projects</ThemedText>
+                     <ThemedText darkMode={darkMode} style={{color: 'white'}}>Weekly Projects</ThemedText>
                      <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{complitedProjects}/{projectNumber}</ThemedLabel>
                   </View>
                </View>

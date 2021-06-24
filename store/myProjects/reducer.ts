@@ -125,7 +125,7 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                }
                return x;
             }),
-            logs : [...state.logs, {date: new Date(), time: timeToAdd}]
+            logs : [...state.logs, {date: new Date(), time: timeToAdd, projectId: acton.projectId}]
          }
       case MY_PROJECTS_ACTION_TYPES.ADD_LOGS:
          const logs = acton.logs.filter(x => x.date.getMonth() === new Date().getMonth())

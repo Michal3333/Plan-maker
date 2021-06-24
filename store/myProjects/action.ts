@@ -193,7 +193,7 @@ export const asyncAddTime = (projectId: string, shared: boolean, time: number) :
       try {
          dispatch(changePendingStatusAction(true))
          await addTime(getState().user.id, projectId, shared, time);
-         await addTimeLog(getState().user.id, time)
+         await addTimeLog(getState().user.id, time, projectId)
          dispatch(addTimeAction(projectId, time))
          dispatch(changePendingStatusAction(false))
          return true;
