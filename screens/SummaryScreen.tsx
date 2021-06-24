@@ -51,7 +51,6 @@ const SummaryScreen = (props: Props) => {
       dispatch(userActions.asyncSignOut())
    }
    const diagramData =  prepareDataForDiagram(logs)
-   console.log(logs)
    
    useEffect(() => {
       navigation.setOptions({
