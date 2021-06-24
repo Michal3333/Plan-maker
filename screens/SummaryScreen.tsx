@@ -98,8 +98,8 @@ const SummaryScreen = (props: Props) => {
                   
                </View>
             </Card>
-            <Diagram darkMode={darkMode} heigth={400} data={diagramData}/>
-            <Calendar darkMode={darkMode} logs={logs} style={{marginBottom: 20}}/>
+            <Diagram darkMode={darkMode} heigth={350} data={diagramData}/>
+            <Calendar darkMode={darkMode} logs={logs} style={{marginBottom: 20}} withLegend={true}/>
          </Screen>
       </ScrollView>
       

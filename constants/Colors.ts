@@ -7,10 +7,10 @@ export const red = "#F94144"
 export const disabled = "gray"
 export const primary = "#00A6A6"
 
-export const green_1 = '#B0F3DF'
-export const green_2 = '#6DCDB0'
-export const green_3 = '#43AA8B'
-export const green_4 = '#008960'
+export const green_1 = '#BCDFDF'
+export const green_2 = '#93C7C7'
+export const green_3 = '#67B4B4'
+export const green_4 = '#00A6A6'
 
 export const theme_red = '#F94144'
 export const theme_green = '#2A9D8F'

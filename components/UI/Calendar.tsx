@@ -9,7 +9,8 @@ import ThemedLabel from './ThemedLabel';
 type Props = {
    darkMode: boolean,
    style?: ViewStyle,
-   logs: timeLog[]
+   logs: timeLog[],
+   withLegend? : boolean
 }
 
 type calendarColumnArray = day []
@@ -17,24 +18,45 @@ type day = {
    day: number,
    color: string,
 }
-
-const getGreenColor = (time: number) => {
-   if(time === 0){
-      return ''
-   } else if (time > 10){
-      return Colors.green_4;
-   } else if (time > 6){
-      return Colors.green_3;
-   } else if (time > 3){
-      return Colors.green_2;
-   } else {
-      return Colors.green_1
-   }
+type colorInterval = {
+   max: number,
+   min: number,
+   color: string
 }
 
-const Calendar = ({darkMode, style, logs} : Props) => {
-   const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
+const colorIntervals : colorInterval[] = [
+   {
+      min: 1,
+      max: 3,
+      color: Colors.green_1
+   },
+   {
+      min: 4,
+      max: 6,
+      color: Colors.green_2
+   },
+   {
+      min: 7,
+      max: 10,
+      color: Colors.green_3
+   },
+   {
+      min: 11,
+      max: 1000,
+      color: Colors.green_4
+   }
+]
 
+const getGreenColor = (time: number) => {
+   const colInt = colorIntervals.find(x => x.min <= time && x.max >= time);
+   if(colInt){
+      return colInt.color;
+   }
+   return ''
+}
+
+const Calendar = ({darkMode, style, logs, withLegend} : Props) => {
+   const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode)
 
    const today = new Date();
    const numberOfDays = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
@@ -70,8 +92,7 @@ const Calendar = ({darkMode, style, logs} : Props) => {
             {
                x.map((day, index) => {
                   return (
-                     <View key={day.day} style={{width: 40, alignItems: 'center', paddingVertical: 10, backgroundColor: day.color, marginVertical: 10, borderRadius: 20}}>
-                        {/* <Text style={{color: 'white'}}>{day.day}</Text> */}
+                     <View key={day.day} style={{width: 40, alignItems: 'center', paddingVertical: 10, backgroundColor: day.color, marginVertical: 3, borderRadius: 20}}>
                         <ThemedText darkMode={darkMode}>{day.day}</ThemedText>
                      </View>
       
@@ -82,17 +103,33 @@ const Calendar = ({darkMode, style, logs} : Props) => {
       )
    })
 
-   // })
+   let legend;
+   if(withLegend){
+      legend = colorIntervals.map(x => {
+         return (
+            <View key={x.color} style={{flexDirection: 'row', alignItems:'center'}}>
+               <View style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: x.color, marginRight: 5}}/>
+               <ThemedText darkMode={darkMode}>{`${x.min}-${x.max}`}</ThemedText>
+            </View>
+         )
+      })
+   }
+
+
    return (
-      <Card darkMode={darkMode} style={{...style, width: '100%'}}>
+      <Card darkMode={darkMode} style={{...style, width: '100%',}}>
          <View style={styles.projectName} >
             <ThemedLabel style={{fontSize: 40, width: '70%'}} darkMode={darkMode}>Calendar</ThemedLabel>
          </View>
-         <View style={{...style, flexDirection: 'row', width: '100%', justifyContent: 'space-evenly', alignItems: 'flex-start'}}>
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly', alignItems: 'flex-start'}}>
          {
             columns
          }
          </View>
+         {withLegend && <View style={{flexDirection:'row', width: '100%', justifyContent:'space-evenly', marginTop: 5}}>
+            {legend}
+         </View>}
+         
       </Card>
    )
 }
