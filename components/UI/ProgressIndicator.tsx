@@ -7,10 +7,11 @@ type Props = {
    style?: ViewStyle,
    max : number,
    current: number,
-   color: string
+   color: string,
+   delayAnimation? : number
 }
 
-const ProgressIndicator = ({darkMode, style, current, max, color} : Props) => {
+const ProgressIndicator = ({darkMode, style, current, max, color, delayAnimation} : Props) => {
    const {textColor, backgroundColorMain, textStyle} = Colors.getColors(darkMode)
    const percent = current / max;
 
@@ -18,20 +19,29 @@ const ProgressIndicator = ({darkMode, style, current, max, color} : Props) => {
    const widthNotDone = useRef(new Animated.Value(100)).current;
 
    useEffect(() => {
+      const animate = () => {
+         Animated.timing(widthDone, {
+            toValue: 100 * percent,
+            duration: 500,
+            delay: 500,
+            useNativeDriver: false
+         }).start();
+         Animated.timing(widthNotDone, {
+            toValue: 100 - (100 * percent),
+            duration: 500,
+            delay: 500,
+            useNativeDriver: false
+         }).start();
+      }
       let percent = current / max;
       if(percent > 1) percent = 1;
-      Animated.timing(widthDone, {
-         toValue: 100 * percent,
-         duration: 500,
-         delay: 500,
-         useNativeDriver: false
-      }).start();
-      Animated.timing(widthNotDone, {
-         toValue: 100 - (100 * percent),
-         duration: 500,
-         delay: 500,
-         useNativeDriver: false
-      }).start();
+      if(delayAnimation){
+         setTimeout(animate, delayAnimation)
+      } else {
+         animate()
+      }
+      
+      
    }, [max, current])
 
 

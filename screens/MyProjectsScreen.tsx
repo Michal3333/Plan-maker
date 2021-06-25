@@ -79,6 +79,7 @@ const MyProjectsScreen = (props: Props) => {
                   done={itemData.item.weeklyDone}
                   color={itemData.item.color}
                   total={itemData.item.totalHours}
+                  icon={itemData.item.icon}
                   openAddTimeModal={() => {
                      setProjectToAddTimeId(itemData.item.id)
                      setAddTimeModal(true)

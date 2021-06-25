@@ -36,7 +36,7 @@ const IconPicker = ({darkMode, pickIcon, initialColor, style} : Props) => {
             setPickedColor(color);
             pickIcon(color)
          }}>
-            <Ionicons name={color} size={24} color={'white'}/>
+            <Ionicons name={color} size={24} color={darkMode ? 'white' : 'black'}/>
          </Pressable>
       })
       return (

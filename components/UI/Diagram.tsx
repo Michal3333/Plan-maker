@@ -19,6 +19,7 @@ type Props = {
 }
 
 const Diagram = ({darkMode, data, heigth, max} : Props) => {
+   const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode);
    const selectedMax = max ? max : data.reduce((prev, current) => {
       if(current.value > prev) return current.value;
       return prev;
@@ -32,7 +33,7 @@ const Diagram = ({darkMode, data, heigth, max} : Props) => {
                <ThemedText style={{width: 40, textAlign: 'center'}} darkMode={darkMode}>{x.value !== -1 ? x.value : ''}</ThemedText>
             </View>
             <View style={{height: barHeigth, ...styles.barStyle, justifyContent: 'center', alignItems: 'center',
-               backgroundColor: x.value !== -1 ? Colors.primary : Colors.black}}>
+               backgroundColor: x.value !== -1 ? Colors.primary : backgroundDarker}}>
                <ThemedText darkMode={darkMode}>{x.value == -1 && '?'}</ThemedText>
             </View>
             <View style={{width: '100%', justifyContent: 'center', marginTop: 5}}>

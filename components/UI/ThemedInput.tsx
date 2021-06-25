@@ -14,6 +14,7 @@ type Props = {
    placeholder: string,
    darkMode: boolean,
    type? : 'number-pad',
+   password?: boolean
 }
 
 type ValidationState = 'valid' | 'notValid' | null
@@ -28,7 +29,7 @@ const getValidationColor = (state: ValidationState) => {
 }
 
 
-const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode, initialValue, type} : Props) => {
+const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, placeholder, darkMode, initialValue, type, password} : Props) => {
    const [text, setText] = useState(initialValue ? initialValue : "");
    const [validationState, setValidationState] = useState<ValidationState>(initialValue ? 'valid' : null);
    const [errorText, setErrorText] = useState('')
@@ -70,6 +71,7 @@ const ThemedInput = ({style, leftIcon, validation, validate, setTextAndState, pl
                      setErrorText(error);
                      setTextAndState(text, state);
                   }}
+               secureTextEntry={password}
                placeholder={placeholder}/>
                {validation && validationState && <Ionicons name={validationState === 'valid' ? 'checkmark-circle' : 'close-circle'} size={25} color={validationColor}/>}
          </View>

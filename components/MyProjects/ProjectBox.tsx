@@ -8,6 +8,7 @@ import ThemedLabel from '../UI/ThemedLabel';
 import ThemedTitle from '../UI/ThemedTitle';
 import TaskComponent from './TaskComponent';
 import * as Colors from '../../constants/Colors'
+import { Ionicons } from '@expo/vector-icons';
 
 
 type Props = {
@@ -19,7 +20,8 @@ type Props = {
    done: number,
    color: string,
    openAddTimeModal: () => void,
-   total: number
+   total: number,
+   icon: string
 }
 
 const ProjectBox = (props : Props) => {
@@ -38,6 +40,12 @@ const ProjectBox = (props : Props) => {
          <Card darkMode={props.darkMode}>
             <View style={styles.projectName} >
                <ThemedLabel style={{fontSize: 40, width: '70%'}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
+               {
+                  props.icon && ( props.icon === "alert-circle" || props.icon === 'american-football' || props.icon === 'ios-briefcase' || props.icon === 'time-sharp')  && <View style={{backgroundColor: backgroundDarker, padding: 10, borderRadius: 10}}>
+                     <Ionicons name={props.icon} size={24} color={props.color}/>
+                  </View> 
+               }
+               
             </View>
             <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
             <View style={styles.scoreBox}>
@@ -74,7 +82,10 @@ const ProjectBox = (props : Props) => {
 
 const styles = StyleSheet.create({
    projectName: {
-      width: '100%'
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
    },
    scoreBox: {
       flexDirection: 'row',

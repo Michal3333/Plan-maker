@@ -46,7 +46,7 @@ const LoginScreen = (props: Props) => {
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Email</ThemedLabel>
                <ThemedInput validate={validateEmail} setTextAndState={emailCallback} leftIcon="mail" validation={true} placeholder="Email..." darkMode={darkMode}/>
                <ThemedLabel style={{...styles.text}} darkMode={darkMode}>Password</ThemedLabel>
-               <ThemedInput validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
+               <ThemedInput password={true} validate={validatePassword} setTextAndState={passwordCallback} leftIcon="key-sharp" validation={true} placeholder="Password..." darkMode={darkMode}/>
                <ThemedButton title="Sign in" darkMode={darkMode} disabled={!signInValidation} onPress={() => {dispatch(userActions.asyncSignIn(email, password))}} type="confirm" style={{marginBottom: 10, width: "50%"}}/>
                <ThemedButton title="Sign up" darkMode={darkMode} disabled={false} onPress={() => { props.navigation.navigate('SignIn')}} type="confirm" style={{marginBottom: 50, width: "50%"}} />
             </KeyboardAvoidingView>

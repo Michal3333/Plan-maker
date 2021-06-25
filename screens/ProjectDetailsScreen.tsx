@@ -22,6 +22,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/UI/CustomHeader';
 import MessagesModal from '../components/MyProjects/messagesModal';
 import StatsModal from '../components/MyProjects/StatsModal';
+import { Ionicons } from '@expo/vector-icons';
+
 
 
 
@@ -168,7 +170,12 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
                <ThemedLabel style={{fontSize: 40}} darkMode={darkMode}>{project.name}</ThemedLabel>
             </View>
             <Card darkMode={darkMode}>
-               <View style={{width: '100%', alignItems:'flex-end'}}>
+               <View style={{width: '100%', alignItems:'center', flexDirection:'row', justifyContent: 'space-between'}}>
+                  {
+                      project.icon && ( project.icon === "alert-circle" || project.icon === 'american-football' || project.icon === 'ios-briefcase' || project.icon === 'time-sharp')  && <View style={{backgroundColor: backgroundDarker, padding: 10, borderRadius: 10}}>
+                      <Ionicons name={project.icon} size={24} color={project.color}/>
+                   </View> 
+                  }
                   <ThemedButton darkMode={darkMode} onPress={() => {setUpdateModal(true)}} disabled={false} title="Edit" type='confirm' style={{paddingHorizontal: 20}}/>
                </View>
                <ProgressIndicator darkMode={darkMode} max={project.weeklyLimit} current={project.weeklyDone} color={project.color} style={{marginTop: 10}}/>

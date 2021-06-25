@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useAppSelector } from '../store/store'
 import { useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Button, useColorScheme, ScrollView} from 'react-native'
+import { StyleSheet, View, Text, Button, useColorScheme, ScrollView, Modal} from 'react-native'
 import Screen from '../components/UI/Screen';
 import { keepGettingNotifications } from '../API/notifications';
 import * as userActions from '../store/user/action';
@@ -16,6 +16,7 @@ import ThemedLabel from '../components/UI/ThemedLabel';
 import Card from '../components/UI/Card';
 import Diagram from '../components/UI/Diagram';
 import { prepareDataForDiagram } from '../utils/Utils';
+import WeeklyRaportModal from '../components/UI/WeeklyRaportModal';
 
 
 
@@ -51,6 +52,35 @@ const SummaryScreen = (props: Props) => {
       dispatch(userActions.asyncSignOut())
    }
    const diagramData =  prepareDataForDiagram(logs)
+
+   const [raportModal, setRaportModal] = useState(false);
+
+   const [raportData, setRaportData] = useState([
+      {
+         name: 'test1',
+         goal: 10,
+         done : 3,
+         color: '#16BAC5'
+      },
+      {
+         name: 'test2',
+         goal: 20,
+         done : 4,
+         color: '#5FBFF9'
+      },
+      {
+         name: 'test3',
+         goal: 10,
+         done : 2,
+         color: '#00A676'
+      },
+      {
+         name: 'test4',
+         goal: 10,
+         done : 2,
+         color: '#DD1C1A'
+      },
+   ])
    
    useEffect(() => {
       navigation.setOptions({
@@ -67,9 +97,26 @@ const SummaryScreen = (props: Props) => {
       })
    }, [])
 
+   useEffect(() => {
+      
+     if(raportData){
+        setTimeout(() => {
+            setRaportModal(true);
+        }, 500)
+     } 
+   }, [raportData])
+
    return (
       <ScrollView>
          <Screen darkMode={darkMode} headerImage={true}>
+         <Modal animationType='fade'
+            visible={raportModal} 
+            transparent={true}>
+               <WeeklyRaportModal darkMode={darkMode} 
+               closeModal={() => {setRaportModal(false)}} 
+               data={raportData}
+         />
+         </Modal>
             <Card darkMode={darkMode}>
                <View style={styles.projectName} >
                   <ThemedLabel style={{fontSize: 40, width: '70%'}} darkMode={darkMode}>Progress</ThemedLabel>
