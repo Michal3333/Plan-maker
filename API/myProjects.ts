@@ -156,7 +156,7 @@ export const addTime = async (userId: string, projectId: string, shared: boolean
       })
 }
 
-export const editProject = async (userId: string, projectId: string, shared: boolean, name: string, dueDate: Date, color: string, weeklyLimit: number) => {
+export const editProject = async (userId: string, projectId: string, shared: boolean, name: string, dueDate: Date, color: string, weeklyLimit: number, icon:string) => {
    const db = firebase.firestore();
    await db.collection(FB_COLLECTIONS.USERS)
       .doc(userId)
@@ -167,6 +167,7 @@ export const editProject = async (userId: string, projectId: string, shared: boo
          color,
          weeklyLimit,
          dueDate: firebase.firestore.Timestamp.fromDate(dueDate),
+         icon: icon
       })
 }
 export const addTask = async (userId: string, projectId: string, shared: boolean, task : projecTask) => {

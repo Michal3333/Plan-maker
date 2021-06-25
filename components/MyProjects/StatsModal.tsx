@@ -39,15 +39,6 @@ const StatsModal = (props : Props) => {
                </View>
                <Calendar darkMode={props.darkMode} logs={props.logs} withLegend={true}/>
                <Diagram darkMode={props.darkMode} heigth={350} data={diagramData}/>
-               {/* <View style={styles.buttonsBox}>
-                  <ThemedButton title="Cancel" 
-                     darkMode={props.darkMode} 
-                     disabled={false} 
-                     onPress={() => props.closeModel()}
-                     type="confirm" 
-                     style={{ width: "48%", backgroundColor: backgroundLighter, paddingVertical: 10}}
-                     colorText="reject"/>
-               </View> */}
             </View>
          </ScrollView>
    )

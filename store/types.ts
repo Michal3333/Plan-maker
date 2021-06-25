@@ -65,6 +65,7 @@ export type EditProjectData = {
          color: string, 
          dueDate: Date, 
          weeklyLimit : number
+         icon: string
       }
    }
 }

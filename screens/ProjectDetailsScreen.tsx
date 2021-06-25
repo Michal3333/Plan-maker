@@ -87,10 +87,10 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
          dispatch(MyProjectsActions.asyncUpdateContributor(project.id, contributorId, allowMessages, allowDetails));
       }
    }
-   const updateProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string) => {
+   const updateProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string, icon: string) => {
       if(project){
          const dueDate = new Date(dueDateStr);
-         const result = await dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, name, project.dueDate, color, parseInt(weeklyLimit)))
+         const result = await dispatch(MyProjectsActions.asyncEditProjectData(project.id, project.shared, name, project.dueDate, color, parseInt(weeklyLimit), icon))
          //@ts-ignore
          if(result){
             setUpdateModal(false)
@@ -130,7 +130,7 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
          </Modal>
          <Modal style={styles.modal} animationType='slide'
             visible={updateModal} presentationStyle="fullScreen" >
-               <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} weeklyLimit={project?.weeklyLimit.toString()} deleteProject={deleteProject}/>
+               <NewProjectModal darkMode={darkMode} addProject={updateProject} closeModel={() => {setUpdateModal(false)}} name={project?.name} color={project?.color} icon={project?.icon} weeklyLimit={project?.weeklyLimit.toString()} deleteProject={deleteProject}/>
          </Modal>
          <Modal style={styles.modal} animationType='slide'
             visible={messagesModal} presentationStyle="fullScreen" >

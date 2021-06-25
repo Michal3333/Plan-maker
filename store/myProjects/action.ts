@@ -221,12 +221,12 @@ export const addTimeAction = (projectId: string, time: number) : AddProjectTime 
    }
 }
 
-export const asyncEditProjectData = (projectId: string, shared: boolean, name: string, dueDate: Date, color: string, weeklyLimit: number) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
+export const asyncEditProjectData = (projectId: string, shared: boolean, name: string, dueDate: Date, color: string, weeklyLimit: number, icon: string) : ThunkAction<void, RootState, unknown, MyProjectsActions | PendingStatusActions>  => {
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
-         await editProject(getState().user.id, projectId, shared, name, dueDate, color, weeklyLimit);
-         dispatch(editProjectAction(projectId, name, dueDate, color, weeklyLimit))
+         await editProject(getState().user.id, projectId, shared, name, dueDate, color, weeklyLimit, icon);
+         dispatch(editProjectAction(projectId, name, dueDate, color, weeklyLimit, icon))
          dispatch(changePendingStatusAction(false))
          return true;
       } catch (err : any) {
@@ -238,7 +238,7 @@ export const asyncEditProjectData = (projectId: string, shared: boolean, name: s
    }
 }
 
-export const editProjectAction = (projectId: string, name: string, dueDate: Date, color: string, weeklyLimit: number) : EditProjectData => {
+export const editProjectAction = (projectId: string, name: string, dueDate: Date, color: string, weeklyLimit: number, icon: string) : EditProjectData => {
    return {
       type: MY_PROJECTS_ACTION_TYPES.EDIT_PROJECT,
       payload: {
@@ -246,7 +246,8 @@ export const editProjectAction = (projectId: string, name: string, dueDate: Date
             color,
             name,
             dueDate,
-            weeklyLimit
+            weeklyLimit,
+            icon
          },
          projectId: projectId
       }

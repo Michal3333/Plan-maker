@@ -8,16 +8,19 @@ import * as Colors from '../../constants/Colors'
 import ThemedTitle from '../UI/ThemedTitle';
 import ThemedButton from '../UI/ThemedButton';
 import ThemedIcon from '../UI/ThemedIcon';
+import IconPicker from '../UI/IconPicker';
+
 
 
 type Props = {
-   addProject: (name: string, weeklyLimit: string, dueDate: string, color: string) => void,
+   addProject: (name: string, weeklyLimit: string, dueDate: string, color: string, icon: string) => void,
    closeModel: () => void,
    darkMode : boolean,
    name? : string | undefined,
    color? : string | undefined,
    weeklyLimit?: string | undefined,
    date? : string,
+   icon?: string,
    deleteProject? : () => void
 }
 
@@ -28,6 +31,8 @@ const NewProjectModal = (props : Props) => {
    const [weeklyLimitState, setWeeklyLimitState] = useState(false)
    const [color, setColor] = useState("")
    const [colorState, setColorState] = useState(false)
+   const [icon, setIcon] = useState("")
+   const [iconState, setIconState] = useState(false)
    const [dueDate, setDueDate] = useState('2022-03-03')
    const [dueDateState, setDueDateState] = useState(false)
 
@@ -51,7 +56,7 @@ const NewProjectModal = (props : Props) => {
       setDueDateState(state);
    }
 
-   const createValidation = nameState && weeklyLimitState && colorState;
+   const createValidation = nameState && weeklyLimitState && colorState && iconState;
 
    return (
       <TouchableWithoutFeedback  onPress={() => Keyboard.dismiss()}>
@@ -76,6 +81,11 @@ const NewProjectModal = (props : Props) => {
                   }}
                   initialColor={props.color}/>
 
+               <IconPicker darkMode={props.darkMode} pickIcon={(icon:string) => {
+                     setIcon(icon);
+                     setIconState(true)
+                  }} style={{marginTop: 20}} initialColor={props.icon}/>
+
                <View style={styles.buttonsBox}>
                   <ThemedButton title="Cancel" 
                      darkMode={props.darkMode} 
@@ -87,7 +97,7 @@ const NewProjectModal = (props : Props) => {
                   <ThemedButton title={props.name ? 'Update' : 'Create'}
                      darkMode={props.darkMode} 
                      disabled={!createValidation} 
-                     onPress={() => props.addProject(name, weeklyLimit, dueDate, color)}
+                     onPress={() => props.addProject(name, weeklyLimit, dueDate, color, icon)}
                      type="confirm" 
                      style={{width: "48%", backgroundColor: backgroundLighter, paddingVertical: 10}}
                      colorText="accept"/>
