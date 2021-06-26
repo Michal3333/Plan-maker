@@ -24,6 +24,11 @@ type Props = {
 const WeeklyRaportModal = ({darkMode, data, closeModal} : Props) => {
    const {backgroundLighter, backgroundDarker} = Colors.getColorsForNavigator(darkMode);
 
+   const result = data.reduce((prev, cur) => {
+      if(cur.done < cur.goal) prev = 'Not bad, keep going'
+      return prev
+   }, 'Perfect, keep going')
+
    const finalTextHeight = useRef(new Animated.Value(0)).current;
    const finalTextOpacity = useRef(new Animated.Value(0)).current;
 
@@ -60,7 +65,7 @@ const WeeklyRaportModal = ({darkMode, data, closeModal} : Props) => {
             </View>
             <Animated.View style={{backgroundColor:backgroundDarker, ...styles.finalText, height: finalTextHeight}}>
                <Animated.View style={{opacity: finalTextOpacity}}>
-                  <ThemedLabel style={{fontSize: 30}} darkMode={darkMode}>Troche chujnia but keep going</ThemedLabel>
+                  <ThemedLabel style={{fontSize: 30}} darkMode={darkMode}>{result}</ThemedLabel>
 
                </Animated.View>
             </Animated.View>

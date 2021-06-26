@@ -59,25 +59,25 @@ const SummaryScreen = (props: Props) => {
       {
          name: 'test1',
          goal: 10,
-         done : 3,
+         done : 10,
          color: '#16BAC5'
       },
       {
          name: 'test2',
          goal: 20,
-         done : 4,
+         done : 20,
          color: '#5FBFF9'
       },
       {
          name: 'test3',
          goal: 10,
-         done : 2,
+         done : 10,
          color: '#00A676'
       },
       {
          name: 'test4',
          goal: 10,
-         done : 2,
+         done : 10,
          color: '#DD1C1A'
       },
    ])

@@ -21,7 +21,8 @@ type day = {
 type colorInterval = {
    max: number,
    min: number,
-   color: string
+   color: string,
+   text? : string
 }
 
 const colorIntervals : colorInterval[] = [
@@ -43,7 +44,8 @@ const colorIntervals : colorInterval[] = [
    {
       min: 11,
       max: 1000,
-      color: Colors.green_4
+      color: Colors.green_4,
+      text: '11+'
    }
 ]
 
@@ -109,7 +111,7 @@ const Calendar = ({darkMode, style, logs, withLegend} : Props) => {
          return (
             <View key={x.color} style={{flexDirection: 'row', alignItems:'center'}}>
                <View style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: x.color, marginRight: 5}}/>
-               <ThemedText darkMode={darkMode}>{`${x.min}-${x.max}`}</ThemedText>
+               <ThemedText darkMode={darkMode}>{x.text ? x.text : `${x.min}-${x.max}`}</ThemedText>
             </View>
          )
       })
