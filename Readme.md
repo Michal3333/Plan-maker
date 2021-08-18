@@ -21,8 +21,8 @@ The application allows the users to create their projects and then helps them ex
 ## Preview
 
 <p align="center">
-   <img src="./screenshots/login_neutral.png" width="300"/>
-   <img src="./screenshots/summary_1.png" width="300"/>
-   <img src="./screenshots/summary_2.png" width="300"/>
+   <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/login_neutral.PNG" width="300"/>
+   <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/summary_1.PNG" width="300"/>
+   <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/summary_2.PNG" width="300"/>
 </p>
    <!-- <img src="./screenshots/myProjects.png" width="300"/> -->
