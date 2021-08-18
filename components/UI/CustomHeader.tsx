@@ -6,7 +6,7 @@ import * as Colors from '../../constants/Colors'
 
  
 type Props = {
-
+   size? :number
 }
 
 const CustomHeaderButton = (props: Props) => {
@@ -14,7 +14,7 @@ const CustomHeaderButton = (props: Props) => {
    const darkMode = colorScheme === "dark";
    const {iconColor} = Colors.getColorsForNavigator(darkMode);
    return (
-      <HeaderButton title="icom" color={iconColor} IconComponent={Ionicons} iconSize={30} {...props}/>
+      <HeaderButton title="icom" color={iconColor} IconComponent={Ionicons} iconSize={35} {...props}/>
    )
 }
 

@@ -20,7 +20,8 @@ type Props = {
    owner: string,
    allowMessages: boolean,
    allowDetails : boolean,
-   openModal: ()=> void
+   openModal: ()=> void,
+   complited: number
 }
 
 const OtherProjectBox = (props : Props) => {
@@ -49,7 +50,7 @@ const OtherProjectBox = (props : Props) => {
                </View>
                <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
                   <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>{props.complited}</ThemedLabel>
                </View>
             </View>
            

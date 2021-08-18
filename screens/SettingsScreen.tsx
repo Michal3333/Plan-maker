@@ -10,6 +10,7 @@ import { SummaryNavigationProp } from '../navigation/navigationTypes';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/UI/CustomHeader';
 import * as Colors from '../constants/Colors'
+import ThemedButton from '../components/UI/ThemedButton';
 
 
 
@@ -29,13 +30,31 @@ const SettingsScreen = (props: Props) => {
 
    return (
       <Screen darkMode={darkMode}>
-         <Button title="log out" onPress={logOut} color="white"/>
+          <View style={styles.buttonsBox}>
+               <ThemedButton title="Log out" 
+                  darkMode={darkMode} 
+                  disabled={false} 
+                  onPress={logOut}
+                  type="confirm" 
+                  style={{ width: "40%",  paddingVertical: 10, marginTop: 20, }}/>
+            </View>
       </Screen>
    )
 }
 
 const styles = StyleSheet.create({
-
+   contentBox: {
+      alignItems: 'center',
+      width: '90%'
+   },
+   buttonsBox: {
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      // marginTop: 20,
+      maxWidth: 400,
+      marginBottom: 20
+   },
 })
 
 export default SettingsScreen;

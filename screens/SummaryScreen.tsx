@@ -26,6 +26,8 @@ type Props = {
 const SummaryScreen = (props: Props) => {
    const logs = useAppSelector(state => state.myProjects.logs);
    const projects = useAppSelector(state => state.myProjects.projects);
+   const complitedWeeks = useAppSelector(state => state.myProjects.complitedWeeks);
+   const raportData = useAppSelector(state => state.user.raportObjects)
    const weekHours = projects.reduce((sum, cur) => {
       sum += cur.weeklyDone
       return sum;
@@ -54,33 +56,6 @@ const SummaryScreen = (props: Props) => {
    const diagramData =  prepareDataForDiagram(logs)
 
    const [raportModal, setRaportModal] = useState(false);
-
-   const [raportData, setRaportData] = useState([
-      {
-         name: 'test1',
-         goal: 10,
-         done : 10,
-         color: '#16BAC5'
-      },
-      {
-         name: 'test2',
-         goal: 20,
-         done : 20,
-         color: '#5FBFF9'
-      },
-      {
-         name: 'test3',
-         goal: 10,
-         done : 10,
-         color: '#00A676'
-      },
-      {
-         name: 'test4',
-         goal: 10,
-         done : 10,
-         color: '#DD1C1A'
-      },
-   ])
    
    useEffect(() => {
       navigation.setOptions({
@@ -99,11 +74,13 @@ const SummaryScreen = (props: Props) => {
 
    useEffect(() => {
       
-     if(raportData){
-        setTimeout(() => {
+      if(raportData){
+         setTimeout(() => {
+         if(raportData.length > 0) {
             setRaportModal(true);
-        }, 500)
-     } 
+         }
+         }, 500)
+      } 
    }, [raportData])
 
    return (
@@ -113,7 +90,13 @@ const SummaryScreen = (props: Props) => {
             visible={raportModal} 
             transparent={true}>
                <WeeklyRaportModal darkMode={darkMode} 
-               closeModal={() => {setRaportModal(false)}} 
+               closeModal={async () => {
+                  const result = await dispatch(userActions.asyncDeleteRaport());
+                  //@ts-ignore
+                  if(result) {
+                     setRaportModal(false)
+                  }
+               }} 
                data={raportData}
          />
          </Modal>
@@ -140,7 +123,7 @@ const SummaryScreen = (props: Props) => {
                
                   <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_orange}}>
                      <ThemedText darkMode={darkMode} style={{color: 'white'}}>Total Weeks</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
+                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{complitedWeeks}</ThemedLabel>
                   </View>
                   
                </View>

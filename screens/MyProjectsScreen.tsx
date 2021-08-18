@@ -12,6 +12,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/UI/CustomHeader';
 import ThemedTitle from '../components/UI/ThemedTitle';
 import AddTimeModal from '../components/MyProjects/addTimeModal';
+import SortModal from '../components/MyProjects/sortModal';
+import { sortID } from '../store/types';
 
 type Props = {
    navigation: MyProjectsNavigationProp
@@ -20,8 +22,10 @@ type Props = {
 const MyProjectsScreen = (props: Props) => {
    const dispatch = useDispatch()
    const myProjects = useAppSelector(state => state.myProjects);
+   const sortOptions = useAppSelector(state => state.myProjects.sortOptions)
    const [createNewProjectModal, setCreateNewProjectModal] = useState(false)
    const [addTimeModal,setAddTimeModal] = useState(false)
+   const [sortModal,setSortModal] = useState(false)
    const [projectToAddTimeId, setProjectToAddTimeId] = useState("")
 
    let colorScheme = useColorScheme();
@@ -31,8 +35,9 @@ const MyProjectsScreen = (props: Props) => {
       dispatch(MyProjectsActions.asyncFetchProjects());
       props.navigation.setOptions({
          headerRight : () => (
-            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-               <Item title='add project' iconName={'ios-add'} onPress={() => {setCreateNewProjectModal(true)}}/>
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton} >
+               <Item title='sort' iconName={'md-filter'} onPress={() => {setSortModal(true)}}/>
+               <Item title='add' iconName={'ios-add'} onPress={() => {setCreateNewProjectModal(true)}}/>
             </HeaderButtons>
          )
       })
@@ -40,7 +45,7 @@ const MyProjectsScreen = (props: Props) => {
 
    const addNewProject = async (name: string, weeklyLimit: string, dueDateStr: string, color: string, icon: string) => {
       const dueDate = new Date(dueDateStr);
-      const project = new MyProject('', name, color, dueDate, [], parseInt(weeklyLimit), 0, 0, false, icon)
+      const project = new MyProject('', name, color, dueDate, [], parseInt(weeklyLimit), 0, 0, false, icon, 0)
       const result = await dispatch(MyProjectsActions.asyncAddProject(project));
        //@ts-ignore
        if(result){
@@ -68,6 +73,18 @@ const MyProjectsScreen = (props: Props) => {
                   }
                }}/>
          </Modal>
+         <Modal animationType='fade'
+            visible={sortModal} 
+            transparent={true}>
+               <SortModal darkMode={darkMode} 
+               closeModal={() => {setSortModal(false)}}
+               sortOptions={sortOptions}
+               changeOption={(id : sortID) => {
+                  dispatch(MyProjectsActions.changeSortIDAction(id))
+                  dispatch(MyProjectsActions.sortProjectsAction())
+               }}
+               />
+         </Modal>
          <View style={styles.list}>
             <FlatList 
                data={myProjects.projects} 
@@ -82,8 +99,10 @@ const MyProjectsScreen = (props: Props) => {
                   icon={itemData.item.icon}
                   openAddTimeModal={() => {
                      setProjectToAddTimeId(itemData.item.id)
-                     setAddTimeModal(true)
-                  }}/>
+                     setAddTimeModal(true) 
+                  }}
+                  complited={itemData.item.complited}/>
+                  
                  
                }
                ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>My Projects</ThemedTitle>}

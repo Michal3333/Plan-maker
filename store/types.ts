@@ -4,6 +4,7 @@ import Invitation from "../models/Invitation";
 import MyProject, { projecTask } from "../models/MyProject";
 import NotificationUser from "../models/NotificationUser";
 import OtherProject from "../models/OtherProject";
+import RaportObject from "../models/ReportObject";
 import { INVITATION_ACTION_TYPES } from "./invitations/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./myProjects/action";
 import { NOTIFICATIONS_ACTION_TYPES } from "./notifications/action";
@@ -25,10 +26,20 @@ export interface UserState {
    isLoggedIn: boolean,
    id: string,
    email: string,
+   raportObjects : RaportObject[]
+}
+export type sortID = 'nameAsc' | 'nameDesc' | 'typeAsc' | 'typeDesc'
+
+export type sortOption = {
+   text: string,
+   id: sortID,
+   selected: boolean
 }
 export interface MyProjectsState {
    projects : MyProject[],
    logs : timeLog[],
+   complitedWeeks: number,
+   sortOptions: sortOption[]
 }
 
 export type SignIn = {
@@ -39,10 +50,15 @@ export type SignIn = {
 export type SignOut = {
    type : USER_ACTION_TYPES.SIGN_OUT
 }
+export type GetRaport = {
+   type : USER_ACTION_TYPES.GET_RAPORT,
+   raportObjects: RaportObject[]
+}
+export type DeleteRaport = {
+   type: USER_ACTION_TYPES.DELETE_RAPORT
+}
 
-
-
-export type UserActions = SignIn | SignOut
+export type UserActions = SignIn | SignOut | GetRaport | DeleteRaport
 
 export type SetProjects = {
    type: MY_PROJECTS_ACTION_TYPES.SET_PROJECTS,
@@ -120,7 +136,18 @@ export type UpdateContributor = {
    allowMessages: boolean,
    allowDetails: boolean
 }
-export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask | UpdateTask | DeleteTask | UpdateContributor | AddLogs
+export type SetComplitedWeeks = {
+   type: MY_PROJECTS_ACTION_TYPES.FETCH_COMPLITED_WEEKS,
+   weeksNumber: number
+}
+export type SortProjects = {
+   type: MY_PROJECTS_ACTION_TYPES.SORT_PROJECTS,
+}
+export type ChangeSortId = {
+   type: MY_PROJECTS_ACTION_TYPES.CHANGE_SORTID,
+   sortId : sortID
+}
+export type MyProjectsActions = SetProjects | AddProject | RemoveProject | ConvertToShared | ConvertToNormal | AddContributor | AddProjectTime | EditProjectData | DeleteContributor | AddTask | UpdateTask | DeleteTask | UpdateContributor | AddLogs | SetComplitedWeeks | SortProjects | ChangeSortId
 
 export type NotificationState = {
    unsubscribe : {() : void} | null,

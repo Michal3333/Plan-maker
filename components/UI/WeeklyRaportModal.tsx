@@ -49,7 +49,7 @@ const WeeklyRaportModal = ({darkMode, data, closeModal} : Props) => {
    }, [])
 
    const progresIndicators = data.map((x, index) => {
-      return <View key={x.name} style={{marginTop: 10}}>
+      return <View key={x.name+x.color} style={{marginTop: 10}}>
          <ThemedLabel style={{}} darkMode={darkMode}>{x.name}</ThemedLabel>
          <ProgressIndicator darkMode={darkMode} color={x.color} current={x.done} max={x.goal} delayAnimation={(index + 1) * 300}/>
       </View>

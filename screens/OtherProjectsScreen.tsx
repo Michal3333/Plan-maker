@@ -54,6 +54,7 @@ const OtherProjectsScreen = (props: Props) => {
                      setSelectedProject(itemData.item.id)
                      setSendMessageModal(true)
                   }}
+                  complited={itemData.item.complited}
                />}
                ListHeaderComponent={<ThemedTitle style={{fontSize: 50}} darkMode={darkMode}>Other Projects</ThemedTitle>}
             />

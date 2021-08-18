@@ -70,7 +70,7 @@ const ContributorItem = (props : Props) => {
                   textHide();
                }} style={{}} icon='chevron-up-circle'/>
             }
-            <View style={{width: '65%'}}>
+            <View style={{width: '70%'}}>
                <ThemedLabel  darkMode={props.darkMode}>{props.mail}</ThemedLabel>
             </View>
             {props.editMode && <ThemedIcon  darkMode={props.darkMode}  onPress={props.delete} style={{marginRight: 10}} icon='ios-trash' type={'delete'}/>}

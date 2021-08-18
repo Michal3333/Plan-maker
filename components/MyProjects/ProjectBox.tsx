@@ -20,6 +20,7 @@ type Props = {
    done: number,
    color: string,
    openAddTimeModal: () => void,
+   complited?: number,
    total: number,
    icon: string
 }
@@ -39,7 +40,7 @@ const ProjectBox = (props : Props) => {
       <Animated.View style={{opacity: animatedOpacity}}>
          <Card darkMode={props.darkMode}>
             <View style={styles.projectName} >
-               <ThemedLabel style={{fontSize: 40, width: '70%'}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
+               <ThemedLabel style={{fontSize: 40, width: '80%'}} darkMode={props.darkMode}>{props.name}</ThemedLabel>
                {
                   props.icon && ( props.icon === "alert-circle" || props.icon === 'american-football' || props.icon === 'ios-briefcase' || props.icon === 'time-sharp')  && <View style={{backgroundColor: backgroundDarker, padding: 10, borderRadius: 10}}>
                      <Ionicons name={props.icon} size={24} color={props.color}/>
@@ -56,7 +57,7 @@ const ProjectBox = (props : Props) => {
             
                <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
                   <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
+                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>{props.complited ? props.complited : 0}</ThemedLabel>
                </View>
             </View>
             <View style={styles.buttonsBox}>

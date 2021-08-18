@@ -186,7 +186,7 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
                   </View>
                   <View style={{...styles.scoreSqare, backgroundColor: project.color}}>
                      <ThemedText darkMode={darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>0</ThemedLabel>
+                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{project.complited}</ThemedLabel>
                   </View>
                </View>
                <View style={styles.buttonsBox}>

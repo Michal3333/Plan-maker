@@ -51,7 +51,7 @@ const ProgressIndicator = ({darkMode, style, current, max, color, delayAnimation
             <Text style={{color: 'white', ...textStyle}}>{current}h</Text>
          </Animated.View>
          <Animated.View style={{width :  widthNotDone.interpolate({inputRange : [0,100], outputRange : ['0%', '100%']}), ...styles.indicatorBar}}>
-            <Text style={{...textColor, ...textStyle}}>{max - current}h</Text>
+            <Text style={{...textColor, ...textStyle}}>{max > current ? `${max - current}h` : ''}</Text>
          </Animated.View>
       </View>
    )

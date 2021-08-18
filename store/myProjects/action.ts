@@ -1,13 +1,13 @@
 import { Alert } from "react-native"
 import { ThunkAction } from "redux-thunk"
 import { CONTRIBUTOR_STATUS } from "../../API/collections"
-import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, editProject, getMyProjects, updateContributor, updateTask } from "../../API/myProjects"
+import { addContributor, addTask, addTime, convertToMyProject, convertToSharedProject, createProject, deleteContributor, deleteProject, deleteTask, editProject, getMyProjects, updateContributor, updateTask } from "../../API/myProjects"
 import { addTimeLog, timeLog } from "../../API/userData"
 import Contributor from "../../models/Contributor"
 import MyProject, { projecTask } from "../../models/MyProject"
 import { changePendingStatusAction } from "../pendingStatus/action"
 import { RootState } from "../store"
-import { AddContributor, AddLogs, AddProject, AddProjectTime, AddTask, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetProjects, UpdateContributor, UpdateTask, UserActions } from "../types"
+import { AddContributor, AddLogs, AddProject, AddProjectTime, AddTask, ChangeSortId, ConvertToNormal, ConvertToShared, DeleteContributor, DeleteTask, EditProjectData, MyProjectsActions, PendingStatusActions, RemoveProject, SetComplitedWeeks, SetProjects, sortID, SortProjects, UpdateContributor, UpdateTask, UserActions } from "../types"
 
 export enum MY_PROJECTS_ACTION_TYPES {
    SET_PROJECTS = 'SET_PROJECTS',
@@ -23,7 +23,10 @@ export enum MY_PROJECTS_ACTION_TYPES {
    ADD_TASK = 'ADD_TASK',
    DELETE_TASK = "DELETE_TASK",
    UPDATE_TASK = "UPDATE_TASK",
-   ADD_LOGS = 'ADD_LOGS'
+   ADD_LOGS = 'ADD_LOGS',
+   FETCH_COMPLITED_WEEKS = 'FETCH_COMPLITED_WEEKS',
+   SORT_PROJECTS = 'SORT_PROJECTS',
+   CHANGE_SORTID = 'CHANGE_SORTID'
 
 }
 
@@ -34,6 +37,7 @@ export const asyncAddProject = (project: MyProject) : ThunkAction<void, RootStat
          const id = await createProject(getState().user.id, project)
          project.setId(id);
          dispatch(addProjectAction(project))
+         dispatch(sortProjectsAction())
          dispatch(changePendingStatusAction(false))
          return true;
       } catch (err : any) {
@@ -58,6 +62,7 @@ export const asyncFetchProjects = () : ThunkAction<void, RootState, unknown, MyP
          dispatch(changePendingStatusAction(true))
          const projects = await getMyProjects(getState().user.id)
          dispatch(setProjectsAction(projects))
+         dispatch(sortProjectsAction())
          dispatch(changePendingStatusAction(false))
       } catch (err : any) {
          console.log(err)
@@ -100,6 +105,7 @@ export const asyncConvertToShared = (project : MyProject) : ThunkAction<void, Ro
          dispatch(changePendingStatusAction(true))
          const sharedProject = await convertToSharedProject(getState().user.id, project)
          dispatch(convertToSharedAction(sharedProject))
+         dispatch(sortProjectsAction())
          dispatch(changePendingStatusAction(false))
       } catch (err : any) {
          console.log(err)
@@ -121,6 +127,7 @@ export const asyncConvertToNormal = (project : MyProject) : ThunkAction<void, Ro
          dispatch(changePendingStatusAction(true))
          const normalProject = await convertToMyProject(getState().user.id, project)
          dispatch(convertToNormalAction(normalProject))
+         dispatch(sortProjectsAction())
          dispatch(changePendingStatusAction(false))
       } catch (err : any) {
          console.log(err)
@@ -210,6 +217,13 @@ export const addLogsAction = (logs : timeLog[]) :AddLogs => {
    return {
       type: MY_PROJECTS_ACTION_TYPES.ADD_LOGS,
       logs: logs
+   }
+}
+
+export const setComplitedWeeksAction = (weeks : number) :SetComplitedWeeks => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.FETCH_COMPLITED_WEEKS,
+      weeksNumber: weeks
    }
 }
 
@@ -314,7 +328,7 @@ export const asyncDeleteTask = (projectId: string, shared: boolean, task: projec
    return async (dispatch, getState) => {
       try {
          dispatch(changePendingStatusAction(true))
-         await addTask(getState().user.id, projectId, shared, task);
+         await deleteTask(getState().user.id, projectId, shared, task);
          dispatch(deleteTaskAction(projectId, task))
          dispatch(changePendingStatusAction(false))
          return true;
@@ -376,6 +390,19 @@ export const updateTaskAction = (projectId: string, taskId: string ,done: boolea
       taskId: taskId,
       done: done,
       text: text
+   }
+}
+
+export const changeSortIDAction = (sortId : sortID) : ChangeSortId => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.CHANGE_SORTID,
+      sortId: sortId
+   }
+}
+
+export const sortProjectsAction = () : SortProjects => {
+   return {
+      type: MY_PROJECTS_ACTION_TYPES.SORT_PROJECTS,
    }
 }
 

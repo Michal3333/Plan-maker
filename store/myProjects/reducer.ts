@@ -1,10 +1,34 @@
-import { MyProjectsActions, MyProjectsState, UserActions } from "../types";
+import MyProject from "../../models/MyProject";
+import { MyProjectsActions, MyProjectsState, sortID, UserActions } from "../types";
 import { USER_ACTION_TYPES } from "../user/action";
 import { MY_PROJECTS_ACTION_TYPES } from "./action";
 
 const initialState : MyProjectsState = {
    projects: [],
    logs : [],
+   complitedWeeks : 0,
+   sortOptions: [
+      {
+         text: 'By name ascending',
+         id: 'nameAsc',
+         selected: true,
+      },
+      {
+         text: 'By name descending',
+         id: 'nameDesc',
+         selected: false,
+      },
+      {
+         text: 'By type ascending',
+         id: 'typeAsc',
+         selected: false,
+      },
+      {
+         text: 'By type descending',
+         id: 'typeDesc',
+         selected: false,
+      }
+   ]
 }
 
 export default (state = initialState, acton: MyProjectsActions | UserActions) : MyProjectsState => {
@@ -194,6 +218,52 @@ export default (state = initialState, acton: MyProjectsActions | UserActions) : 
                return x
             })
          }
+      case MY_PROJECTS_ACTION_TYPES.FETCH_COMPLITED_WEEKS:
+         return {
+            ...state,
+            complitedWeeks: acton.weeksNumber
+         }
+      case MY_PROJECTS_ACTION_TYPES.SORT_PROJECTS:
+         const sortId = state.sortOptions.find(x => x.selected)?.id;
+         const sortedData = sortByKey(sortId, state.projects);
+         return {
+            ...state,
+            projects : [...sortedData]
+         }
+      case MY_PROJECTS_ACTION_TYPES.CHANGE_SORTID:
+         return {
+            ...state,
+            sortOptions : state.sortOptions.map(x => ({
+               ...x,
+               selected: acton.sortId === x.id
+            }))
+         }
    }
    return state;
 } 
+
+const sortByKey = (key : sortID | undefined, data: MyProject[]) => {
+   switch (key) {
+      case "nameAsc" :
+         data.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+         })
+      break;
+      case "nameDesc" :
+         data.sort((a, b) => {
+            return a.name.localeCompare(b.name) * -1;
+         })
+      break;
+      case "typeAsc" :
+         data.sort((a, b) => {
+            return a.icon.localeCompare(b.icon);
+         })
+      break;
+      case "typeDesc" :
+         data.sort((a, b) => {
+            return a.icon.localeCompare(b.icon) * -1;
+         })
+      break;
+   }
+   return data;
+}

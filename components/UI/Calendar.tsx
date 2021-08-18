@@ -62,12 +62,23 @@ const Calendar = ({darkMode, style, logs, withLegend} : Props) => {
 
    const today = new Date();
    const numberOfDays = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-   const days = Array.from(Array(numberOfDays).keys()).map(x => {
+   let days = Array.from(Array(numberOfDays).keys()).map(x => {
       return {
          day: x + 1,
          color: backgroundLighter
       }
    })
+   // const daysToMove = new Date(today.getFullYear(), today.getMonth(), 1).getDay() + 1;
+   // console.log(daysToMove)
+   // const test = []
+   // for(let i = 1; i <= daysToMove; i++){
+   //    test.push({
+   //       day: i * -1,
+   //       color: backgroundLighter
+   //    })
+   // }
+   // days = [...test, ...days]
+
    const daysWithColors = days.map(day => {
       const hours = logs.reduce((amount, cur) => {
          if(cur.date.getDate() === day.day){
@@ -83,7 +94,7 @@ const Calendar = ({darkMode, style, logs, withLegend} : Props) => {
    })
    const init : calendarColumnArray[] = [[], [], [], [], [], [], []] 
    const columnsData = daysWithColors.reduce((prev, curr) => {
-      const arr = (curr.day - 1) % 7;
+      let arr = (curr.day - 1) % 7;
       prev[arr].push(curr)
       return prev;
    }, init)

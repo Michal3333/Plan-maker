@@ -7,6 +7,7 @@ const initialState : UserState = {
    isLoggedIn: false,
    id: '',
    email: '',
+   raportObjects: []
 }
 
 export default (state = initialState, acton: UserActions ) : UserState => {
@@ -21,6 +22,16 @@ export default (state = initialState, acton: UserActions ) : UserState => {
       case USER_ACTION_TYPES.SIGN_OUT:
          return {
             ...initialState
+         }
+      case USER_ACTION_TYPES.GET_RAPORT:
+         return {
+            ...state,
+            raportObjects : acton.raportObjects
+         }
+      case USER_ACTION_TYPES.DELETE_RAPORT:
+         return {
+            ...state,
+            raportObjects: []
          }
    }
    return state;
