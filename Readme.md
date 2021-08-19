@@ -22,8 +22,8 @@ The application allows the users to create their projects and then helps them ex
 
 <p align="center">
    <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/log.gif" width="270"/>
-   <!-- <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/summary_1.PNG" width="270"/>
-   <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/summary_2.PNG" width="270"/> -->
+   <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/gif1_720.gif" width="270"/>
+   <!-- <img src="https://github.com/Michal3333/MasterApp/blob/master/screenshots/summary_2.PNG" width="270"/> -->
 </p>
 
 <p align="center">
