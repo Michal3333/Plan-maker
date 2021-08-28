@@ -15,8 +15,8 @@ type Props = {
 const InfoBox = ({ darkMode, backgroudColor, text, label, style, textColor} : Props) => {
    return (
       <View style={{...styles.scoreSqare, backgroundColor: backgroudColor, ...style}}>
-         <ThemedText darkMode={darkMode} style={{color: textColor ? textColor : 'white'}}>{label}</ThemedText>
-         <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{text}</ThemedLabel>
+         <ThemedText darkMode={darkMode} style={{color: 'white'}}>{label}</ThemedText>
+         <ThemedLabel darkMode={darkMode} style={{color: textColor ? textColor : 'white', fontSize: 60}}>{text}</ThemedLabel>
       </View>
    )
 }

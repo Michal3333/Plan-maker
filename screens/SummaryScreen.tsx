@@ -131,13 +131,6 @@ const styles = StyleSheet.create({
       width: '100%',
       marginTop: 20
    },
-   scoreSqare: {
-      alignItems: 'center',
-      // width: '30%',
-      flex: 1,
-      borderRadius: 10,
-      paddingTop: 15
-   },
 })
 
 export default SummaryScreen;

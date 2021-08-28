@@ -9,6 +9,7 @@ import ThemedTitle from '../UI/ThemedTitle';
 import TaskComponent from './TaskComponent';
 import * as Colors from '../../constants/Colors'
 import { Ionicons } from '@expo/vector-icons';
+import InfoBox from '../UI/InfoBox';
 
 
 type Props = {
@@ -50,15 +51,8 @@ const ProjectBox = (props : Props) => {
             </View>
             <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
             <View style={styles.scoreBox}>
-               <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker, marginRight: 20 }}>
-                  <ThemedText darkMode={props.darkMode}>Total hours</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>{props.total}</ThemedLabel>
-               </View>
-            
-               <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
-                  <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>{props.complited ? props.complited : 0}</ThemedLabel>
-               </View>
+               <InfoBox darkMode={props.darkMode} backgroudColor={backgroundDarker} label={'Total hours'} text={props.total.toString()} style={{marginRight: 20}} textColor={props.color}/>
+               <InfoBox darkMode={props.darkMode} backgroudColor={props.color} label={'Complited Weeks'} text={props.complited ? props.complited.toString() : '0'}/>
             </View>
             <View style={styles.buttonsBox}>
                <ThemedButton title="Add time" 
@@ -93,13 +87,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       width: '100%',
       marginTop: 20
-   },
-   scoreSqare: {
-      alignItems: 'center',
-      // width: '30%',
-      flex: 1,
-      borderRadius: 10,
-      paddingTop: 15
    },
    buttonsBox: {
       width: "100%",

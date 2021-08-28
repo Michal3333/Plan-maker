@@ -6,6 +6,7 @@ import ThemedText from '../UI/ThemdText';
 import ThemedButton from '../UI/ThemedButton';
 import ThemedLabel from '../UI/ThemedLabel';
 import * as Colors from '../../constants/Colors'
+import InfoBox from '../UI/InfoBox';
 
 
 type Props = {
@@ -44,14 +45,8 @@ const OtherProjectBox = (props : Props) => {
             <ProgressIndicator darkMode={props.darkMode} max={props.goal} current={props.done} color={props.color} style={{marginTop: 10}}/>
             <ThemedLabel style={{width: '100%', marginTop: 20}} darkMode={props.darkMode}> Owner : {props.owner}</ThemedLabel>
             <View style={styles.scoreBox}>
-               <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker, marginRight: 20 }}>
-                  <ThemedText darkMode={props.darkMode}>Total hours</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: props.color, fontSize: 60}}>{props.total}</ThemedLabel>
-               </View>
-               <View style={{...styles.scoreSqare, backgroundColor: props.color}}>
-                  <ThemedText darkMode={props.darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                  <ThemedLabel darkMode={props.darkMode} style={{color: 'white', fontSize: 60}}>{props.complited}</ThemedLabel>
-               </View>
+               <InfoBox darkMode={props.darkMode} backgroudColor={backgroundDarker} label={'Total hours'} text={props.total.toString()} style={{marginRight: 20}} textColor={props.color}/>
+               <InfoBox darkMode={props.darkMode} backgroudColor={props.color} label={'Complited Weeks'} text={props.complited ? props.complited.toString() : '0'}/>
             </View>
            
             <View style={styles.buttonsBox}>
@@ -84,13 +79,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       width: '100%',
       marginTop: 20
-   },
-   scoreSqare: {
-      alignItems: 'center',
-      // width: '30%',
-      flex: 1,
-      borderRadius: 10,
-      paddingTop: 15
    },
    buttonsBox: {
       width: "100%",

@@ -23,6 +23,7 @@ import CustomHeaderButton from '../components/UI/CustomHeader';
 import MessagesModal from '../components/MyProjects/messagesModal';
 import StatsModal from '../components/MyProjects/StatsModal';
 import { Ionicons } from '@expo/vector-icons';
+import InfoBox from '../components/UI/InfoBox';
 
 
 
@@ -180,14 +181,8 @@ const ProjectDetailsScreen = ({navigation, route}: Props) => {
                </View>
                <ProgressIndicator darkMode={darkMode} max={project.weeklyLimit} current={project.weeklyDone} color={project.color} style={{marginTop: 10}}/>
                <View style={styles.scoreBox}>
-                  <View style={{...styles.scoreSqare, backgroundColor: backgroundDarker, marginRight: 20 }}>
-                     <ThemedText darkMode={darkMode}>Total hours</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{color: project.color, fontSize: 60}}>{project.totalHours}</ThemedLabel>
-                  </View>
-                  <View style={{...styles.scoreSqare, backgroundColor: project.color}}>
-                     <ThemedText darkMode={darkMode} style={{color: 'white'}}>Complited Weeks</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{project.complited}</ThemedLabel>
-                  </View>
+                  <InfoBox darkMode={darkMode} backgroudColor={backgroundDarker} label={'Total hours'} text={project.totalHours.toString()} style={{marginRight: 20}} textColor={project.color}/>
+                  <InfoBox darkMode={darkMode} backgroudColor={project.color} label={'Complited Weeks'} text={project.complited.toString()}/>
                </View>
                <View style={styles.buttonsBox}>
                   <ThemedButton title="Add time" 
@@ -242,12 +237,6 @@ const styles = StyleSheet.create({
    list : {
       width: '100%',
       marginTop: 10,
-   },
-   scoreSqare: {
-      alignItems: 'center',
-      flex: 1,
-      borderRadius: 10,
-      paddingTop: 15
    },
    buttonsBox: {
       width: "100%",
