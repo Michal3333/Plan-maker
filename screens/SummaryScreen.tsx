@@ -17,6 +17,7 @@ import Card from '../components/UI/Card';
 import Diagram from '../components/UI/Diagram';
 import { prepareDataForDiagram } from '../utils/Utils';
 import WeeklyRaportModal from '../components/UI/WeeklyRaportModal';
+import InfoBox from '../components/UI/InfoBox'
 
 
 
@@ -82,7 +83,6 @@ const SummaryScreen = (props: Props) => {
          }, 500)
       } 
    }, [raportData])
-
    return (
       <ScrollView>
          <Screen darkMode={darkMode} headerImage={true}>
@@ -105,27 +105,12 @@ const SummaryScreen = (props: Props) => {
                   <ThemedLabel style={{fontSize: 40, width: '70%'}} darkMode={darkMode}>Progress</ThemedLabel>
                </View>
                <View style={styles.scoreBox}>
-                  <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_red, marginRight: 20 }}>
-                     <ThemedText darkMode={darkMode}>Weekly Hours</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{fontSize: 60}}>{weekHours}</ThemedLabel>
-                  </View>
-               
-                  <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_green}}>
-                     <ThemedText darkMode={darkMode} style={{color: 'white'}}>Weekly Projects</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{complitedProjects}/{projectNumber}</ThemedLabel>
-                  </View>
+                  <InfoBox darkMode={darkMode} backgroudColor={Colors.theme_red} label={'Weekly Hours'} text={weekHours.toString()} style={{marginRight: 20}}/>
+                  <InfoBox darkMode={darkMode} backgroudColor={Colors.theme_green} label={'Weekly Projects'} text={`${complitedProjects}/${projectNumber}`}/>
                </View>
                <View style={{...styles.scoreBox, marginBottom: 10}}>
-                  <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_blue, marginRight: 20 }}>
-                     <ThemedText darkMode={darkMode}>Total hours</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{ fontSize: 60}}>{totalHours}</ThemedLabel>
-                  </View>
-               
-                  <View style={{...styles.scoreSqare, backgroundColor: Colors.theme_orange}}>
-                     <ThemedText darkMode={darkMode} style={{color: 'white'}}>Total Weeks</ThemedText>
-                     <ThemedLabel darkMode={darkMode} style={{color: 'white', fontSize: 60}}>{complitedWeeks}</ThemedLabel>
-                  </View>
-                  
+                  <InfoBox darkMode={darkMode} backgroudColor={Colors.theme_blue} label={'Total hours'} text={totalHours.toString()} style={{marginRight: 20}}/>
+                  <InfoBox darkMode={darkMode} backgroudColor={Colors.theme_orange} label={'Weekly Projects'} text={`${complitedWeeks}`}/>
                </View>
             </Card>
             <Diagram darkMode={darkMode} heigth={350} data={diagramData}/>

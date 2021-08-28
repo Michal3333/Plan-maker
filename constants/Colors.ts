@@ -18,14 +18,6 @@ export const theme_yellow = '#F9C74F'
 export const theme_blue = '#277DA1'
 export const theme_orange = '#F3722C'
 
-
-
-
-
-
-
-
-
 const getThemeColors = (darkMode: boolean) => {
    let textColor = black;
    let titleColor = white;
