@@ -1,7 +1,19 @@
 # Plan maker
 
-This project is a mobile application (currently fitted for ios) build with React Native and TypeScript.
-The application allows the users to create their projects and then helps them execute the planned goals.
+Mobile application (currently fitted for IOS) that helps execute planned goals.
+
+The app was built using TypeScript and React Native.
+
+## Features
+The main goal of the app is to visualize and summarize progress in each project created by the user, which can be then tracked by other people (selected by the project creator) 
+
+User can:
+- create projects
+- describe tasks in each project
+- specify the weekly amount of work hours per project
+- add collaborators to each project who can track the progress
+- send messages to added collaborators
+
 
 ## Base dependencies
 
@@ -14,7 +26,7 @@ The application allows the users to create their projects and then helps them ex
 
 ## Installation
 
-- Firstly, you need to add your firebase config data to ```config/keys.ts``` file
+- Firstly, you need to add your firebase config data to the ```config/keys.ts``` file
 - Then install all the required packages with ```npm install```
 - Finally, you can run the application with ```npm start```
 
